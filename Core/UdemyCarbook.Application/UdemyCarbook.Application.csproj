@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CQRS\Commands\AboutCommands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\UdemyCarbook.Domain\UdemyCarbook.Domain.csproj" />
   </ItemGroup>
 

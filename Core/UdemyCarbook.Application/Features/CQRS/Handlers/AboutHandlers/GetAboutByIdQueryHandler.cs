@@ -19,7 +19,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers
             _repository = repository;
         }
 
-        public async Task<GetAboutByIdQueryResult> Handle(GetAboutByIdQuery query)
+        public async Task<GetAboutByIdQueryResult> Handle(Queries.AboutQueries.GetAboutByIdQuery query)
         {
             var values = await _repository.GetByIdAsync(query.Id);
             return new GetAboutByIdQueryResult

@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Infastructure\UdemyCarbook.Persistence\UdemyCarbook.Persistence.csproj" />
   </ItemGroup>
 
