@@ -1,6 +1,75 @@
+using UdemyCarbook.Application.Features.CQRS.Commands.BannerCommands;
+using UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.CategoryHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.ContactHandlers;
+using UdemyCarbook.Application.Interfaces;
+using UdemyCarbook.Application.Interfaces.CarInterfaces;
+using UdemyCarbook.Application.Services;
+using UdemyCarbook.Persistence.Context;
+using UdemyCarbook.Persistence.Repositories;
+using UdemyCarbook.Persistence.Repositories.CarRepositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+#region
+builder.Services.AddScoped<CarbookContext>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
+
+builder.Services.AddScoped<CreateAboutCommandHandler>();
+builder.Services.AddScoped<GetAboutByIdQueryHandler>();
+builder.Services.AddScoped<GetAboutQueryHandler>();
+builder.Services.AddScoped<RemoveAboutCommandHandler>();
+builder.Services.AddScoped<UpdateAboutCommandHandler>();
+#endregion
+
+#region
+builder.Services.AddScoped<CreateBannerCommandHandler>();
+builder.Services.AddScoped<GetBannerQueryHandler>();
+builder.Services.AddScoped<GetBannerByIdQýueryHandler>();
+builder.Services.AddScoped<RemoveBannerCommandHandler>();
+builder.Services.AddScoped<UpdateBannerCommandHandler>();
+#endregion
+
+#region
+builder.Services.AddScoped<CreateBrandCommandHandler>();
+builder.Services.AddScoped<GetBrandByIdQueryHandler>();
+builder.Services.AddScoped<GetBrandQueryHandler>();
+builder.Services.AddScoped<RemoveBrandCommandHandler>();
+builder.Services.AddScoped<UpdateBrandCommandHandler>();
+#endregion
+
+#region
+builder.Services.AddScoped<CreateCarCommandHandler>();
+builder.Services.AddScoped<RemoveCarCommandHandler>();
+builder.Services.AddScoped<UpdateCarCommandHandler>();
+builder.Services.AddScoped<GetCarByIdQueryHandler>();
+builder.Services.AddScoped<GetCarQueryHandler>();
+builder.Services.AddScoped<GetCarWithBrandQueryHandler>();
+#endregion
+
+#region
+builder.Services.AddScoped<CreateCategoryCommandHandler>();
+builder.Services.AddScoped<RemoveCategoryCommandHandler>();
+builder.Services.AddScoped<UpdateCategoryCommandHandler>();
+builder.Services.AddScoped<GetCategoryByIdQueryHandler>();
+builder.Services.AddScoped<GetCategoryQueryHandler>();
+#endregion
+
+#region
+builder.Services.AddScoped<CreateContactCommandHandler>();
+builder.Services.AddScoped<RemoveContactCommandHandler>();
+builder.Services.AddScoped<UpdateContactCommandHandler>();
+builder.Services.AddScoped<GetContactByIdQueryHandler>();
+builder.Services.AddScoped<GetContactQueryHandler>();
+#endregion
+
+builder.Services.AddAplicationService(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

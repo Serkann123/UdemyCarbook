@@ -84,9 +84,29 @@ namespace UdemyCarbook.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BranId"));
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BranId");
+
+                    b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Car", b =>
+                {
+                    b.Property<int>("CarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
+
                     b.Property<string>("BigImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CoverImageUrl")
                         .IsRequired()
@@ -107,10 +127,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<byte>("Seat")
                         .HasColumnType("tinyint");
 
@@ -118,30 +134,9 @@ namespace UdemyCarbook.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BranId");
-
-                    b.ToTable("Brands");
-                });
-
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Car", b =>
-                {
-                    b.Property<int>("CarId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CarId1")
-                        .HasColumnType("int");
-
                     b.HasKey("CarId");
 
                     b.HasIndex("BrandId");
-
-                    b.HasIndex("CarId1");
 
                     b.ToTable("Cars");
                 });
@@ -433,10 +428,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UdemyCarbook.Domain.Entities.Car", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("CarId1");
-
                     b.Navigation("Brand");
                 });
 
@@ -501,8 +492,6 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.Navigation("CarFeatures");
 
                     b.Navigation("CarPricings");
-
-                    b.Navigation("Cars");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Feature", b =>
