@@ -1,19 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Persistence.Context
 {
-    public class CarbookContext:DbContext
+    public class CarbookContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=DESKTOP-3U064FC; initial Catalog=UdemyCarbookDb; integrated security=true; TrustServerCertificate=true;");
         }
+
         public DbSet<About> Abouts { get; set; }
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -30,5 +26,6 @@ namespace UdemyCarbook.Persistence.Context
         public DbSet<Service> Services { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
+
     }
 }

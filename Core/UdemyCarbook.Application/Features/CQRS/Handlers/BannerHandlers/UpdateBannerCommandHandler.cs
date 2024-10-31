@@ -24,6 +24,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers
             values.VideoDescription= command.VideoDescription;
             values.VideoUrl= command.VideoUrl;
             values.Title = command.Title;
+            await _repository.UpdateAsync(values);
         }
     }
 }

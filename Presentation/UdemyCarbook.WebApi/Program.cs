@@ -1,6 +1,7 @@
 using UdemyCarbook.Application.Features.CQRS.Commands.BannerCommands;
 using UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
+using UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Persistence.Context;
 using UdemyCarbook.Persistence.Repositories;
@@ -28,6 +29,15 @@ builder.Services.AddScoped<GetBannerByIdQýueryHandler>();
 builder.Services.AddScoped<RemoveBannerCommandHandler>();
 builder.Services.AddScoped<UpdateBannerCommandHandler>();
 #endregion
+
+#region
+builder.Services.AddScoped<CreateBrandCommandHandler>();
+builder.Services.AddScoped<GetBrandByIdQueryHandler>();
+builder.Services.AddScoped<GetBrandQueryHandler>();
+builder.Services.AddScoped<RemoveBrandCommandHandler>();
+builder.Services.AddScoped<UpdateBrandCommandHandler>();
+#endregion
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

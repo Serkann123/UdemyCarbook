@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UdemyCarbook.Persistence.Context;
 
@@ -11,9 +12,11 @@ using UdemyCarbook.Persistence.Context;
 namespace UdemyCarbook.Persistence.Migrations
 {
     [DbContext(typeof(CarbookContext))]
-    partial class CarbookContextModelSnapshot : ModelSnapshot
+    [Migration("20241031123818_cars_Remove")]
+    partial class cars_Remove
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,54 +96,6 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Car", b =>
-                {
-                    b.Property<int>("CarId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"));
-
-                    b.Property<string>("BigImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CoverImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fuel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Km")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Luggage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("Seat")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("Transmission")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CarId");
-
-                    b.HasIndex("BrandId");
-
-                    b.ToTable("Cars");
-                });
-
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.CarDescription", b =>
                 {
                     b.Property<int>("CarDescriptionId")
@@ -157,8 +112,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CarDescriptionId");
-
-                    b.HasIndex("CarId");
 
                     b.ToTable("CarDescriptions");
                 });
@@ -178,8 +131,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CarFeatureId");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("FeatureId");
 
@@ -204,8 +155,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CarPricingId");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("PiricingId");
 
@@ -420,78 +369,26 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.ToTable("Testimonials");
                 });
 
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Car", b =>
-                {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Brand", "Brand")
-                        .WithMany("Cars")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-                });
-
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.CarDescription", b =>
-                {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Car", "Car")
-                        .WithMany("CarDescriptions")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.CarFeature", b =>
                 {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Car", "Car")
-                        .WithMany("CarFeatures")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("UdemyCarbook.Domain.Entities.Feature", "Feature")
                         .WithMany("CarFeatures")
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Car");
-
                     b.Navigation("Feature");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.CarPricing", b =>
                 {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Car", "Car")
-                        .WithMany("CarPricings")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("UdemyCarbook.Domain.Entities.Piricing", "Piricing")
                         .WithMany("CarPricings")
                         .HasForeignKey("PiricingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Car");
-
                     b.Navigation("Piricing");
-                });
-
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Brand", b =>
-                {
-                    b.Navigation("Cars");
-                });
-
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Car", b =>
-                {
-                    b.Navigation("CarDescriptions");
-
-                    b.Navigation("CarFeatures");
-
-                    b.Navigation("CarPricings");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Feature", b =>
