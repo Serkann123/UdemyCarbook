@@ -7,6 +7,7 @@ using UdemyCarbook.Application.Features.CQRS.Handlers.CategoryHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.ContactHandlers;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Persistence.Context;
 using UdemyCarbook.Persistence.Repositories;
 using UdemyCarbook.Persistence.Repositories.CarRepositories;
@@ -26,7 +27,6 @@ builder.Services.AddScoped<GetAboutQueryHandler>();
 builder.Services.AddScoped<RemoveAboutCommandHandler>();
 builder.Services.AddScoped<UpdateAboutCommandHandler>();
 #endregion
-
 
 #region
 builder.Services.AddScoped<CreateBannerCommandHandler>();
@@ -68,6 +68,8 @@ builder.Services.AddScoped<UpdateContactCommandHandler>();
 builder.Services.AddScoped<GetContactByIdQueryHandler>();
 builder.Services.AddScoped<GetContactQueryHandler>();
 #endregion
+
+builder.Services.AddAplicationService(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
