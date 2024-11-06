@@ -11,11 +11,11 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.FeatureHandlers
 {
-    public class GetFeautureQueryHandler :IRequestHandler<GetFeatureQuery,List<GetFeatureQueryResult>>
+    public class GetFeatureQueryHandler :IRequestHandler<GetFeatureQuery,List<GetFeatureQueryResult>>
     {
         private readonly IRepository<Feature> _repository;
 
-        public GetFeautureQueryHandler(IRepository<Feature> repository)
+        public GetFeatureQueryHandler(IRepository<Feature> repository)
         {
             _repository = repository;
         }
