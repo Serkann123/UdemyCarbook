@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Application.Features.Mediator.Results.FeatureAddressResults
+namespace UdemyCarbook.Application.Features.Mediator.Results.FooterAddressResults
 {
     public class GetFooterAddressQueryResult
     {

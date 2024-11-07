@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 using UdemyCarbook.Application.Features.Mediator.Commands.FooterAddressCommands;
-using UdemyCarbook.Application.Features.Mediator.Queries.FooterAddressQuery;
+using UdemyCarbook.Application.Features.Mediator.Queries.FooterAddressQueries;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
@@ -40,7 +40,7 @@ namespace UdemyCarbook.WebApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveFooterAddrss(int id)
+        public async Task<IActionResult> RemoveFooterAddress(int id)
         {
             await _meditor.Send(new RemoveFooterAddressComamnd(id));
             return Ok("Adres bilgisi başarıyla silindi");

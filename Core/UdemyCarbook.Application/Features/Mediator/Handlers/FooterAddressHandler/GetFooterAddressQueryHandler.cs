@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UdemyCarbook.Application.Features.Mediator.Queries.FooterAddressQuery;
-using UdemyCarbook.Application.Features.Mediator.Results.FeatureAddressResults;
+using UdemyCarbook.Application.Features.Mediator.Queries.FooterAddressQueries;
+using UdemyCarbook.Application.Features.Mediator.Results.FooterAddressResults;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
 
