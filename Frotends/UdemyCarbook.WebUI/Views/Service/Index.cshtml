@@ -1,0 +1,10 @@
+﻿@model List<ResultServiceDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+@await Component.InvokeAsync("_ServiceComponentParital")
+
+@await Component.InvokeAsync("_BecomeADriveComponentPartial")
