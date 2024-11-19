@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,21 @@ namespace UdemyCarbook.Persistence.Repositories.CarRepositories
 {
     public class CarRepository : ICarRepository
     {
-        private readonly CarbookContext _carbookContext;
+        private readonly CarbookContext _context;
         public CarRepository(CarbookContext carbookContext)
         {
-            _carbookContext = carbookContext;
+            _context = carbookContext;
         }
 
         public List<Car> GetCarsListWithBrand()
         {
-            var values = _carbookContext.Cars.Include(x => x.Brand).ToList();
+            var values = _context.Cars.Include(x => x.Brand).ToList();
+            return values;
+        }
+
+        public List<Car> GetLast5WithCarsWithBrand()
+        {
+            var values = _context.Cars.Include(x => x.Brand).OrderByDescending(x => x.CarId).Take(5).ToList();
             return values;
         }
     }
