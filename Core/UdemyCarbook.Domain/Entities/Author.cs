@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UdemyCarbook.Domain.Entities
 {
-    public class Category
+    public class Author
     {
-        [Key]
-        public int CategoryId { get; set; }
+        public int AuthorId { get; set; }
         public string Name { get; set; }
-        public List<Blog> Blogs { get; set; }
+        public string ImageUrl { get; set; }
+        public string Description { get; set; }
+        public List<Author> Authors { get; set; }
     }
 }
