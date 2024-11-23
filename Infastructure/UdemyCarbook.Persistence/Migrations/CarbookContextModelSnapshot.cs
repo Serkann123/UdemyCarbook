@@ -55,9 +55,6 @@ namespace UdemyCarbook.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorId"));
 
-                    b.Property<int?>("AuthorId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -71,8 +68,6 @@ namespace UdemyCarbook.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("AuthorId1");
 
                     b.ToTable("Authors");
                 });
@@ -484,17 +479,10 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.ToTable("Testimonials");
                 });
 
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Author", b =>
-                {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Author", null)
-                        .WithMany("Authors")
-                        .HasForeignKey("AuthorId1");
-                });
-
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Blog", b =>
                 {
                     b.HasOne("UdemyCarbook.Domain.Entities.Author", "Author")
-                        .WithMany()
+                        .WithMany("Blogs")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -572,7 +560,7 @@ namespace UdemyCarbook.Persistence.Migrations
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Author", b =>
                 {
-                    b.Navigation("Authors");
+                    b.Navigation("Blogs");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Brand", b =>
