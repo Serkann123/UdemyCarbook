@@ -1,19 +1,17 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Domain.Entities
+namespace UdemyCarbook.Application.Features.Mediator.Commands.AuthorCommands
 {
-    public class Author
+    public class UpdateAuthorCommand : IRequest
     {
-        [Key]
         public int AuthorId { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
-        public List<Author> Authors { get; set; }
     }
 }
