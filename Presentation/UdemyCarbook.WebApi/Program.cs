@@ -1,4 +1,3 @@
-using UdemyCarbook.Application.Features.CQRS.Commands.BannerCommands;
 using UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers;
@@ -8,22 +7,26 @@ using UdemyCarbook.Application.Features.CQRS.Handlers.ContactHandlers;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Application.Interfaces.BlogInterfaces;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
+using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Persistence.Context;
 using UdemyCarbook.Persistence.Repositories;
 using UdemyCarbook.Persistence.Repositories.BlogRepositories;
+using UdemyCarbook.Persistence.Repositories.CarPirincingRepositories;
 using UdemyCarbook.Persistence.Repositories.CarRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-#region
+
 builder.Services.AddScoped<CarbookContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
+builder.Services.AddScoped(typeof(ICarPirincingRepository), typeof(CarPirincingRepository));
 
+#region
 builder.Services.AddScoped<CreateAboutCommandHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();
 builder.Services.AddScoped<GetAboutQueryHandler>();

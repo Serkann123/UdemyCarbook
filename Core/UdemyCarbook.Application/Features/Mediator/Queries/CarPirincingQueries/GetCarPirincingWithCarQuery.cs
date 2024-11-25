@@ -8,7 +8,7 @@ using UdemyCarbook.Application.Features.Mediator.Results.CarPirincingResults;
 
 namespace UdemyCarbook.Application.Features.Mediator.Queries.CarPirincingQueries
 {
-    public class GetCarPirincingQuery:IRequest<List<GetCarPirincingQueryResult>>
+    public class GetCarPirincingWithCarQuery:IRequest<List<GetCarPirincingWithCarQueryResult>>
     {
     }
 }

@@ -10,7 +10,7 @@ using UdemyCarbook.Persistence.Context;
 
 namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
 {
-    public class CarPirincingRepository: ICarPirincing
+    public class CarPirincingRepository: ICarPirincingRepository
     {
         private readonly CarbookContext _context;
 
@@ -21,7 +21,7 @@ namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
 
         public List<CarPricing> GetCarPirincingWihCars()
         {
-            var values = _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(z => z.Piricing).ToList();
+            var values = _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(z => z.Piricing).Where(x=>x.PiricingId==2).ToList();
             return values;
         }
 
