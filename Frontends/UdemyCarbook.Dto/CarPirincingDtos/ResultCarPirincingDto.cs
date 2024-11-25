@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Application.Features.Mediator.Results.CarPirincingResults
+namespace UdemyCarbook.Dto.CarPirincingDtos
 {
-    public class GetCarPirincingQueryResult
+    public class ResultCarPirincingDto
     {
         public int CarPirincingId { get; set; }
         public string Brand { get; set; }

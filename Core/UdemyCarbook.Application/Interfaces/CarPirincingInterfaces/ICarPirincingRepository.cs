@@ -7,7 +7,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Interfaces.CarPirincingInterfaces
 {
-    public interface ICarPirincing
+    public interface ICarPirincingRepository
     {
         public List<CarPricing> GetCarPirincingWihCars();
     }
