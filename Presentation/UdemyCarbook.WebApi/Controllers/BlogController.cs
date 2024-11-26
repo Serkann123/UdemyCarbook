@@ -58,5 +58,13 @@ namespace UdemyCarbook.WebApi.Controllers
             var values = await _meditor.Send(new GetLast3BlogsWithAuthorsQuery());
             return Ok(values);
         }
+
+
+        [HttpGet("GetBlogsAllWithAuthorsList")]
+        public async Task<IActionResult> GetBlogsAllWithAuthorsList()
+        {
+            var values = await _meditor.Send(new GetBlogsAllWithAutorQuery());
+            return Ok(values);
+        }
     }
 }
