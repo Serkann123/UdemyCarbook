@@ -51,6 +51,13 @@ namespace UdemyCarbook.WebApi.Controllers
             await _meditor.Send(command);
             return Ok("Etiket başarıyla güncelendi");
         }
+
+        [HttpGet("GetTagCloudByBlogId")]
+        public async Task<IActionResult> GetTagCloudByBlogId(int id)
+        {
+            var values=await _meditor.Send(new GetTagCloudByBlogIdQuery(id));
+            return Ok(values);
+        }
     }
 }
 

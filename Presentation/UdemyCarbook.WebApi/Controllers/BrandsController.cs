@@ -24,7 +24,7 @@ namespace UdemyCarbook.WebApi.Controllers
             _removeBrandCommandHandler = removeBrandCommandHandler;
             _updateBrandCommandHandler = updateBrandCommandHandler;
         }
-
+       
         [HttpGet]
         public async Task<IActionResult> BrandList()
         {
