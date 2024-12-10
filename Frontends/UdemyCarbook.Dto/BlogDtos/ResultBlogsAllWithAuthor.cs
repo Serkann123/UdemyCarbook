@@ -17,5 +17,7 @@ namespace UdemyCarbook.Dto.BlogDtos
         public DateTime CreateDate { get; set; }
         public int CategoryId { get; set; }
         public string Descrpiton { get; set; }
+        public string AuthorDescription { get; set; }
+        public string AuthorImageUrl { get; set; }
     }
 }

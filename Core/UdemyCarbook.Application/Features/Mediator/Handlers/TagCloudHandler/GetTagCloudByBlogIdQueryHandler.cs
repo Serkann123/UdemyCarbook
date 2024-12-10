@@ -21,13 +21,13 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TagCloudHandler
 
         public async Task<List<GetTagCloudByBlogIdQueryResult>> Handle(GetTagCloudByBlogIdQuery request, CancellationToken cancellationToken)
         {
-            var values =  _repository.GetTagCloudByBlogId(request.Id);
+            var values = _repository.GetTagCloudByBlogId(request.Id);
             return values.Select(x => new GetTagCloudByBlogIdQueryResult
             {
-                BlogId=x.BlogId,
-                TagCloudId=x.TagCloudId,
-                Title=x.Title
+                BlogId = x.BlogId,
+                TagCloudId = x.TagCloudId,
+                Title = x.Title
             }).ToList();
-;        }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model GetBlogById
+﻿@model GetBlogByIdTagCloudDto
 
 <div class="col-md-8 ftco-animate">
     <h2 class="mb-3">@Model.Title</h2>
@@ -7,9 +7,9 @@
         <img src="images/image_7.jpg" alt="" class="img-fluid">
     </p>
 
-    @await Component.InvokeAsync("_BlogDetailsCloudTagByIdBlogsComponentsPartial")
+    @await Component.InvokeAsync("_BlogDetailCLoudTagByBlogComponentPartial", new { id = ViewBag.BlogId })
 
-    @await Component.InvokeAsync("_BlogDetailsAuthorAboutComponentPartial")
+    @await Component.InvokeAsync("_BlogDetailsAuthorAboutComponentPartial", new { id = ViewBag.BlogId })
 
 
     <div class="pt-5 mt-5">

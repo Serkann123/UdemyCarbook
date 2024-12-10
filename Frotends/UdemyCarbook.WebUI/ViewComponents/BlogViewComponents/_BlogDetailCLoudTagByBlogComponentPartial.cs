@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using UdemyCarbook.Dto.BlogDtos;
 using UdemyCarbook.Dto.TagCloudDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
-    public class _BlogDetailTagCloudComponentPartial : ViewComponent
+    public class _BlogDetailCLoudTagByBlogComponentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _HttpClientFactory;
 
-        public _BlogDetailTagCloudComponentPartial(IHttpClientFactory httpClientFactory)
+        public _BlogDetailCLoudTagByBlogComponentPartial(IHttpClientFactory httpClientFactory)
         {
             _HttpClientFactory = httpClientFactory;
         }
@@ -17,10 +16,11 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var client = _HttpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/TagClouds/GetTagCloudByBlogId?id={id}");
-            if (responsMessage.IsSuccessStatusCode)
+            var responseMessage = await client.GetAsync($"https://localhost:7126/api/TagClouds/GetTagCloudByBlogId?id={id}");
+
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultTagCloudDto>>(jsonData);
                 return View(values);
             }
@@ -28,4 +28,3 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
         }
     }
 }
-
