@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers
         {
             await _repository.CreateAsync(new Banner
             {
-                Description=command.Description,
+                Description= command.Description,
                 VideoDescription=command.VideoDescription,
                 VideoUrl=command.VideoUrl,
                 Title=command.Title,

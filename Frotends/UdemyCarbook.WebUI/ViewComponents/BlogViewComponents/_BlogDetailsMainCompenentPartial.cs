@@ -16,11 +16,11 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var client = _HttpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/" +id);
+            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/"+id);
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<GetBlogById>(jsonData);
+                var values = JsonConvert.DeserializeObject<GetBlogByIdTagCloudDto>(jsonData);
                 return View(values);
             }
             return View();

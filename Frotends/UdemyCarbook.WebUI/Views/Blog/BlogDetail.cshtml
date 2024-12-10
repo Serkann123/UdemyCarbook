@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
        
-            @await Component.InvokeAsync("_BlogDetailsMainCompenentPartial", new { id = ViewBag.blogİd })
+            @await Component.InvokeAsync("_BlogDetailsMainCompenentPartial", new { id = ViewBag.BlogId })
             <div class="col-md-4 sidebar ftco-animate">
 
                 @await Component.InvokeAsync("_BlogDetailSidebarSearchBoxComponentPartial")
@@ -17,7 +17,7 @@
 
                 @await Component.InvokeAsync("_BlogDetailRecentBlogComponentPartial")
 
-                @await Component.InvokeAsync("_BlogDetailTagCloudComponentPartial",new {id=ViewBag.blogİd})
+                @await Component.InvokeAsync("_BlogDetailTagCloudComponentPartial", new { id = ViewBag.BlogId })
 
                 @await Component.InvokeAsync("_BlogDetailParagraphComponentPartial")
             </div>

@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using UdemyCarbook.Dto.BannerDtos;
-using UdemyCarbook.Dto.CarDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
 {
