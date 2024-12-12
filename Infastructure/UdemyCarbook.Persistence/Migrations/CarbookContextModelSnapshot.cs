@@ -303,7 +303,7 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateDatar")
+                    b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
