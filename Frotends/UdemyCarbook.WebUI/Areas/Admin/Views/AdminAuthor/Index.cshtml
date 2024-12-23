@@ -1,9 +1,11 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultAuthorDto>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
+
 
 <div class="page-content">
     <div class="container-fluid">
@@ -12,9 +14,9 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Ana Sayfa Hakkımızda Alanı</h4>
+                        <h4 class="card-title">Ana Sayfa Yazar Alanı</h4>
                         <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Hakkımızda sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
+                            Ana sayfanın ve Yazar sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
                             Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
                             Aksi halde tema bütünlüğü bozulacaktır.
                         </p>
@@ -22,29 +24,31 @@
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Başlık</th>
-                                        <th>Açıklama</th>
-                                        <th>Görsel</th>
+                                        <th>#</th>
+                                        <th>Ad Soyad</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
+                                        <th>Yazar Blogları</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+                                        count++;
                                         <tr>
 
-                                            <td>@item.Title</td>
-                                            <td>@item.Description</td>
+                                            <td>@count</td>
+                                            <td><img src="@item.ImageUrl" width="50" height="50" style="margin-right:10px"/>@item.Name</td>
                                             <td>@item.ImageUrl</td>
-                                            <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AboutId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AuthorId" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AuthorId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AuthorId" class="btn btn-outline-success">Yazar Blogları</a></td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                            <td><a href="/Admin/AdminAbout/CreateAbout" class="btn btn-outline-primary">Yeni Hakkımızda  Girişi</a></td>
+                            <td><a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Yeni Yazar Girişi</a></td>
                         </div>
 
                     </div>
@@ -56,3 +60,5 @@
 
     </div>
 </div>
+
+
