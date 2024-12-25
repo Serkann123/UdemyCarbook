@@ -1,11 +1,10 @@
-﻿@model List<ResultAuthorDto>
+﻿@model List<ResultCategoryDto>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
-
 
 <div class="page-content">
     <div class="container-fluid">
@@ -14,7 +13,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Hakkımda Listesi</h4>
+                        <h4 class="card-title">Blog Kategori Listesi</h4>
                         <p class="card-subtitle mb-4">
                             Ana sayfanın ve Yazar sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
                             Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
@@ -25,10 +24,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Ad Soyad</th>
+                                        <th>Kategori Adı</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
-                                        <th>Yazar Blogları</th>
+                                        <th>Kategoriye Ait Bloglar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,19 +35,17 @@
                                     {
                                         count++;
                                         <tr>
-
                                             <td>@count</td>
-                                            <td><img src="@item.ImageUrl" width="50" height="50" style="margin-right:10px"/>@item.Name</td>
-                                            <td>@item.ImageUrl</td>
-                                            <td><a href="/Admin/AdminAuthor/RemoveAuthor/@item.AuthorId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminAuthor/UpdateAuthor/@item.AuthorId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="#" class="btn btn-outline-success">Yazar Blogları</a></td>
+                                            <td>@item.Name</td>
+                                            <td><a href="/Admin/AdminCategory/RemoveCategory/@item.CategoryId" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Admin/AdminCategory/UpdateCategory/@item.CategoryId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td><a href="#" class="btn btn-outline-success">Kategoriye Ait Bloglar</a></td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                            <td><a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Yeni Yazar Girişi</a></td>
+                            <td><a href="/Admin/AdminCategory/CreateCategory" class="btn btn-outline-primary">Yeni Kategori Blog Girişi</a></td>
                         </div>
 
                     </div>
@@ -60,5 +57,6 @@
 
     </div>
 </div>
+
 
 

@@ -38,7 +38,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Sosyal Medya başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveSocialMedia(int id)
         {
             await _meditor.Send(new RemoveSocialMediaCommand(id));

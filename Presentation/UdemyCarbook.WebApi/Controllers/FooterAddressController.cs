@@ -39,7 +39,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Adres bilgisi başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFooterAddress(int id)
         {
             await _meditor.Send(new RemoveFooterAddressComamnd(id));

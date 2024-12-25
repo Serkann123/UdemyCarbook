@@ -39,7 +39,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Referans başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveTestiMonial(int id)
         {
             await _meditor.Send(new RemoveTestimonialCommand(id));
