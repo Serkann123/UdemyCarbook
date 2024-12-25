@@ -1,0 +1,41 @@
+﻿@model UpdateCategoryDto
+
+@{
+    ViewData["Title"] = "UpdateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Kategori Blog Güncelleme Sayfası</h4>
+                        <p class="card-subtitle mb-4">
+                            Ana sayfanın ve Hakkımızda sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
+                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
+                            Aksi halde tema bütünlüğü bozulacaktır.
+                        </p>
+
+                        <form method="post">
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CategoryId" />
+                                <label for="exampleInputTitle">Kategori Adı</label>
+                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name" placeholder="Kategori Adını Giriniz">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Kategori Güncelle</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

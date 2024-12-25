@@ -38,7 +38,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Etiket başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveTagCloud(int id)
         {
             await _meditor.Send(new RemoveTagCloudCommand(id));

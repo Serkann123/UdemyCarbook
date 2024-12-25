@@ -38,7 +38,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Ödeme Türü başarıyla eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveFooterAddrss(int id)
         {
             await _meditor.Send(new RemovePirincingCommand(id));
