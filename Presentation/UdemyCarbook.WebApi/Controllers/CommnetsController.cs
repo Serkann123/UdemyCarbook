@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.RepositoryPattern;
 using UdemyCarbook.Domain.Entities;
@@ -49,6 +50,13 @@ namespace UdemyCarbook.WebApi.Controllers
         public IActionResult GetComment(int id)
         {
             var values = _repository.GetById(id);
+            return Ok(values);
+        }
+
+        [HttpGet("CommentListByBlog")]
+        public async Task<IActionResult> CommentListByBlog(int id)
+        {
+            var values = _repository.GetCommentsByBlogId(id);
             return Ok(values);
         }
     }

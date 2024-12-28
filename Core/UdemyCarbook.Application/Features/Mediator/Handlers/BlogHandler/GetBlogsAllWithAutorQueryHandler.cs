@@ -10,7 +10,7 @@ using UdemyCarbook.Application.Interfaces.BlogInterfaces;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.BlogHandler
 {
-    public class GetBlogsAllWithAutorQueryHandler:IRequestHandler<GetBlogsAllWithAutorQuery,List<GetBlogsAllWithAuthorQueryResult>>
+    public class GetBlogsAllWithAutorQueryHandler : IRequestHandler<GetBlogsAllWithAutorQuery, List<GetBlogsAllWithAuthorQueryResult>>
     {
         private readonly IBlogRepository _repository;
 
@@ -31,10 +31,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.BlogHandler
                 CreateDate = x.CreateDate,
                 Title = x.Title,
                 AuthorName = x.Author.Name,
-                Descrpiton=x.Descrpiton,
-                AuthorDescription=x.Author.Description,
-                AuthorImageUrl=x.Author.ImageUrl
-
+                Descrpiton = x.Descrpiton,
+                AuthorDescription = x.Author.Description,
+                AuthorImageUrl = x.Author.ImageUrl
             }).ToList();
         }
     }
