@@ -1,4 +1,4 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultTestimonialDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,19 +12,19 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Ana Sayfa Hakkımızda Alanı</h4>
+                        <h4 class="card-title">Ana Sayfa Referanslar Listesi</h4>
                         <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Hakkımızda sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
+                            Müşterilerimizin bizim hakkımda söylemiş oldukları ifadeleri yorum olarak ekleyip,
+                            düzenleyebildikleri sayfamız aşağıda bulunmaktadır.
                         </p>
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
+                                        <th>Ad Soyad</th>
                                         <th>Başlık</th>
-                                        <th>Açıklama</th>
-                                        <th>Görsel</th>
+                                        <th>Yorum</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
                                     </tr>
@@ -33,26 +33,23 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-
+                                            <td><img src="@item.ImageUrl" width="50" height="50"/></td>
+                                            <td>@item.Name</td>
                                             <td>@item.Title</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.ImageUrl</td>
-                                            <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AboutId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td>@item.Comment</td>
+                                            <td><a href="/Admin/AdminTestimonial/RemoveTestimonial/@item.TestimonialId" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Admin/AdminTestimonial/UpdateTestimonial/@item.TestimonialId" class="btn btn-outline-success">Güncelle</a></td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                            <td><a href="/Admin/AdminAbout/CreateAbout" class="btn btn-outline-primary">Yeni Hakkımızda Girişi</a></td>
+                            <td><a href="/Admin/AdminTestimonial/CreateTestimonial" class="btn btn-outline-primary">Yeni Referanslar Girişi</a></td>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
+
