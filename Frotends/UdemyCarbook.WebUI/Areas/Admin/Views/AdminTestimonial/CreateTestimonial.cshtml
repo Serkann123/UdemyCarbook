@@ -1,0 +1,52 @@
+﻿@model CreateTestimonialDto
+
+@{
+    ViewData["Title"] = "CreateTestimonial";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Yeni Referanslar Girişi </h4>
+                        <p class="card-subtitle mb-4">
+                            Müşterilerimizin bizim hakkımda söylemiş oldukları ifadeleri yorum olarak ekleyip,
+                            düzenleyebildikleri sayfamız aşağıda bulunmaktadır.
+                        </p>
+
+                        <form method="post">
+
+                            <div class="form-group">
+                                <label for="exampleInputName">Referans Ad Soyadı</label>
+                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Referans Adını ve Soyadını Giriniz">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputUrl">Referans Unvan</label>
+                                <input type="text" class="form-control" id="exampleInputUrl" asp-for="Title" placeholder="Referans Unvaını Giriniz">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputIcon">Referans Url</label>
+                                <input type="text" class="form-control" id="exampleInputIcon" asp-for="ImageUrl" placeholder="Görsel Seçiniz">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputIcon">Referans Yorunu Icon-Url</label>
+                                <textarea rows="5" class="form-control" placeholder="Yorumunuzu Buraya Yazabilirsniz" asp-for="Comment"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Referans Bilgisini Kaydet</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

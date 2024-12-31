@@ -1,8 +1,9 @@
-﻿@model List<ResultAboutDto>
+﻿@model List<ResultSocialMediaDto>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 <div class="page-content">
@@ -12,19 +13,16 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Ana Sayfa Hakkımızda Alanı</h4>
+                        <h4 class="card-title">Sosyal Medya Linkleri Sayfası</h4>
                         <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Hakkımızda sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
+                            Sosyal Medya linklerinin bulundugu sayfadır.
                         </p>
                         <div class="table-responsive">
                             <table class="table mb-0">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Başlık</th>
-                                        <th>Açıklama</th>
-                                        <th>Görsel</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
                                     </tr>
@@ -32,27 +30,23 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+                                        count++;
                                         <tr>
-
-                                            <td>@item.Title</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.ImageUrl</td>
-                                            <td><a href="/Admin/AdminAbout/RemoveAbout/@item.AboutId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminAbout/UpdateAbout/@item.AboutId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td>@count</td>
+                                            <td>@item.Name</td>
+                                            <td><a href="/Admin/AdminSocialMedia/RemoveSocialMedia/@item.SocialMediaId" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Admin/AdminSocialMedia/UpdateSocialMedia/@item.SocialMediaId" class="btn btn-outline-success">Güncelle</a></td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                            <td><a href="/Admin/AdminAbout/CreateAbout" class="btn btn-outline-primary">Yeni Hakkımızda Girişi</a></td>
+                            <td><a href="/Admin/AdminSocialMedia/CreateSocialMedia" class="btn btn-outline-primary">Yeni Sosyal Medya Girişi</a></td>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
+
