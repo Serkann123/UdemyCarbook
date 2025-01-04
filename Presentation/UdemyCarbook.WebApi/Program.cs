@@ -9,6 +9,7 @@ using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Application.Interfaces.BlogInterfaces;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
 using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
+using UdemyCarbook.Application.Interfaces.StatisticsInterfaces;
 using UdemyCarbook.Application.Interfaces.TagCloudInterfaces;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Domain.Entities;
@@ -18,6 +19,7 @@ using UdemyCarbook.Persistence.Repositories.BlogRepositories;
 using UdemyCarbook.Persistence.Repositories.CarPirincingRepositories;
 using UdemyCarbook.Persistence.Repositories.CarRepositories;
 using UdemyCarbook.Persistence.Repositories.CommentRepositories;
+using UdemyCarbook.Persistence.Repositories.StatisticsRepositories;
 using UdemyCarbook.Persistence.Repositories.TagCloudRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +34,7 @@ builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
 builder.Services.AddScoped(typeof(ICarPirincingRepository), typeof(CarPirincingRepository));
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
+builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
 
 #region
 builder.Services.AddScoped<CreateAboutCommandHandler>();
