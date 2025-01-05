@@ -53,5 +53,76 @@ namespace UdemyCarbook.WebApi.Controllers
             var values = _meditor.Send(new GetLocationCountQuery());
             return Ok(values);
         }
+
+        [HttpGet("GetAvgRentPriceForDaily")]
+        public IActionResult GetAvgRentPriceForDaily()
+        {
+            var values = _meditor.Send(new GetAvgRentPriceForDailyQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetAvgRentPriceForWeekly")]
+        public IActionResult GetAvgRentPriceForWeekly()
+        {
+            var values = _meditor.Send(new GetAvgRentPriceForWeeklyQuery());
+            return Ok(values);
+        }
+
+
+        [HttpGet("GetAvgRentPriceForMonthly")]
+        public IActionResult GetAvgRentPriceForMonthly()
+        {
+            var values = _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarCountByTranmissionIsAuto")]
+        public IActionResult GetCarCountByTranmissionIsAuto()
+        {
+            var values = _meditor.Send(new GetCarCountByTranmissionIsAutoQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetBlogTitleByMaxBlogComment")]
+        public IActionResult GetBlogTitleByMaxBlogComment()
+        {
+            var values = _meditor.Send(new GetBlogTitleByMaxBlogCommentQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarCountByKmSmallerThen1000")]
+        public IActionResult GetCarCountByKmSmallerThen1000()
+        {
+            var values = _meditor.Send(new GetCarCountByKmSmallerThen1000Query());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarCountByFuelGasolineOrDiesel")]
+        public IActionResult GetCarCountByFuelGasolineOrDiesel()
+        {
+            var values = _meditor.Send(new GetCarCountByFuelGasolineOrDieselQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarCountByFuelElectric")]
+        public IActionResult GetCarCountByFuelElectric()
+        {
+            var values = _meditor.Send(new GetCarCountByFuelElectricQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarBrandAndModeByRentPriceDailyMax")]
+        public IActionResult GetCarBrandAndModeByRentPriceDailyMax()
+        {
+            var values = _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMaxQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarBrandAndModeByRentPriceDailyMin")]
+        public IActionResult GetCarBrandAndModeByRentPriceDailyMin()
+        {
+            var values = _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMinQuery());
+            return Ok(values);
+        }
     }
 }

@@ -8,7 +8,7 @@ using UdemyCarbook.Application.Features.Mediator.Results.StatisticsResults;
 
 namespace UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries
 {
-    public class GetCarCountByFuelGasolineOrDieselQuery:IRequest<GetCarCountByFuelGasolineOrDieselQueryResult>
+    public class GetCarBrandAndModeByRentPriceDailyMaxQuery:IRequest<GetCarBrandAndModeByRentPriceDailyMaxQueryResult>
     {
     }
 }
