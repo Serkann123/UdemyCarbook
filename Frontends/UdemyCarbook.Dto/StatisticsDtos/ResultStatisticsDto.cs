@@ -10,5 +10,7 @@ namespace UdemyCarbook.Dto.StatisticsDtos
     {
         public int CarCount { get; set; }
         public int LocationCount { get; set; }
+        public int AuthorCount { get; set; }
+        public int BlogCount { get; set; }
     }
 }

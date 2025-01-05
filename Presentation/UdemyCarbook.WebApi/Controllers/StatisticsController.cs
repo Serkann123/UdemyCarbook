@@ -35,10 +35,9 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpGet("GetBlogCount")]
         public async Task<IActionResult> GetBlogCount()
         {
-            var values =await _meditor.Send(new GetBlogCountQueryResult());
+            var values =await _meditor.Send(new GetBlogCountQuery());
             return Ok(values);
         }
-
 
         [HttpGet("GetBrandCount")]
         public async Task<IActionResult> GetBrandCount()
