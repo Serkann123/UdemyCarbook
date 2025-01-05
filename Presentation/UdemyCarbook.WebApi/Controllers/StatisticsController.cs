@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UdemyCarbook.Application.Features.Mediator.Queries.SocailMediaQueries;
 using UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries;
 using UdemyCarbook.Application.Features.Mediator.Results.StatisticsResults;
 
@@ -18,110 +19,110 @@ namespace UdemyCarbook.WebApi.Controllers
         }
 
         [HttpGet("GetCarCount")]
-        public IActionResult GetCarCount()
+        public async Task<IActionResult> GetCarCount()
         {
-            var values = _meditor.Send(new GetCarCountQuery());
+            var values = await _meditor.Send(new GetCarCountQuery());
             return Ok(values);
         }
 
         [HttpGet("GetAuthorCount")]
-        public IActionResult GetAuthorCount()
+        public async Task<IActionResult> GetAuthorCount()
         {
-            var values = _meditor.Send(new GetAuthorCountQuery());
+            var values =await _meditor.Send(new GetAuthorCountQuery());
             return Ok(values);
         }
 
         [HttpGet("GetBlogCount")]
-        public IActionResult GetBlogCount()
+        public async Task<IActionResult> GetBlogCount()
         {
-            var values = _meditor.Send(new GetBlogCountQueryResult());
+            var values =await _meditor.Send(new GetBlogCountQueryResult());
             return Ok(values);
         }
 
 
         [HttpGet("GetBrandCount")]
-        public IActionResult GetBrandCount()
+        public async Task<IActionResult> GetBrandCount()
         {
-            var values = _meditor.Send(new GetBrandCountQuery());
+            var values =await _meditor.Send(new GetBrandCountQuery());
             return Ok(values);
         }
 
 
         [HttpGet("GetLocationQuery")]
-        public IActionResult GetLocationQuery()
+        public async Task<IActionResult> GetLocationQuery()
         {
-            var values = _meditor.Send(new GetLocationCountQuery());
+            var values =await _meditor.Send(new GetLocationCountQuery());
             return Ok(values);
         }
 
         [HttpGet("GetAvgRentPriceForDaily")]
-        public IActionResult GetAvgRentPriceForDaily()
+        public async Task<IActionResult> GetAvgRentPriceForDaily()
         {
-            var values = _meditor.Send(new GetAvgRentPriceForDailyQuery());
+            var values =await _meditor.Send(new GetAvgRentPriceForDailyQuery());
             return Ok(values);
         }
 
         [HttpGet("GetAvgRentPriceForWeekly")]
-        public IActionResult GetAvgRentPriceForWeekly()
+        public async Task<IActionResult> GetAvgRentPriceForWeekly()
         {
-            var values = _meditor.Send(new GetAvgRentPriceForWeeklyQuery());
+            var values =await _meditor.Send(new GetAvgRentPriceForWeeklyQuery());
             return Ok(values);
         }
 
 
         [HttpGet("GetAvgRentPriceForMonthly")]
-        public IActionResult GetAvgRentPriceForMonthly()
+        public async Task<IActionResult> GetAvgRentPriceForMonthly()
         {
-            var values = _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
+            var values =await _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarCountByTranmissionIsAuto")]
-        public IActionResult GetCarCountByTranmissionIsAuto()
+        public async Task<IActionResult> GetCarCountByTranmissionIsAuto()
         {
-            var values = _meditor.Send(new GetCarCountByTranmissionIsAutoQuery());
+            var values =await _meditor.Send(new GetCarCountByTranmissionIsAutoQuery());
             return Ok(values);
         }
 
         [HttpGet("GetBlogTitleByMaxBlogComment")]
-        public IActionResult GetBlogTitleByMaxBlogComment()
+        public async Task<IActionResult> GetBlogTitleByMaxBlogComment()
         {
-            var values = _meditor.Send(new GetBlogTitleByMaxBlogCommentQuery());
+            var values = await _meditor.Send(new GetBlogTitleByMaxBlogCommentQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarCountByKmSmallerThen1000")]
-        public IActionResult GetCarCountByKmSmallerThen1000()
+        public async Task<IActionResult> GetCarCountByKmSmallerThen1000()
         {
-            var values = _meditor.Send(new GetCarCountByKmSmallerThen1000Query());
+            var values =await _meditor.Send(new GetCarCountByKmSmallerThen1000Query());
             return Ok(values);
         }
 
         [HttpGet("GetCarCountByFuelGasolineOrDiesel")]
-        public IActionResult GetCarCountByFuelGasolineOrDiesel()
+        public async Task<IActionResult> GetCarCountByFuelGasolineOrDiesel()
         {
-            var values = _meditor.Send(new GetCarCountByFuelGasolineOrDieselQuery());
+            var values =await _meditor.Send(new GetCarCountByFuelGasolineOrDieselQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarCountByFuelElectric")]
-        public IActionResult GetCarCountByFuelElectric()
+        public async Task<IActionResult> GetCarCountByFuelElectric()
         {
-            var values = _meditor.Send(new GetCarCountByFuelElectricQuery());
+            var values =await _meditor.Send(new GetCarCountByFuelElectricQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarBrandAndModeByRentPriceDailyMax")]
-        public IActionResult GetCarBrandAndModeByRentPriceDailyMax()
+        public async Task<IActionResult> GetCarBrandAndModeByRentPriceDailyMax()
         {
-            var values = _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMaxQuery());
+            var values =await _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMaxQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarBrandAndModeByRentPriceDailyMin")]
-        public IActionResult GetCarBrandAndModeByRentPriceDailyMin()
+        public async Task<IActionResult> GetCarBrandAndModeByRentPriceDailyMin()
         {
-            var values = _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMinQuery());
+            var values =await _meditor.Send(new GetCarBrandAndModeByRentPriceDailyMinQuery());
             return Ok(values);
         }
     }

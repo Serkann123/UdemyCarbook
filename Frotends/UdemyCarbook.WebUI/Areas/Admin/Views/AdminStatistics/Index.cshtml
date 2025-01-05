@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
@@ -12,51 +11,51 @@
                 <div class="card bg-primary border-primary">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Daily</span>
-                            <h5 class="card-title mb-0 text-white">Cost per Unit</h5>
+                            <span class="badge badge-soft-light float-right">Aktif Araçlar</span>
+                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    $17.21
+                                    @ViewBag.v
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">12.5% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Per Week</span>
-                            <h5 class="card-title mb-0 text-white">Market Revenue</h5>
+                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
+                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    $1875.54
+                                    @ViewBag.LocationCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">18.71% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: LocationCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-warning border-warning">
@@ -81,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-info border-info">
@@ -106,61 +105,59 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
         </div>
-
-
         <!-- end page title2 -->
         <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-primary border-primary">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Daily</span>
-                            <h5 class="card-title mb-0 text-white">Cost per Unit</h5>
+                            <span class="badge badge-soft-light float-right">Aktif Araçlar</span>
+                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    $17.21
+                                    @ViewBag.v
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">12.5% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Per Week</span>
-                            <h5 class="card-title mb-0 text-white">Market Revenue</h5>
+                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
+                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    $1875.54
+                                    @ViewBag.LocationCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">18.71% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: LocationCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-warning border-warning">
@@ -185,7 +182,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-info border-info">
@@ -210,60 +207,59 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
         </div>
-
         <!-- end page title3 -->
         <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-primary border-primary">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Daily</span>
-                            <h5 class="card-title mb-0 text-white">Cost per Unit</h5>
+                            <span class="badge badge-soft-light float-right">Aktif Araçlar</span>
+                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    $17.21
+                                    @ViewBag.v
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">12.5% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Per Week</span>
-                            <h5 class="card-title mb-0 text-white">Market Revenue</h5>
+                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
+                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    $1875.54
+                                    @ViewBag.LocationCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">18.71% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: LocationCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-warning border-warning">
@@ -288,7 +284,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-info border-info">
@@ -313,60 +309,59 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
         </div>
-
         <!-- end page title4 -->
         <div class="row">
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-primary border-primary">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Daily</span>
-                            <h5 class="card-title mb-0 text-white">Cost per Unit</h5>
+                            <span class="badge badge-soft-light float-right">Aktif Araçlar</span>
+                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    $17.21
+                                    @ViewBag.v
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">12.5% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Per Week</span>
-                            <h5 class="card-title mb-0 text-white">Market Revenue</h5>
+                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
+                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    $1875.54
+                                    @ViewBag.LocationCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">18.71% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: 38%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: LocationCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-warning border-warning">
@@ -391,7 +386,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
 
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-info border-info">
@@ -416,7 +411,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end col-->
         </div>
     </div>
 </div>
