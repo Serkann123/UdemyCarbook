@@ -20,7 +20,8 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             Random random = new Random();
             var client = _httpClientFactory.CreateClient();
-         
+
+            #region
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -30,7 +31,9 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 ViewBag.v = values.CarCount;
                 ViewBag.v1 = sayi;
             }
+            #endregion
 
+            #region
             var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Statistics/GetLocationQuery");
             if (responsMessage2.IsSuccessStatusCode)
             {
@@ -40,7 +43,9 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 ViewBag.LokasyonCount = values2.LocationCount;
                 ViewBag.LokasyonCountRandom = sayi2;
             }
+            #endregion
 
+            #region
             var responsMessage3 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBlogCount");
             if (responsMessage3.IsSuccessStatusCode)
             {
@@ -50,7 +55,9 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 ViewBag.BlogCount = values3.BlogCount;
                 ViewBag.BlogCountRandom = sayi3;
             }
+            #endregion
 
+            #region
             var responsMessage4 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAuthorCount");
             if (responsMessage4.IsSuccessStatusCode)
             {
@@ -60,7 +67,26 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 ViewBag.AuthorCount = values4.AuthorCount;
                 ViewBag.AuthorCountRandom = sayi4;
             }
+            #endregion
 
+            #region
+            var responsMessage5 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandCount");
+            if (responsMessage5.IsSuccessStatusCode)
+            {
+                int sayi5 = random.Next(0, 101);
+                var jsonData5 = await responsMessage5.Content.ReadAsStringAsync();
+                var values5 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData5);
+                ViewBag.BrandCount = values5.BrandCount;
+                ViewBag.BrandCountRandom = sayi5;
+            }
+            #endregion
+
+
+
+            return View();
+        }
+        public ActionResult deneme()
+        {
             return View();
         }
     }
