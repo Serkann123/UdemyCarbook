@@ -81,7 +81,65 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
+            #region
+            var responsMessage6 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForDaily");
+            if (responsMessage6.IsSuccessStatusCode)
+            {
+                int sayi6 = random.Next(0, 101);
+                var jsonData6 = await responsMessage6.Content.ReadAsStringAsync();
+                var values6 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData6);
+                ViewBag.GetAvgRentPriceForDaily = values6.avgRentPriceForDaily.ToString("0.00");
+                ViewBag.GetAvgRentPriceForDailyRandom = sayi6;
+            }
+            #endregion
 
+            #region
+            var responsMessage7 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForWeekly");
+            if (responsMessage7.IsSuccessStatusCode)
+            {
+                int sayi7 = random.Next(0, 101);
+                var jsonData7 = await responsMessage7.Content.ReadAsStringAsync();
+                var values7 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData7);
+                ViewBag.GetAvgRentPriceForWeekly = values7.avgRentPriceForWeekly.ToString("0.00");
+                ViewBag.GetAvgRentPriceForWeeklyRandom = sayi7;
+            }
+            #endregion
+
+            #region
+            var responsMessage8 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForMonthly");
+            if (responsMessage8.IsSuccessStatusCode)
+            {
+                int sayi8 = random.Next(0, 101);
+                var jsonData8 = await responsMessage8.Content.ReadAsStringAsync();
+                var values8 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData8);
+                ViewBag.getAvgRentPriceForMonthly = values8.getAvgRentPriceForMonthly.ToString("0.00");
+                ViewBag.getAvgRentPriceForMonthlyRandom = sayi8;
+            }
+        #endregion
+
+            #region
+            var responsMessage9 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByTranmissionIsAuto");
+            if (responsMessage9.IsSuccessStatusCode)
+            {
+                int sayi9 = random.Next(0, 101);
+                var jsonData9 = await responsMessage9.Content.ReadAsStringAsync();
+                var values9 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData9);
+                ViewBag.carCountByTranmissionIsAuto = values9.carCountByTranmissionIsAuto;
+                ViewBag.carCountByTranmissionIsAutoRandom = sayi9;
+            }
+            #endregion
+
+            #region
+            var responsMessage12 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByKmSmallerThen1000");
+            if (responsMessage12.IsSuccessStatusCode)
+            {
+                int sayi12 = random.Next(0, 101);
+                var jsonData12 = await responsMessage12.Content.ReadAsStringAsync();
+                var values12 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData12);
+                ViewBag.carCountByKmSmallerThen1000 = values12.carCountByKmSmallerThen1000;
+                ViewBag.carCountByKmSmallerThen1000Random = sayi12;
+            }
+            #endregion
 
             return View();
         }

@@ -137,22 +137,22 @@
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
-                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">Günlük Kiralama</span>
+                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.LokasyonCount
+                                    @ViewBag.GetAvgRentPriceForDaily
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.LokasyonCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.GetAvgRentPriceForDailyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.LokasyonCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetAvgRentPriceForDailyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -162,22 +162,22 @@
                 <div class="card bg-warning border-warning">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
-                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">Haftalık Kiralama</span>
+                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.LokasyonCount
+                                    @ViewBag.GetAvgRentPriceForWeekly
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.LokasyonCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.GetAvgRentPriceForWeeklyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.LokasyonCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetAvgRentPriceForWeeklyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -187,22 +187,22 @@
                 <div class="card bg-info border-info">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Tüm Zamanlar</span>
-                            <h5 class="card-title mb-0 text-white">Blog Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">Aylık Kiralama</span>
+                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.BlogCount
+                                    @ViewBag.getAvgRentPriceForMonthly
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.BlogCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.getAvgRentPriceForMonthlyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.BlogCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.getAvgRentPriceForMonthlyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -214,22 +214,22 @@
                 <div class="card bg-primary border-primary">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Aktif Araç</span>
-                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">Otomatik Vitesli Araç Sayısı</span>
+                            <h5 class="card-title mb-0 text-white">Otomatik Vitesli Araçlar</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.v
+                                    @ViewBag.carCountByTranmissionIsAuto
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.carCountByTranmissionIsAutoRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.carCountByTranmissionIsAutoRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -239,13 +239,13 @@
                 <div class="card bg-success border-success">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
-                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">Marka Adı</span>
+                            <h5 class="card-title mb-0 text-white">En Fazla Araçlı Marka</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.LokasyonCount
+                                    Renauld
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -264,13 +264,13 @@
                 <div class="card bg-warning border-warning">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Yazar Personel Sayısı</span>
-                            <h5 class="card-title mb-0 text-white">Toplam Personel Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">En Fazla Yorum Alan Blog</span>
+                            <h5 class="card-title mb-0 text-white">En İyi Blog</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.AuthorCount
+                                   782.151
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -289,22 +289,22 @@
                 <div class="card bg-info border-info">
                     <div class="card-body">
                         <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Tüm Zamanlar</span>
-                            <h5 class="card-title mb-0 text-white">Blog Sayısı</h5>
+                            <span class="badge badge-soft-light float-right">10.000 Km Altındaki Araçlar</span>
+                            <h5 class="card-title mb-0 text-white">Araç Sayısı</h5>
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.BlogCount
+                                    @ViewBag.carCountByKmSmallerThen1000
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.BlogCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@ViewBag.carCountByKmSmallerThen1000Random% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.BlogCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.carCountByKmSmallerThen1000Random%;"></div>
                         </div>
                     </div>
                 </div>
