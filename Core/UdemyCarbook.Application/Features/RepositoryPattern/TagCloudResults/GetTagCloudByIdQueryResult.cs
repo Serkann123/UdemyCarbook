@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Application.Features.Mediator.Results.TagCloudResults
+namespace UdemyCarbook.Application.Features.RepositoryPattern.TagCloudResults
 {
     public class GetTagCloudByIdQueryResult
     {
