@@ -31,6 +31,8 @@ namespace UdemyCarbook.Persistence.Context
         public DbSet<TagCloud> TagClouds { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<RendACar> RendACars { get; set; }
+        public DbSet<RendACarProcess> RendACarProcesses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
     }
 }
