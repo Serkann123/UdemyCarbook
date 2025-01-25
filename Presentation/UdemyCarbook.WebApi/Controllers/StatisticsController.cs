@@ -72,14 +72,21 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpGet("GetAvgRentPriceForMonthly")]
         public async Task<IActionResult> GetAvgRentPriceForMonthly()
         {
-            var values =await _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
+            var values = await _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
             return Ok(values);
         }
 
         [HttpGet("GetCarCountByTranmissionIsAuto")]
         public async Task<IActionResult> GetCarCountByTranmissionIsAuto()
         {
-            var values =await _meditor.Send(new GetCarCountByTranmissionIsAutoQuery());
+            var values = await _meditor.Send(new GetCarCountByTranmissionIsAutoQuery());
+            return Ok(values);
+        }
+
+        [HttpGet("GetBrandNameByMaxCar")]
+        public async Task<IActionResult> GetBrandNameByMaxCar()
+        {
+            var values = await _meditor.Send(new GetBrandNameByMaxCarQuery());
             return Ok(values);
         }
 

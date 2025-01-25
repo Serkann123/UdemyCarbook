@@ -20,12 +20,28 @@ namespace UdemyCarbook.Persistence.Repositories.StatisticsRepositories
 
         public string GetBlogTitleByMaxBlogComment()
         {
-            throw new NotImplementedException();
+            var values = _context.Comments.GroupBy(x => x.BlogId)
+                .Select(y => new
+                {
+                    BlogId = y.Key,
+                    Count = y.Count()
+                }).OrderByDescending(z => z.Count).FirstOrDefault();
+
+            var titleName = _context.Blogs.Where(x => x.BlogId == values.BlogId).Select(y => y.Title).FirstOrDefault();
+            return titleName;
         }
 
         public string GetBrandNameByMaxCar()
         {
-            throw new NotImplementedException();
+            var values = _context.Cars.GroupBy(x => x.BrandId)
+                .Select(y => new
+                {
+                    BrandId = y.Key,
+                    Count = y.Count()
+                }).OrderByDescending(z => z.Count).FirstOrDefault();
+
+            var brandName = _context.Brands.Where(x => x.BranId == values.BrandId).Select(y => y.Name).FirstOrDefault();
+            return brandName;
         }
 
         public int GetAuthorCount()
@@ -69,12 +85,20 @@ namespace UdemyCarbook.Persistence.Repositories.StatisticsRepositories
 
         public string GetCarBrandAndModeByRentPriceDailyMax()
         {
-            throw new NotImplementedException();
+            int princingId = _context.Piricings.Where(x => x.Name == "Günlük").Select(x => x.PricingId).FirstOrDefault();
+            decimal amount = _context.CarPricings.Where(x => x.PiricingId == princingId).Max(x => x.Ammount);
+            int carId = _context.CarPricings.Where(x => x.Ammount == amount).Select(x => x.CarId).FirstOrDefault();
+            string brandModel = _context.Cars.Where(x => x.CarId == carId).Include(y => y.Brand).Select(z => z.Brand.Name + " " + z.Model).FirstOrDefault();
+            return brandModel;
         }
 
         public string GetCarBrandAndModeByRentPriceDailyMin()
         {
-            throw new NotImplementedException();
+            int princingId = _context.Piricings.Where(x => x.Name == "Günlük").Select(x => x.PricingId).FirstOrDefault();
+            decimal amount = _context.CarPricings.Where(x => x.PiricingId == princingId).Min(x => x.Ammount);
+            int carId = _context.CarPricings.Where(x => x.Ammount == amount).Select(x => x.CarId).FirstOrDefault();
+            string brandModel = _context.Cars.Where(x => x.CarId == carId).Include(y => y.Brand).Select(z => z.Brand.Name + " " + z.Model).FirstOrDefault();
+            return brandModel;
         }
 
         public int GetCarCount()
@@ -93,7 +117,7 @@ namespace UdemyCarbook.Persistence.Repositories.StatisticsRepositories
             var value = _context.Cars.Where(x => x.Fuel == "Benzin" || x.Fuel == "Dizel").Count();
             return value;
         }
-        
+
         public int GetCarCountByKmSmallerThen1000()
         {
             var value = _context.Cars.Where(x => x.Km < 1000).Count();

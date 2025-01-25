@@ -19,6 +19,12 @@ namespace UdemyCarbook.Dto.StatisticsDtos
         public decimal getAvgRentPriceForMonthly { get; set; }
         public decimal carCountByTranmissionIsAuto { get; set; }
         public decimal carCountByKmSmallerThen1000 { get; set; }
+        public int carCountByFuelGasolineOrDiesel { get; set; }
+        public int carCountByFuelElectric { get; set; }
+        public string carBrandAndModeByRentPriceDailyMax { get; set; }
+        public string carBrandAndModeByRentPriceDailyMin { get; set; }
+        public string brandNameByMaxCar { get; set; }
+        public string blogTitleByMaxBlogComment { get; set; }
     }
 }
 

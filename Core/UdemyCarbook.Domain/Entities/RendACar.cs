@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace UdemyCarbook.Domain.Entities
 {
-    public class Location
+    public class RendACar
     {
         [Key]
+        public int RentACarId { get; set; }
         public int LocationId { get; set; }
-        public string Name { get; set; }
-        public List<RendACar> rendACars { get; set; }
+        public Location Location { get; set; }
+        public int CarId { get; set; }
+        public Car Car { get; set; }
+        public bool Available { get; set; }
     }
 }

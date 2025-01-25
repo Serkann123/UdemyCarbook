@@ -141,6 +141,78 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
+            #region
+            var responsMessage13 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByFuelGasolineOrDiesel");
+            if (responsMessage13.IsSuccessStatusCode)
+            {
+                int sayi13 = random.Next(0, 101);
+                var jsonData13 = await responsMessage13.Content.ReadAsStringAsync();
+                var values13 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData13);
+                ViewBag.GetCarCountByFuelGasolineOrDiesel = values13.carCountByFuelGasolineOrDiesel;
+                ViewBag.GetCarCountByFuelGasolineOrDieselRandom = sayi13;
+            }
+            #endregion
+
+            #region
+            var responsMessage14 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByFuelElectric");
+            if (responsMessage14.IsSuccessStatusCode)
+            {
+                int sayi14 = random.Next(0, 101);
+                var jsonData14 = await responsMessage14.Content.ReadAsStringAsync();
+                var values14 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData14);
+                ViewBag.GetCarCountByFuelElectric = values14.carCountByFuelElectric;
+                ViewBag.GetCarCountByFuelElectricRandom = sayi14;
+            }
+            #endregion
+
+            #region
+            var responsMessage15 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMax");
+            if (responsMessage15.IsSuccessStatusCode)
+            {
+                int sayi15 = random.Next(0, 101);
+                var jsonData15 = await responsMessage15.Content.ReadAsStringAsync();
+                var values15 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData15);
+                ViewBag.carBrandAndModeByRentPriceDailyMax = values15.carBrandAndModeByRentPriceDailyMax;
+                ViewBag.carBrandAndModeByRentPriceDailyMaxRandom = sayi15;
+            }
+            #endregion
+
+            #region
+            var responsMessage16 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMin");
+            if (responsMessage16.IsSuccessStatusCode)
+            {
+                int sayi16 = random.Next(0, 101);
+                var jsonData16 = await responsMessage16.Content.ReadAsStringAsync();
+                var values16 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData16);
+                ViewBag.carBrandAndModeByRentPriceDailyMin = values16.carBrandAndModeByRentPriceDailyMin;
+                ViewBag.carBrandAndModeByRentPriceDailyMinRandom = sayi16;
+            }
+            #endregion
+
+            #region
+            var responsMessage20 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandNameByMaxCar");
+            if (responsMessage20.IsSuccessStatusCode)
+            {
+                int sayi20 = random.Next(0, 101);
+                var jsonData20 = await responsMessage20.Content.ReadAsStringAsync();
+                var values20 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData20);
+                ViewBag.GetBrandNameByMaxCar = values20.brandNameByMaxCar;
+                ViewBag.GetBrandNameByMaxCarRandom = sayi20;
+            }
+            #endregion
+
+            #region
+            var responsMessage21 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBlogTitleByMaxBlogComment");
+            if (responsMessage21.IsSuccessStatusCode)
+            {
+                int sayi21 = random.Next(0, 101);
+                var jsonData21 = await responsMessage21.Content.ReadAsStringAsync();
+                var values21 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData21);
+                ViewBag.GetBlogTitleByMaxBlogComment = values21.blogTitleByMaxBlogComment;
+                ViewBag.GetBlogTitleByMaxBlogCommentRandom = sayi21;
+            }
+            #endregion
+
             return View();
         }
         public ActionResult deneme()
