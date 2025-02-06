@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
 
         public async Task<List<GetRentACarQueryResult>> Handle(GetRentACarQuery request, CancellationToken cancellationToken)
         {
-            var values = _rentACarRepository.GetByFilterAsync(x => x.LocationId == request.LocationId && x.Available == true);
+            var values =await _rentACarRepository.GetByFilterAsync(x => x.LocationId == request.LocationId && x.Available == true);
             return values.Select(x => new GetRentACarQueryResult
             {
                 CarId = x.CarId

@@ -9,6 +9,7 @@ using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Application.Interfaces.BlogInterfaces;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
 using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
+using UdemyCarbook.Application.Interfaces.RentACarInterfaces;
 using UdemyCarbook.Application.Interfaces.StatisticsInterfaces;
 using UdemyCarbook.Application.Interfaces.TagCloudInterfaces;
 using UdemyCarbook.Application.Services;
@@ -19,6 +20,7 @@ using UdemyCarbook.Persistence.Repositories.BlogRepositories;
 using UdemyCarbook.Persistence.Repositories.CarPirincingRepositories;
 using UdemyCarbook.Persistence.Repositories.CarRepositories;
 using UdemyCarbook.Persistence.Repositories.CommentRepositories;
+using UdemyCarbook.Persistence.Repositories.RentACarRepositories;
 using UdemyCarbook.Persistence.Repositories.StatisticsRepositories;
 using UdemyCarbook.Persistence.Repositories.TagCloudRepositories;
 
@@ -35,6 +37,7 @@ builder.Services.AddScoped(typeof(ICarPirincingRepository), typeof(CarPirincingR
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
 builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
+builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
 
 #region
 builder.Services.AddScoped<CreateAboutCommandHandler>();

@@ -10,6 +10,6 @@ namespace UdemyCarbook.Application.Interfaces.RentACarInterfaces
 {
     public interface IRentACarRepository
     {
-        List<RendACar> GetByFilterAsync(Expression<Func<RendACar, bool>> filter);
+       Task<List<RendACar>> GetByFilterAsync(Expression<Func<RendACar, bool>> filter);
     }
 }
