@@ -12,5 +12,6 @@ namespace UdemyCarbook.Application.Features.Mediator.Queries.RentACarQueiries
     {
         public int LocationId { get; set; }
         public bool Available { get; set; }
+
     }
 }

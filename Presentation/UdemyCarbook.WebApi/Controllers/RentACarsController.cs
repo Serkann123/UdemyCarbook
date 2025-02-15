@@ -17,12 +17,12 @@ namespace UdemyCarbook.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRentACarListByLocation(string LocationId,bool avilable)
+        public async Task<IActionResult> GetRentACarListByLocation(string locationId,bool avilable)
         {
             GetRentACarQuery getRentACarQuery = new GetRentACarQuery()
             {
-                LocationId = int.Parse(LocationId.ToString()),
-                Available = avilable
+                Available = avilable,
+                LocationId = int.Parse(locationId.ToString()),
             };
 
             var values = await _mediator.Send(getRentACarQuery);
