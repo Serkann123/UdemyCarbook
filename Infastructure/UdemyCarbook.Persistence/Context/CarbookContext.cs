@@ -41,7 +41,7 @@ namespace UdemyCarbook.Persistence.Context
             modelBuilder.Entity<Reservation>()
                .HasOne(x => x.PickUpLocation)
                .WithMany(x => x.PickUpReservations)
-               .HasForeignKey(x => x.ReservationId)
+               .HasForeignKey(x => x.PickUpLocationId)
                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Reservation>()
