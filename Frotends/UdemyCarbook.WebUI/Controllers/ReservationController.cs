@@ -16,43 +16,33 @@ namespace UdemyCarbook.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        // Dropdown verilerini doldurmak için yardımcı metot
-        private async Task PopulateLocationsAsync()
-        {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7126/api/Locations");
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
-
-            List<SelectListItem> selectList = values.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.LocationId.ToString()
-            }).ToList();
-
-            ViewBag.v = selectList;
-        }
-
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             ViewBag.v1 = "Araç Kiralama";
             ViewBag.v2 = "Araç Rezervasyon Formu";
 
-            await PopulateLocationsAsync();
+            ViewBag.v3 = id;
+
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            var jsonData = await responsMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+
+            List<SelectListItem> values2 = (from x in values
+                                            select new SelectListItem
+                                            {
+                                                Text = x.Name,
+                                                Value = x.LocationId.ToString()
+                                            }).ToList();
+            ViewBag.v = values2;
+            
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(CreateReservationDto createReservationDto)
         {
-            // Model geçersizse dropdown'ları yeniden doldurmalısınız.
-            if (!ModelState.IsValid)
-            {
-                await PopulateLocationsAsync();
-                return View(createReservationDto);
-            }
-
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createReservationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -61,11 +51,7 @@ namespace UdemyCarbook.WebUI.Controllers
             {
                 return RedirectToAction("Index", "Default");
             }
-
-            // API çağrısında hata varsa, dropdown verilerini yeniden doldurun.
-            await PopulateLocationsAsync();
-            ModelState.AddModelError("", "Rezervasyon oluşturulurken bir hata oluştu.");
-            return View(createReservationDto);
+            return View();
         }
     }
 }
