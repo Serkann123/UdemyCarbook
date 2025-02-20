@@ -13,5 +13,6 @@ namespace UdemyCarbook.Application.Features.Mediator.Results.CarPirincingResults
         public string Model { get; set; }
         public decimal Amount { get; set; }
         public string CoverImageUrl { get; set; }
+        public int CarId { get; set; }
     }
 }

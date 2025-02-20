@@ -28,8 +28,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
                 Brand=x.Car.Brand.Name,
                 CoverImageUrl=x.Car.CoverImageUrl,
                 Model=x.Car.Model,
-                CarPirincingId=x.CarPricingId
-
+                CarPirincingId=x.CarPricingId,
+                CarId=x.CarPricingId
             }).ToList();
         }
     }
