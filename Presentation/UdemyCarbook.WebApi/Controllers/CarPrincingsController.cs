@@ -22,5 +22,13 @@ namespace UdemyCarbook.WebApi.Controllers
             var values = await _meditor.Send(new GetCarPirincingWithCarQuery());
             return Ok(values);
         }
+
+
+        [HttpGet("GetCarPrincingWithTimePeriodQuery")]
+        public async Task<IActionResult> GetCarPrincingWithTimePeriodQuery()
+        {
+            var values = await _meditor.Send(new GetCarPrincingWithTimePeriodQuery());
+            return Ok(values);
+        }
     }
 }

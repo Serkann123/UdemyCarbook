@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
+using UdemyCarbook.Application.ViewsModel;
 using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;
 
@@ -25,5 +26,37 @@ namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
             return values;
         }
 
+        public List<CarPrincingViewModel> GetCarPricingWithTimePeriod1()
+        {
+            List<CarPrincingViewModel> values = new List<CarPrincingViewModel>();
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "Select * From (Select Model,PiricingId,Ammount From CarPricings Inner Join Cars On Cars.CarID=CarPricings.CarId Inner Join Brands On Cars.BrandID=Cars.BrandID) As SourceTable Pivot (Sum(Ammount) For PiricingId In ([1],[2],[3])) as PivotTable;";
+                command.CommandType = System.Data.CommandType.Text;
+                _context.Database.OpenConnection();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CarPrincingViewModel carPricingViewModel = new CarPrincingViewModel();
+                        Enumerable.Range(1, 3).ToList().ForEach(x =>
+                        {
+                            carPricingViewModel.Model = reader[0].ToString();
+                            if (DBNull.Value.Equals(reader[x]))
+                            {
+                                carPricingViewModel.Amounts.Add(0);
+                            }
+                            else
+                            {
+                                carPricingViewModel.Amounts.Add(reader.GetDecimal(x));
+                            }
+                        });
+                        values.Add(carPricingViewModel);
+                    }
+                }
+                _context.Database.CloseConnection();
+                return values;
+            }
+        }
     }
 }
