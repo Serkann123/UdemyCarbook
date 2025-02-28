@@ -13,6 +13,7 @@ namespace UdemyCarbook.Application.ViewsModel
             Amounts = new List<Decimal>();
         }
         public string Model { get; set; }
+        public string CoverImageUrl { get; set; }
         public List<Decimal> Amounts { get; set; }
     }
 }

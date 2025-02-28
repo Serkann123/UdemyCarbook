@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Application.Features.Mediator.Results.CarPirincingResults
+namespace UdemyCarbook.Dto.CarPirincingDtos
 {
-    public class GetCarPrincingWithTimePeriodQueryResult
+    public class ResultCarPrincingListModelDto
     {
         public string Model { get; set; }
         public decimal DailyAmount { get; set; }
