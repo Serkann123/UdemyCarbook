@@ -1,6 +1,5 @@
-﻿@model List<ResultFeatureAddressDto>
-@foreach (var item in Model)
-{
+﻿@model ResultFeatureAddressDto
+
     <div class="col-md-4">
         <div class="row mb-5">
             <div class="col-md-12">
@@ -8,7 +7,7 @@
                     <div class="icon mr-3">
                         <span class="icon-map-o"></span>
                     </div>
-                    <p><span>Adres:</span> @item.Address</p>
+                    <p><span>Adres:</span> @Model.Address</p>
                 </div>
             </div>
             <div class="col-md-12">
@@ -16,7 +15,7 @@
                     <div class="icon mr-3">
                         <span class="icon-mobile-phone"></span>
                     </div>
-                    <p><span>Telefon:</span> <a href="tel://@item.Phone">@item.Phone</a></p>
+                <p><span>Telefon:</span> <a href="tel://@Model.Phone">@Model.Phone</a></p>
                 </div>
             </div>
             <div class="col-md-12">
@@ -24,9 +23,8 @@
                     <div class="icon mr-3">
                         <span class="icon-envelope-o"></span>
                     </div>
-                    <p><span>Mail:</span> <a href="@item.Mail">@item.Mail</a></p>
+                <p><span>Mail:</span> <a href="@Model.Mail">@Model.Mail</a></p>
                 </div>
             </div>
         </div>
     </div>
-}

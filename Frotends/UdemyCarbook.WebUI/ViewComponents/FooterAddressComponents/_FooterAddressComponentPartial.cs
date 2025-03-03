@@ -17,11 +17,11 @@ namespace UdemyCarbook.WebUI.ViewComponents.FooterAddressComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress");
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress/1");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultFeatureAddressDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<ResultFeatureAddressDto>(jsonData);
                 return View(values);
             }
             return View();
