@@ -7,7 +7,7 @@ namespace UdemyCarbook.Persistence.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-3U064FC; initial Catalog=UdemyCarbookDb; integrated security=true; TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("server=DESKTOP-8QCVOCH\\SQLEXPRESS; initial Catalog=UdemyCarbookDb; integrated security=true; TrustServerCertificate=true;");
         }
 
         public DbSet<About> Abouts { get; set; }

@@ -15,5 +15,6 @@ namespace UdemyCarbook.Application.Features.RepositoryPattern
         void Remove(T entity);
         Comment GetById(int id);
         List<T> GetCommentsByBlogId(int id);
+        int GetCountCommentBlog(int id);
     }
 }
