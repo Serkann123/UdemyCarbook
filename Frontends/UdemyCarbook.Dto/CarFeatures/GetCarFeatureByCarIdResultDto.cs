@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Domain.Entities
+namespace UdemyCarbook.Dto.CarFeatures
 {
-    public class CarFeature
+    public class GetCarFeatureByCarIdResultDto
     {
-        [Key]
         public int CarFeatureId { get; set; }
-        public int CarId { get; set; }
-        public Car Car { get; set; }
         public int FeatureId { get; set; }
+        public string FeatureName { get; set; }
         public bool Available { get; set; }
-        public Feature Feature { get; set; }
     }
 }

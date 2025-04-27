@@ -4,7 +4,7 @@ using UdemyCarbook.Dto.BlogDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
-    public class _BlogDetailsMainCompenentPartial:ViewComponent
+    public class _BlogDetailsMainCompenentPartial : ViewComponent
     {
         private readonly IHttpClientFactory _HttpClientFactory;
 
@@ -16,13 +16,14 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             var client = _HttpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/"+id);
+            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<GetBlogByIdTagCloudDto>(jsonData);
                 return View(values);
             }
+
             return View();
         }
     }
