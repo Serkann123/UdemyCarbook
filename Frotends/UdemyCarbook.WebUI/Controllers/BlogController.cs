@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using UdemyCarbook.Dto.BlogDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
@@ -33,8 +34,13 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v1 = "Bloglar";
             ViewBag.v2 = "Blog Detayı ve Yorumlar";
             ViewBag.BlogId = id;
+
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Commnets/CommentCountByBlog?id="+id);
+            var jsonData2 = await responsMessage2.Content.ReadAsStringAsync();
+            ViewBag.commentCount = jsonData2;
+
             return View();
         }
-
     }
 }
