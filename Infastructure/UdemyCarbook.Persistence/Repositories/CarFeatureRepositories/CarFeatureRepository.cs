@@ -19,10 +19,25 @@ namespace UdemyCarbook.Persistence.Repositories.CarFeatureRepositories
             _context = context;
         }
 
+        public void ChangeCarFeaturesAvailableToFalse(int id)
+        {
+            var values = _context.CarFeatures.Where(x => x.CarFeatureId == id).FirstOrDefault();
+            values.Available = false;
+            _context.SaveChangesAsync();
+        }
+
+        public void ChangeCarFeaturesAvailableToTrue(int id)
+        {
+            var values = _context.CarFeatures.Where(x => x.CarFeatureId == id).FirstOrDefault();
+            values.Available = true;
+            _context.SaveChangesAsync();
+        }
+
         public List<CarFeature> GetCarFeatureByCarId(int carId)
         {
-            var values = _context.CarFeatures.Include(y=>y.Feature).Where(x=>x.CarId==carId).ToList();
+            var values = _context.CarFeatures.Include(y => y.Feature).Where(x => x.CarId == carId).ToList();
             return values;
         }
     }
 }
+
