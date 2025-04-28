@@ -27,7 +27,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<GetCarFeatureByCarIdResultDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultCarFeatureByCarIdResultDto>>(jsonData);
                 return View(values);
             }
             return View();
@@ -35,8 +35,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("Index/{id}")]
-
-        public async Task<IActionResult> Index(List<GetCarFeatureByCarIdResultDto> getCarFeatureByCarIdResultDto)
+        public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdResultDto> getCarFeatureByCarIdResultDto)
         {
 
             foreach (var item in getCarFeatureByCarIdResultDto)
@@ -44,20 +43,17 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 if (item.Available)
                 {
                     var client = _httpClientFactory.CreateClient();
-                    var jsonData = JsonConvert.SerializeObject(getCarFeatureByCarIdResultDto);
-                    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                    await client.PutAsync("https://localhost:7126/api/Categories/", stringContent);
+                    await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToTrue?id=" + item.CarFeatureId);
                 }
 
                 else
                 {
                     var client = _httpClientFactory.CreateClient();
-                    var jsonData = JsonConvert.SerializeObject(getCarFeatureByCarIdResultDto);
-                    StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                    await client.PutAsync("https://localhost:7126/api/Categories/", stringContent);
+                    await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToFalse?id=" + item.CarFeatureId);
                 }
             }
-            return View();
+            return RedirectToAction("Index", "AdminCar");
         }
+
     }
 }

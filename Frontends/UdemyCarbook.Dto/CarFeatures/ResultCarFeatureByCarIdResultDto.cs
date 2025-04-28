@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UdemyCarbook.Dto.CarFeatures
 {
-    public class GetCarFeatureByCarIdResultDto
+    public class ResultCarFeatureByCarIdResultDto
     {
         public int CarFeatureId { get; set; }
         public int FeatureId { get; set; }
