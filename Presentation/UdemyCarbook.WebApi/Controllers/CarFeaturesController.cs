@@ -39,5 +39,12 @@ namespace UdemyCarbook.WebApi.Controllers
             await _meditor.Send(new UpdateCarFeatureChangeToAvailableTrueCommand(id));
             return Ok("Güncelleme İşlemi Başarıyla Yapıldı");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CarFeatureByCarId(CreateCarFeatureByCarCommand createCarFeatureByCarCommand)
+        {
+            _meditor.Send(new CreateCarFeatureByCarCommand());
+            return Ok("Güncelleme Yapıldı");
+        }
     }
 }
