@@ -11,6 +11,6 @@ namespace UdemyCarbook.Application.Interfaces.CarPirincingInterfaces
     public interface ICarPirincingRepository
     {
         List<CarPricing> GetCarPirincingWihCars();
-        List<CarPrincingViewModel> GetCarPricingWithTimePeriod1();
+        List<CarPrincingViewModel> GetCarPricingWithTimePeriod();
     }
 }

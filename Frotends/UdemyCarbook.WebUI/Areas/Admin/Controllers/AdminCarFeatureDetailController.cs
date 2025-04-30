@@ -4,16 +4,17 @@ using System.Text;
 using UdemyCarbook.Dto.BlogDtos;
 using UdemyCarbook.Dto.CarFeatures;
 using UdemyCarbook.Dto.CategoryDtos;
+using UdemyCarbook.Dto.FeatureDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/AdminCarFeatureDetail")]
-    public class AdminCarFeatureDetail : Controller
+    public class AdminCarFeatureDetailController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public AdminCarFeatureDetail(IHttpClientFactory httpClientFactory)
+        public AdminCarFeatureDetailController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -55,5 +56,19 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "AdminCar");
         }
 
+        [Route("CreateCarFeatureByCar")]
+        [HttpGet]
+        public async Task<IActionResult> CreateCarFeatureByCar()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Features");
+            if (responsMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responsMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
     }
 }
