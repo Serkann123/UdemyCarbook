@@ -13,20 +13,20 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandler
 {
     public class CreateCarFeatureByCarCommandHandler : IRequestHandler<CreateCarFeatureByCarCommand>
     {
-        private readonly ICarFeatureRepository _repository;
+        private readonly IRepository<CarFeature> _repository;
 
-        public CreateCarFeatureByCarCommandHandler(ICarFeatureRepository repository)
+        public CreateCarFeatureByCarCommandHandler(IRepository<CarFeature> repository)
         {
             _repository = repository;
         }
 
         public async Task Handle(CreateCarFeatureByCarCommand request, CancellationToken cancellationToken)
         {
-            _repository.CreateCarFeatureByCar(new CarFeature
+            await _repository.CreateAsync(new CarFeature
             {
-                Available = false,
-                CarId = request.CarId,
-                FeatureId = request.FeatureId,
+               Available = false,
+               CarId = request.CarId,
+               FeatureId = request.FeatureId,
             });
         }
     }

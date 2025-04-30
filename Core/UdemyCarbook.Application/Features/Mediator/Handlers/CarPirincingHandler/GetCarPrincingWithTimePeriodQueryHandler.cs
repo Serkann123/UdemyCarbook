@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
 
         public async Task<List<GetCarPrincingWithTimePeriodQueryResult>> Handle(GetCarPrincingWithTimePeriodQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetCarPricingWithTimePeriod1();
+            var values = _repository.GetCarPricingWithTimePeriod();
             return values.Select(x => new GetCarPrincingWithTimePeriodQueryResult
             {
                 CoverImageUrl = x.CoverImageUrl,

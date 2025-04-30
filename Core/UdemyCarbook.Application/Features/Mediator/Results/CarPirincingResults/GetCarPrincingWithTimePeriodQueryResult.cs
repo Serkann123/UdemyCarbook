@@ -9,6 +9,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Results.CarPirincingResults
     public class GetCarPrincingWithTimePeriodQueryResult
     {
         public string Model { get; set; }
+        public string BrandName { get; set; }
         public decimal DailyAmount { get; set; }
         public decimal WeeklyAmount { get; set; }
         public decimal MonthlyAmount { get; set; }

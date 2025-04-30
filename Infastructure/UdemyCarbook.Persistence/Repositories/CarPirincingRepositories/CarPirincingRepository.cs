@@ -26,7 +26,7 @@ namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
             return values;
         }
 
-        public List<CarPrincingViewModel> GetCarPricingWithTimePeriod1()
+        public List<CarPrincingViewModel> GetCarPricingWithTimePeriod()
         {
             List<CarPrincingViewModel> values = new List<CarPrincingViewModel>();
             using (var command = _context.Database.GetDbConnection().CreateCommand())

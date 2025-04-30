@@ -1,10 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using UdemyCarbook.Application.Features.CQRS.Commands.BannerCommands;
+using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
 using UdemyCarbook.Application.Features.Mediator.Commands.CarFeaturesCommands;
 using UdemyCarbook.Application.Features.Mediator.Commands.TagCloudCommands;
 using UdemyCarbook.Application.Features.Mediator.Queries.CarFeatureQueries;
 using UdemyCarbook.Application.Features.Mediator.Queries.TagCloudQueries;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
@@ -43,8 +46,15 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CarFeatureByCarId(CreateCarFeatureByCarCommand createCarFeatureByCarCommand)
         {
-            _meditor.Send(new CreateCarFeatureByCarCommand());
-            return Ok("Güncelleme Yapıldı");
+            await _meditor.Send(createCarFeatureByCarCommand);
+            return Ok("Cardadad başarıyla eklendi");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCarFeatureByCarId(int id)
+        {
+            await _meditor.Send(new RemoveCarFeatureByCarCommand(id));
+            return Ok("Silme işlemi başarıyla yapıldı");
         }
     }
 }
