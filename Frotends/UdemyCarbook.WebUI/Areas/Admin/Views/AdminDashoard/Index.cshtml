@@ -121,7 +121,11 @@
 			</div>
 		</div>
 
-		@await Component.InvokeAsync("_AdminDashboardCarPrincingsComponentPartial")
+		<div class="row">
+			@await Component.InvokeAsync("_AdminDashboardCarPrincingsComponentPartial")
+
+			@await Component.InvokeAsync("_AdminDashboardBlogListComponentPartial")
+		</div>
 
 	</div>
 </div>

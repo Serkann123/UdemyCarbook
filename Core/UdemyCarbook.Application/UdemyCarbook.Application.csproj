@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frontends\UdemyCarbook.Dto\UdemyCarbook.Dto.csproj" />
     <ProjectReference Include="..\UdemyCarbook.Domain\UdemyCarbook.Domain.csproj" />
   </ItemGroup>
 
