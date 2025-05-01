@@ -22,13 +22,16 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
         public async Task<List<GetCarPrincingWithTimePeriodQueryResult>> Handle(GetCarPrincingWithTimePeriodQuery request, CancellationToken cancellationToken)
         {
             var values = _repository.GetCarPricingWithTimePeriod();
+
             return values.Select(x => new GetCarPrincingWithTimePeriodQueryResult
             {
+                Model = x.Model,
+                BrandName = x.BrandName,
+                ModelName = x.ModelName,
+                DailyAmount = x.DailyAmount,
+                WeeklyAmount = x.WeeklyAmount,
+                MonthlyAmount = x.MonthlyAmount,
                 CoverImageUrl = x.CoverImageUrl,
-                Model=x.Model,
-                DailyAmount = x.Amounts[0],
-                WeeklyAmount = x.Amounts[1],
-                MonthlyAmount = x.Amounts[2]
             }).ToList();
         }
     }

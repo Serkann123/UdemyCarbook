@@ -28,35 +28,31 @@ namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
 
         public List<CarPrincingViewModel> GetCarPricingWithTimePeriod()
         {
-            List<CarPrincingViewModel> values = new List<CarPrincingViewModel>();
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
-                command.CommandText = "Select * From (Select Model,CoverImageUrl,PiricingId,Ammount From CarPricings Inner Join Cars On Cars.CarID=CarPricings.CarId Inner Join Brands On Cars.BrandID=Cars.BrandID) As SourceTable Pivot (Sum(Ammount) For PiricingId In ([1],[2],[3])) as PivotTable;";
-                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = "GetCarPricingWithTimePeriodProc";
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
                 _context.Database.OpenConnection();
+
+                var result = new List<CarPrincingViewModel>();
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-
-                        CarPrincingViewModel carPrincingViewModel = new CarPrincingViewModel()
+                        result.Add(new CarPrincingViewModel
                         {
-                            Model = reader["Model"].ToString(),
-                            CoverImageUrl = reader["CoverImageUrl"].ToString(),
-
-                            Amounts = new List<decimal>
-                           {
-                            reader.IsDBNull(2) ? 0m : Convert.ToDecimal(reader[2]),
-                            reader.IsDBNull(3) ? 0m : Convert.ToDecimal(reader[3]),
-                            reader.IsDBNull(4) ? 0m : Convert.ToDecimal(reader[4]),
-                           }
-
-                        };
-                        values.Add(carPrincingViewModel);
+                            Model = reader.GetString(0),
+                            ModelName=reader.GetString(1),
+                            BrandName=reader.GetString(2),
+                            CoverImageUrl=reader.GetString(3),
+                            DailyAmount = reader.IsDBNull(1) ? 0 : reader.GetDecimal(4),
+                            WeeklyAmount = reader.IsDBNull(2) ? 0 : reader.GetDecimal(5),
+                            MonthlyAmount = reader.IsDBNull(3) ? 0 : reader.GetDecimal(6),
+                        });
                     }
                 }
-                _context.Database.CloseConnection();
-                return values;
+                return result;
             }
         }
     }
