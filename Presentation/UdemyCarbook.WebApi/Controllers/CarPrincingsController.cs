@@ -23,7 +23,6 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok(values);
         }
 
-
         [HttpGet("GetCarPrincingWithTimePeriodQuery")]
         public async Task<IActionResult> GetCarPrincingWithTimePeriodQuery()
         {
