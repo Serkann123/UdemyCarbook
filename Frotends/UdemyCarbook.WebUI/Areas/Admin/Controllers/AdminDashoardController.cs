@@ -7,8 +7,9 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     public class AdminDashoardController : Controller
     {
         [Route("Index")]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
+            ViewBag.CurrentPage = page;
             return View();
         }
     }
