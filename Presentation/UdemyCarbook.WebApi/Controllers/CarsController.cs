@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.CQRS.Commands.CarCommands;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers;
 using UdemyCarbook.Application.Features.CQRS.Queries.CarQueries;
 using UdemyCarbook.Application.Features.Mediator.Queries.AuthorQueries;
+using UdemyCarbook.Application.Features.Mediator.Queries.BlogQueries;
 using UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries;
 
 namespace UdemyCarbook.WebApi.Controllers
@@ -20,8 +22,9 @@ namespace UdemyCarbook.WebApi.Controllers
         private readonly UpdateCarCommandHandler _updateCarCommandHandler;
         private readonly GetCarWithBrandQueryHandler _getCarWithBrandQueryHandler;
         private readonly GetLast5CarsQueryHandler _getLast5CarsQueryHandler;
+        private readonly GetCarMainCarFeatureQueryHandler _getCarMainCarFeatureQueryHandler;
 
-        public CarsController(CreateCarCommandHandler createCarCommandHandler, GetCarByIdQueryHandler getCarByIdQueryHandler, GetCarQueryHandler getCarQueryHandler, RemoveCarCommandHandler removeCarCommandHandler, UpdateCarCommandHandler updateCarCommandHandler, GetCarWithBrandQueryHandler getCarWithBrandQueryHandler, GetLast5CarsQueryHandler getLast5CarsQueryHandler)
+        public CarsController(CreateCarCommandHandler createCarCommandHandler, GetCarByIdQueryHandler getCarByIdQueryHandler, GetCarQueryHandler getCarQueryHandler, RemoveCarCommandHandler removeCarCommandHandler, UpdateCarCommandHandler updateCarCommandHandler, GetCarWithBrandQueryHandler getCarWithBrandQueryHandler, GetLast5CarsQueryHandler getLast5CarsQueryHandler, GetCarMainCarFeatureQueryHandler getCarMainCarFeatureQueryHandler)
         {
             _createCarCommandHandler = createCarCommandHandler;
             _getCarByIdQueryHandler = getCarByIdQueryHandler;
@@ -30,6 +33,7 @@ namespace UdemyCarbook.WebApi.Controllers
             _updateCarCommandHandler = updateCarCommandHandler;
             _getCarWithBrandQueryHandler = getCarWithBrandQueryHandler;
             _getLast5CarsQueryHandler = getLast5CarsQueryHandler;
+            _getCarMainCarFeatureQueryHandler = getCarMainCarFeatureQueryHandler;
         }
 
         [HttpGet]
@@ -78,6 +82,13 @@ namespace UdemyCarbook.WebApi.Controllers
         public IActionResult GetLast5CarsQueryHandler()
         {
             var values = _getLast5CarsQueryHandler.Handle();
+            return Ok(values);
+        }
+
+        [HttpGet("GetCarMainCarFeature")]
+        public async Task<IActionResult> GetCarMainCarFeature(int id)
+        {
+            var values = await _getCarMainCarFeatureQueryHandler.Handle(new GetCarMainCarFeatureQuery(id), CancellationToken.None);
             return Ok(values);
         }
     }
