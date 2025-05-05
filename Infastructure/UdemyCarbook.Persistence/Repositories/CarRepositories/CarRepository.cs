@@ -25,6 +25,12 @@ namespace UdemyCarbook.Persistence.Repositories.CarRepositories
             return values;
         }
 
+        public Car GetCarMainCarFeature(int id)
+        {
+            var values = _context.Cars.Include(x => x.Brand).Where(x => x.CarId == id).FirstOrDefault();
+            return values;
+        }
+
         public List<Car> GetCarsListWithBrand()
         {
             var values = _context.Cars.Include(x => x.Brand).ToList();
