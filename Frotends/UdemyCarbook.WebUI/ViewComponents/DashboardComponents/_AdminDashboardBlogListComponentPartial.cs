@@ -22,7 +22,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthor>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthorDto>>(jsonData);
 
                 var pagedValues = values.ToPagedList(page, 4);
 

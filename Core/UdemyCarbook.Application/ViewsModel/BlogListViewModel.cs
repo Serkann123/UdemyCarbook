@@ -9,7 +9,7 @@ namespace UdemyCarbook.Application.ViewsModel
 {
     public class BlogListViewModel
     {
-        public List<ResultBlogsAllWithAuthor> Blogs { get; set; }
+        public List<ResultBlogsAllWithAuthorDto> Blogs { get; set; }
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }
     }
