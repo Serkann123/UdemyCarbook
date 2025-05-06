@@ -24,7 +24,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthor>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthorDto>>(jsonData);
                 return View(values);
             }
             return View();
