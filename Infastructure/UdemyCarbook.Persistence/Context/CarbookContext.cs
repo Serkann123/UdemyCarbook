@@ -34,7 +34,7 @@ namespace UdemyCarbook.Persistence.Context
         public DbSet<RendACarProcess> RendACarProcesses { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,6 @@ namespace UdemyCarbook.Persistence.Context
                 .WithMany(x => x.DropOffReservations)
                 .HasForeignKey(x => x.DropOffLocationId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
-
         }
     }
 }

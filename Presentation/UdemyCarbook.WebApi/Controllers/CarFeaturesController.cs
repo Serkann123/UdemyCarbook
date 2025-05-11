@@ -43,11 +43,11 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok("Güncelleme İşlemi Başarıyla Yapıldı");
         }
 
-        [HttpPost]
+        [HttpPost("CarFeatureByCarId")]
         public async Task<IActionResult> CarFeatureByCarId(CreateCarFeatureByCarCommand createCarFeatureByCarCommand)
         {
             await _meditor.Send(createCarFeatureByCarCommand);
-            return Ok("Cardadad başarıyla eklendi");
+            return Ok("Araç Özelliği başarıyla eklendi");
         }
 
         [HttpDelete("{id}")]
