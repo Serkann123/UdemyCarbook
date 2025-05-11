@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\UdemyCarbook.Application\UdemyCarbook.Application.csproj" />
     <ProjectReference Include="..\..\Frontends\UdemyCarbook.Dto\UdemyCarbook.Dto.csproj" />
   </ItemGroup>
 
