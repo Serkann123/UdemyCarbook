@@ -1,9 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UdemyCarbook.Application.Features.Mediator.Queries.SocailMediaQueries;
 using UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries;
-using UdemyCarbook.Application.Features.Mediator.Results.StatisticsResults;
 
 namespace UdemyCarbook.WebApi.Controllers
 {

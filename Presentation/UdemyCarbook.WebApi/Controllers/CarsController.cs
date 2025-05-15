@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.CQRS.Commands.CarCommands;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers;
 using UdemyCarbook.Application.Features.CQRS.Queries.CarQueries;
-using UdemyCarbook.Application.Features.Mediator.Queries.AuthorQueries;
-using UdemyCarbook.Application.Features.Mediator.Queries.BlogQueries;
-using UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries;
 
 namespace UdemyCarbook.WebApi.Controllers
 {

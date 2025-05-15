@@ -1,12 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UdemyCarbook.Application.Features.CQRS.Commands.BannerCommands;
-using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
 using UdemyCarbook.Application.Features.Mediator.Commands.CarFeaturesCommands;
-using UdemyCarbook.Application.Features.Mediator.Commands.TagCloudCommands;
 using UdemyCarbook.Application.Features.Mediator.Queries.CarFeatureQueries;
-using UdemyCarbook.Application.Features.Mediator.Queries.TagCloudQueries;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace UdemyCarbook.WebApi.Controllers
