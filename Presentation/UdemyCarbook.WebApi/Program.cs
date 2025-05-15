@@ -6,7 +6,6 @@ using UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CategoryHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.ContactHandlers;
-using UdemyCarbook.Application.Features.Mediator.Queries.ReviesQueries;
 using UdemyCarbook.Application.Features.RepositoryPattern;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Application.Interfaces.BlogInterfaces;
@@ -20,7 +19,6 @@ using UdemyCarbook.Application.Interfaces.StatisticsInterfaces;
 using UdemyCarbook.Application.Interfaces.TagCloudInterfaces;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Application.Validators;
-using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;
 using UdemyCarbook.Persistence.Repositories;
 using UdemyCarbook.Persistence.Repositories.BlogRepositories;
@@ -33,6 +31,13 @@ using UdemyCarbook.Persistence.Repositories.RentACarRepositories;
 using UdemyCarbook.Persistence.Repositories.ReviewRepositories;
 using UdemyCarbook.Persistence.Repositories.StatisticsRepositories;
 using UdemyCarbook.Persistence.Repositories.TagCloudRepositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using UdemyCarbook.Application.Interfaces.AppUserInterfaces;
+using UdemyCarbook.Application.Interfaces.AppRolesInterfaces;
+using UdemyCarbook.Persistence.Repositories.AppUserRepositories;
+using UdemyCarbook.Persistence.Repositories.AppRoleRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +56,9 @@ builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepositor
 builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 builder.Services.AddScoped(typeof(ICarDescriptionInterfaces), typeof(CarDescriptionRepositories));
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
+
+builder.Services.AddScoped(typeof(IAppUserRepository), typeof(AppUserRepository));
+builder.Services.AddScoped(typeof(IAppRoleRepository), typeof(AppRoleRepositories));
 
 #region
 builder.Services.AddScoped<CreateAboutCommandHandler>();
@@ -111,6 +119,23 @@ builder.Services.AddValidatorsFromAssemblyContaining<UpdateReviewValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateReviewValidator>();
 builder.Services.AddAuthentication();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateAudience = true,
+            ValidateIssuer = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ClockSkew=TimeSpan.Zero,
+            ValidAudience = builder.Configuration["Token:Audience"],
+            ValidIssuer = builder.Configuration["Token:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+        };
+    });
+
+
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -127,7 +152,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

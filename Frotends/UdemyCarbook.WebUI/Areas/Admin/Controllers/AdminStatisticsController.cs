@@ -21,7 +21,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             Random random = new Random();
             var client = _httpClientFactory.CreateClient();
 
-            #region
+            #region Araba Sayısı
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -33,7 +33,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Konum Sayısı
             var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Statistics/GetLocationQuery");
             if (responsMessage2.IsSuccessStatusCode)
             {
@@ -45,7 +45,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Blog Sayısı
             var responsMessage3 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBlogCount");
             if (responsMessage3.IsSuccessStatusCode)
             {
@@ -57,7 +57,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Yazar Sayısı
             var responsMessage4 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAuthorCount");
             if (responsMessage4.IsSuccessStatusCode)
             {
@@ -69,7 +69,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Marka Sayısı
             var responsMessage5 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandCount");
             if (responsMessage5.IsSuccessStatusCode)
             {
@@ -81,7 +81,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Günlük Kiralama
             var responsMessage6 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForDaily");
             if (responsMessage6.IsSuccessStatusCode)
             {
@@ -93,7 +93,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Haftalık Kiralama
             var responsMessage7 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForWeekly");
             if (responsMessage7.IsSuccessStatusCode)
             {
@@ -105,7 +105,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Aylık Kiralama
             var responsMessage8 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForMonthly");
             if (responsMessage8.IsSuccessStatusCode)
             {
@@ -117,7 +117,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
         #endregion
 
-            #region
+            #region Otomatik Vitesli Araç Sayısı
             var responsMessage9 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByTranmissionIsAuto");
             if (responsMessage9.IsSuccessStatusCode)
             {
@@ -129,7 +129,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Kilometresi 1000'den az olan araçların sayısı
             var responsMessage12 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByKmSmallerThen1000");
             if (responsMessage12.IsSuccessStatusCode)
             {
@@ -141,7 +141,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Yakıt türü benzinli veya dizel olan araçların sayısı
             var responsMessage13 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByFuelGasolineOrDiesel");
             if (responsMessage13.IsSuccessStatusCode)
             {
@@ -153,7 +153,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Yakıt türü elektrikli olan araçların sayısı
             var responsMessage14 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByFuelElectric");
             if (responsMessage14.IsSuccessStatusCode)
             {
@@ -165,7 +165,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Günlük kiralama fiyatı en yüksek olan aracın marka ve model bilgilerinin Sayısı
             var responsMessage15 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMax");
             if (responsMessage15.IsSuccessStatusCode)
             {
@@ -177,7 +177,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region Günlük kiralama fiyatı en düşük olan aracın marka ve model bilgilerinin Sayısı
             var responsMessage16 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMin");
             if (responsMessage16.IsSuccessStatusCode)
             {
@@ -189,7 +189,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region En fazla araca sahip marka adını döndüren sorgudur
             var responsMessage20 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandNameByMaxCar");
             if (responsMessage20.IsSuccessStatusCode)
             {
@@ -201,7 +201,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            #region
+            #region En fazla yoruma sahip blogun başlığını döndüren sorgudur
             var responsMessage21 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBlogTitleByMaxBlogComment");
             if (responsMessage21.IsSuccessStatusCode)
             {
@@ -213,10 +213,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             #endregion
 
-            return View();
-        }
-        public ActionResult deneme()
-        {
             return View();
         }
     }
