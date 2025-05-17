@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UdemyCarbook.Domain.Entities
+namespace UdemyCarbook.Dto.RegisterDtos
 {
-    public class AppUser
+    public class CreateRegisterDto
     {
-        public int AppUserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public int AppRoleId { get; set; }
-        public AppRole AppRole { get; set; }
     }
 }

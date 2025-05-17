@@ -35,7 +35,6 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.AppUserHandler
             {
                 values.IsExist = true;
                 values.UserName = user.UserName;
-                values.Password = user.Password;
                 values.AppUserId = user.AppUserId;
                 values.Role = (await _appRoleRepository.GetByFilterAsync(x => x.AppRoleId == user.AppRoleId))?.Name;
             }
