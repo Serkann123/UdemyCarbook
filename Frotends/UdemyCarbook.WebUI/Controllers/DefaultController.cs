@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using UdemyCarbook.Dto.LocationDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
@@ -17,20 +18,25 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
-            var jsonData = await responsMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
-            List<SelectListItem> values2 = (from x in values
-                                            select new SelectListItem
-                                            {
-                                                Text = x.Name,
-                                                Value = x.LocationId.ToString()
-                                            }).ToList();
+            var token = User.Claims.FirstOrDefault(x=>x.Type== "accessToken")?.Value;
+            if (token != null)
+            {
+                var client = _httpClientFactory.CreateClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+                var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+                var jsonData = await responsMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
-            ViewBag.v = values2;
+                List<SelectListItem> values2 = (from x in values
+                                                select new SelectListItem
+                                                {
+                                                    Text = x.Name,
+                                                    Value = x.LocationId.ToString()
+                                                }).ToList();
 
+                ViewBag.v = values2;
+            }
             return View();
         }
 
