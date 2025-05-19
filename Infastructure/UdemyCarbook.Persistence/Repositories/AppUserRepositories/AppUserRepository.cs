@@ -22,7 +22,6 @@ namespace UdemyCarbook.Persistence.Repositories.AppUserRepositories
 
         public async Task<AppUser> GetByFilterAsync(Expression<Func<AppUser, bool>> filter)
         {
-            var name = filter;
             var value = await _carbookContext.AppUsers.Where(filter).FirstOrDefaultAsync();
             return value;
         }
