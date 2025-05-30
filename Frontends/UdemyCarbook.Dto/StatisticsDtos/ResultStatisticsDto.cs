@@ -27,5 +27,3 @@ namespace UdemyCarbook.Dto.StatisticsDtos
         public string blogTitleByMaxBlogComment { get; set; }
     }
 }
-
-

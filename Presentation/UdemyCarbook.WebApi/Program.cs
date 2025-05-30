@@ -38,11 +38,23 @@ using UdemyCarbook.Application.Interfaces.AppUserInterfaces;
 using UdemyCarbook.Application.Interfaces.AppRolesInterfaces;
 using UdemyCarbook.Persistence.Repositories.AppUserRepositories;
 using UdemyCarbook.Persistence.Repositories.AppRoleRepositories;
+using UdemyCarbook.WebApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
 
-// Add services to the container.
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+         builder.AllowAnyHeader()
+        .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
+        .AllowCredentials();
+    });
+});
 
+builder.Services.AddSignalR();
 
 builder.Services.AddScoped<CarbookContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -151,10 +163,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<CarHub>("/carhub");
 
 app.Run();
