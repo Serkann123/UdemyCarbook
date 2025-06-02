@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
@@ -7,6 +8,7 @@ using UdemyCarbook.Dto.CarDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminCarController : Controller
     {
 

@@ -7,7 +7,7 @@ using UdemyCarbook.Application.Features.Mediator.Queries.LocationQueires;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="Admin,Member")]
     [Route("api/[controller]")]
     [ApiController]
     public class LocationsController : ControllerBase

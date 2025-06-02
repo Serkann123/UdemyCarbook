@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using UdemyCarbook.Dto.BrandDtos;
-using UdemyCarbook.Dto.CarDtos;
 using UdemyCarbook.Dto.FeatureDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminFeatureController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

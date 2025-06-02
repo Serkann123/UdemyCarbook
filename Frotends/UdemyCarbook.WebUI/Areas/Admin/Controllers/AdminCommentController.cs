@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using UdemyCarbook.Dto.CommentDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminComment")]
     public class AdminCommentController : Controller

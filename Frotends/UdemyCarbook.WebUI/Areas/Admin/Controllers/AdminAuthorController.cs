@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using UdemyCarbook.Dto.AuthorDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminAuthor")]
     public class AdminAuthorController : Controller
