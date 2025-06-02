@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -6,6 +7,7 @@ using UdemyCarbook.Dto.LocationDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminLocation")]
     public class AdminLocationController : Controller
@@ -20,14 +22,14 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-                var client = _httpClientFactory.CreateClient();
-                var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
-                if (responsMessage.IsSuccessStatusCode)
-                {
-                    var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
-                    return View(values);
-                }
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            if (responsMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responsMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+                return View(values);
+            }
             return View();
         }
 

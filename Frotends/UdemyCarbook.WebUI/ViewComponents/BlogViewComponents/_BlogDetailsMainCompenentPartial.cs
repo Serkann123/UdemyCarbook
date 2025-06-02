@@ -20,10 +20,9 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<GetBlogByIdTagCloudDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<GetBlogByIdDto>(jsonData);
                 return View(values);
             }
-
             return View();
         }
     }

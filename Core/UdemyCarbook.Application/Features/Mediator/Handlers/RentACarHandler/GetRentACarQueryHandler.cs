@@ -23,12 +23,14 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
         {
             var values = await _rentACarRepository.GetByFilterAsync(x => x.LocationId == request.LocationId && x.Available == true);
 
-            var results = values.Select(y => new GetRentACarQueryResult
+            var results = values.Select(x => new GetRentACarQueryResult
             {
-                CarId = y.CarId,
-                Brand = y.Car.Brand.Name,
-                Model = y.Car.Model,
-                CoverImageUrl=y.Car.CoverImageUrl
+                CarId = x.CarId,
+                Brand = x.Car.Brand.Name,
+                Model = x.Car.Model,
+                CoverImageUrl=x.Car.CoverImageUrl,
+                Amount = x.Car.CarPricings.Where(cp => cp.CarId == x.CarId).Select(cp => cp.Ammount).FirstOrDefault(),
+                Name = x.Car.CarPricings.FirstOrDefault()?.Piricing?.Name
             }).ToList();
 
             return results;

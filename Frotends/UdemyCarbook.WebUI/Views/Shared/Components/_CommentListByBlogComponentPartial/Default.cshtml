@@ -1,12 +1,32 @@
 ﻿@model List<ResultCommentDto>
 
+@{
+    var ImageUrls = new List<String>
+    {
+        "~/carbook-master/images/person_1.jpg",
+        "~/carbook-master/images/person_2.jpg",
+        "~/carbook-master/images/person_3.jpg",
+        "~/carbook-master/images/person_4.jpg",
+        "~/carbook-master/images/person_5.jpg",
+        "~/carbook-master/images/person_6.jpg",
+        "~/carbook-master/images/person_7.jpg",
+        "~/carbook-master/images/person_8.jpg",
+        "~/carbook-master/images/person_9.jpg",
+        "~/carbook-master/images/person_10.png",
+    };
+
+    Random rnd = new Random();
+}
+
 <ul class="comment-list">
 
 	@foreach(var item in Model)
 	{
+        var random = ImageUrls[rnd.Next(ImageUrls.Count)];
+
         <li class="comment">
             <div class="vcard bio">
-                <img src="~/carbook-master/images/person_1.jpg" alt="Image placeholder">
+                <img src="@Url.Content(random)" alt="Image placeholder">
             </div>
             <div class="comment-body">
                 <h3>@item.Name</h3>

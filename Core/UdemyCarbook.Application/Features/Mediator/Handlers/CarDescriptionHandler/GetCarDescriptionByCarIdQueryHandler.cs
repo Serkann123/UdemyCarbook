@@ -22,6 +22,17 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarDescriptionHand
         public async Task<GetCarDescriptionQueryResult> Handle(GetCarDescriptionByCarIdQuery request, CancellationToken cancellationToken)
         {
             var values = _repository.GetCarDescription(request.Id);
+
+            if (values == null)
+            {
+                return new GetCarDescriptionQueryResult
+                {
+                    CarDescriptionId = 0,
+                    CarId = request.Id,
+                    Details = "Açıklama bulunamadı."
+                };
+            }
+
             return new GetCarDescriptionQueryResult
             {
                 CarDescriptionId = values.CarDescriptionId,

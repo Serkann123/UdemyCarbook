@@ -2,8 +2,6 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
-using UdemyCarbook.Dto.CarDtos;
-using UdemyCarbook.Dto.FooterAdressDtos;
 using UdemyCarbook.Dto.RentACarFilterDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
@@ -17,15 +15,14 @@ namespace UdemyCarbook.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
+            ViewBag.v1 = "Araçlarımız";
+            ViewBag.v2 = "Seçiminize Uygun Araçlar";
 
             var locationId = TempData["locationId"];
 
-            id = int.Parse(locationId.ToString());
-
-            ViewBag.locationId = locationId;
-
+            var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
 
             var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/RentACars?locationId={id}&available=true");

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Text;
 using UdemyCarbook.Dto.LocationDtos;
 using UdemyCarbook.Dto.ReservationDtos;
@@ -23,7 +24,6 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v2 = "Araç Rezervasyon Formu";
 
             ViewBag.v3 = id;
-
             var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -36,7 +36,7 @@ namespace UdemyCarbook.WebUI.Controllers
                                                 Value = x.LocationId.ToString()
                                             }).ToList();
             ViewBag.v = values2;
-            
+
             return View();
         }
 
