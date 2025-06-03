@@ -1,4 +1,4 @@
-﻿@model UdemyCarbook.Dto.LocationDtos.ResultLocationDto;
+﻿@model ResultLocationDto
 
 @{
     ViewData["Title"] = "Index";
@@ -25,35 +25,36 @@
                             <form method="post" class="request-form ftco-animate bg-primary p-4">
                                 <h2>Şimdi Aracınızı Kiralayın</h2>
                                 <div class="form-group">
-                                    <label class="label">Alınacak Lokasyon</label>
+                                    <label class="label">Alınacak Lokasyon</label><
 
-                                    @Html.DropDownListFor(x => x.LocationId, (IEnumerable<SelectListItem>)ViewBag.v, new { @style = "width: 100%;font-weight: 200; font-size: 13px; padding: 5px;outline: none;", name = "locationId" })
-
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="label">Alınmak İstenen Tarih</label>
-                                    <input type="text" class="form-control" name="book_pick_date" id="book_pick_date_start" placeholder="Date">
+                                    @Html.DropDownListFor(x => x.LocationId, (IEnumerable<SelectListItem>)ViewBag.v, new { @class = "form-control", style = "background-color:#1089FF !important; color:white;" })
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="label">İade Tarihi</label>
-                                    <input type="text" class="form-control" name="book_off_date" id="book_pick_date_end" placeholder="Date">
+                                <div class="d-flex">
+
+                                    <div class="form-group mr-2">
+                                        <label class="label">Alınmak İstenen Tarih</label>
+                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date">
+                                    </div>
+
+                                    <div class="form-group ml-2">
+                                        <label class="label">İade Tarihi</label>
+                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date">
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="label">Alış Saati</label>
-                                    <input type="text" class="form-control" name="time_pick" id="time_pick_start" placeholder="Time">
+                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="label">İade Saati</label>
-                                    <input type="text" class="form-control" name="time_off" id="time_pick_end" placeholder="Time">
+                                    <input type="text" class="form-control" name="time_off" id="time_off" placeholder="Time">
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-secondary py-3 px-4">Araçları Listele</button>
-
+                                    <button type="submit" class="btn btn-secondary py-3 px-4">Uygun Araçları Listele</button>
                                 </div>
                             </form>
                         </div>
@@ -88,15 +89,14 @@
                                                 <span class="flaticon-rent"></span>
                                             </div>
                                             <div class="text w-100">
-                                                <h3 class="heading mb-2">Kiralamayı Tamamla</h3>
+                                                <h3 class="heading mb-2">Kiralamayı Tamamla, Hepsi Bu!</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <p><a href="#" class="btn btn-primary py-3 px-4">Oluştur</a></p>
+                                <p><a href="/Reservation/Index/" class="btn btn-primary py-3 px-4">Oluştur</a></p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -118,6 +118,5 @@
     @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
 
     @await Component.InvokeAsync("_ScriptUILayoutComponentPartial")
-
 </body>
 </html>

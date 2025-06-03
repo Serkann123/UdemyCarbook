@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using UdemyCarbook.Dto.CarDtos;
-using UdemyCarbook.Dto.CategoryDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.CarDetailViewComponents
 {

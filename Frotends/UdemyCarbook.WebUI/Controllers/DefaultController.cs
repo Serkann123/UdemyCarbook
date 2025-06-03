@@ -33,7 +33,6 @@ namespace UdemyCarbook.WebUI.Controllers
                                                     Text = x.Name,
                                                     Value = x.LocationId.ToString()
                                                 }).ToList();
-
                 ViewBag.v = values2;
             }
             return View();
