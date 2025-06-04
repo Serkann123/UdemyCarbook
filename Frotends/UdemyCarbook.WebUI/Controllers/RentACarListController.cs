@@ -15,12 +15,12 @@ namespace UdemyCarbook.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
 
             var locationId = TempData["locationId"];
 
-            id = locationId != null ? int.Parse(locationId.ToString()) : 0;
+            var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
 
             ViewBag.locationId = locationId;
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Queries.RentACarQueiries;
 using UdemyCarbook.Application.Features.Mediator.Results.RentACarResults;
 using UdemyCarbook.Application.Interfaces.RentACarInterfaces;
+using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
 {
@@ -23,12 +24,13 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
         {
             var values = await _rentACarRepository.GetByFilterAsync(x => x.LocationId == request.LocationId && x.Available == true);
 
-            var results = values.Select(y => new GetRentACarQueryResult
+            var results = values.Select(x => new GetRentACarQueryResult
             {
-                CarId = y.CarId,
-                Brand = y.Car.Brand.Name,
-                Model = y.Car.Model,
-                CoverImageUrl=y.Car.CoverImageUrl
+                CarId = x.CarId,
+                Brand = x.Car.Brand.Name,
+                Model = x.Car.Model,
+                CoverImageUrl=x.Car.CoverImageUrl,
+                Amount = x.Car.CarPricings.FirstOrDefault(y => y.CarId == x.CarId)?.Ammount ?? 0
             }).ToList();
 
             return results;
