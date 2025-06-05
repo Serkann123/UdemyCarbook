@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using UdemyCarbook.Dto.BlogDtos;
-using X.PagedList;
 using X.PagedList.Extensions;
-using X.PagedList.Mvc.Core;
 
 namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
 {
