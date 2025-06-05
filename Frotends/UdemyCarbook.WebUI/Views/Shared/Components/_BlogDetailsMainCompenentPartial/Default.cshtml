@@ -8,12 +8,11 @@
 
 	@await Component.InvokeAsync("_BlogDetailsAuthorAboutComponentPartial", new { id = ViewBag.BlogId })
 
-
 	<div class="pt-5 mt-5">
 		<h3 class="mb-5">@ViewBag.commentCount Yorum</h3>
 
 		@await Component.InvokeAsync("_CommentListByBlogComponentPartial", new { id = ViewBag.BlogId })
 
-		@await Component.InvokeAsync("_AddCommentComponentPartial")
+		@await Html.PartialAsync("~/Views/Blog/AddComment.cshtml",new UdemyCarbook.Dto.CommentDtos.CreateCommentDto { BlogId = ViewBag.BlogId })
 	</div>
 </div> 

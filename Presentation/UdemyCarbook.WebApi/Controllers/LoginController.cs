@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Queries.AppUserQueries;
-using UdemyCarbook.Application.Tools;
+using UdemyCarbook.Application.Validators.Tools;
 
 namespace UdemyCarbook.WebApi.Controllers
 {

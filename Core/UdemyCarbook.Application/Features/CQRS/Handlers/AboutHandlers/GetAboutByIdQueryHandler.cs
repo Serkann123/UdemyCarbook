@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UdemyCarbook.Application.Features.CQRS.Queries.AboutQueries;
 using UdemyCarbook.Application.Features.CQRS.Results.AboutResults;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
