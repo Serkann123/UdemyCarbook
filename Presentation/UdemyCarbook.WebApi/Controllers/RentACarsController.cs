@@ -22,7 +22,7 @@ namespace UdemyCarbook.WebApi.Controllers
             GetRentACarQuery getRentACarQuery = new GetRentACarQuery()
             {
                 Available = avilable,
-                LocationId = locationId
+                LocationId = locationId,
             };
 
             var values = await _mediator.Send(getRentACarQuery);

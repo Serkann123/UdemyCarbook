@@ -12,6 +12,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Queries.RentACarQueiries
     {
         public int LocationId { get; set; }
         public bool Available { get; set; }
+        public string PricingName { get; set; } // örn: "Haftalık", "Aylık", "Günlük"
 
     }
 }

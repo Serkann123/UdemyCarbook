@@ -14,5 +14,6 @@ namespace UdemyCarbook.Dto.CarPirincingDtos
         public decimal Amount { get; set; }
         public string CoverImageUrl { get; set; }
         public int CarId { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -1,4 +1,28 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+﻿@using System.Security.Claims
+@{
+    var userIdentity = User.Identity as ClaimsIdentity;
+    var isAuthenticated = User.Identity.IsAuthenticated;
+}
+
+<style>
+    .navbar-nav .dropdown-menu {
+        padding: 0;
+        margin: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    .dropdown-item {
+        padding: 8px 16px;
+    }
+
+    .dropdown-item:hover {
+       background-color: #1089FF;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="/Default/Index/">Car<span>Book</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,6 +38,25 @@
                 <li class="nav-item"><a href="/Car/Index/" class="nav-link">Arabalar</a></li>
                 <li class="nav-item"><a href="/Blog/Index" class="nav-link">Bloglar</a></li>
                 <li class="nav-item"><a href="/Contact/Index/" class="nav-link">İletişim</a></li>
+
+                @if (isAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a href="/Login/Logout/" class="nav-link">Çıkış Yap</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user"></i> Giriş
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                            <a class="dropdown-item" href="/Login/Index/">Giriş Yap</a>
+                            <a class="dropdown-item" href="/Register/CreateAppUser/">Kayıt Ol</a>
+                        </div>
+                    </li>
+                }
             </ul>
         </div>
     </div>

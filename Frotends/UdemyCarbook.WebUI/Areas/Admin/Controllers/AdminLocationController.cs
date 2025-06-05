@@ -22,18 +22,13 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
-            var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
-            if (token != null)
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            if (responsMessage.IsSuccessStatusCode)
             {
-                var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
-                if (responsMessage.IsSuccessStatusCode)
-                {
-                    var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
-                    return View(values);
-                }
+                var jsonData = await responsMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+                return View(values);
             }
             return View();
         }

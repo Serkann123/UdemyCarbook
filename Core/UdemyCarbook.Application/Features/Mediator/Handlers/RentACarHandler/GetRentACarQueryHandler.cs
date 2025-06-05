@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Queries.RentACarQueiries;
 using UdemyCarbook.Application.Features.Mediator.Results.RentACarResults;
 using UdemyCarbook.Application.Interfaces.RentACarInterfaces;
-using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
 {
@@ -30,7 +29,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandler
                 Brand = x.Car.Brand.Name,
                 Model = x.Car.Model,
                 CoverImageUrl=x.Car.CoverImageUrl,
-                Amount = x.Car.CarPricings.FirstOrDefault(y => y.CarId == x.CarId)?.Ammount ?? 0
+                Amount = x.Car.CarPricings.Where(cp => cp.CarId == x.CarId).Select(cp => cp.Ammount).FirstOrDefault(),
+                Name = x.Car.CarPricings.FirstOrDefault()?.Piricing?.Name
             }).ToList();
 
             return results;

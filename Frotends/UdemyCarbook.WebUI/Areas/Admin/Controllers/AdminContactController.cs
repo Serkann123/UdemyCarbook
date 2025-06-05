@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using UdemyCarbook.Dto.CreateContactDtos;
+using UdemyCarbook.Dto.ContactDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {

@@ -22,7 +22,7 @@ namespace UdemyCarbook.Persistence.Repositories.CarPirincingRepositories
 
         public List<CarPricing> GetCarPirincingWihCars()
         {
-            var values = _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(z => z.Piricing).Where(x => x.PiricingId == 2).ToList();
+            var values = _context.CarPricings.Include(x => x.Car).ThenInclude(y => y.Brand).Include(z => z.Piricing).ToList();
             return values;
         }
 

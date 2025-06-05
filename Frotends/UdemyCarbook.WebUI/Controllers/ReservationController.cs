@@ -24,23 +24,19 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v2 = "Araç Rezervasyon Formu";
 
             ViewBag.v3 = id;
-            var token = User.Claims.FirstOrDefault(x => x.Type == "accessToken")?.Value;
-            if (token != null)
-            {
-                var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+            var client = _httpClientFactory.CreateClient();
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            var jsonData = await responsMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
-                List<SelectListItem> values2 = (from x in values
-                                                select new SelectListItem
-                                                {
-                                                    Text = x.Name,
-                                                    Value = x.LocationId.ToString()
-                                                }).ToList();
-                ViewBag.v = values2;
-            }
+            List<SelectListItem> values2 = (from x in values
+                                            select new SelectListItem
+                                            {
+                                                Text = x.Name,
+                                                Value = x.LocationId.ToString()
+                                            }).ToList();
+            ViewBag.v = values2;
+
             return View();
         }
 
