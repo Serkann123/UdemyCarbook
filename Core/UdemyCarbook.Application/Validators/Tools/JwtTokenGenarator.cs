@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using UdemyCarbook.Application.Dtos;
 using UdemyCarbook.Application.Features.Mediator.Results.AppUserResults;
 
-namespace UdemyCarbook.Application.Tools
+namespace UdemyCarbook.Application.Validators.Tools
 {
     public class JwtTokenGenarator
     {

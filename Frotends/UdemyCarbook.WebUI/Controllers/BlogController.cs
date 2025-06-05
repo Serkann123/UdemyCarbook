@@ -35,11 +35,18 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v2 = "Blog Detayı ve Yorumlar";
             ViewBag.BlogId = id;
 
-            var client = _httpClientFactory.CreateClient();
-            var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Commnets/CommentCountByBlog?id="+id);
-            var jsonData2 = await responsMessage2.Content.ReadAsStringAsync();
-            ViewBag.commentCount = jsonData2;
+            return View();
+        }
 
+        [HttpGet]
+        public PartialViewResult AddComment()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(string p)
+        {
             return View();
         }
     }

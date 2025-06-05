@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using UdemyCarbook.Dto.BlogDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
@@ -20,8 +21,13 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<GetBlogByIdDto>(jsonData);
-                return View(values);
+                var value = JsonConvert.DeserializeObject<GetBlogByIdDto>(jsonData);
+
+                var CommentCountResponse = await client.GetAsync("https://localhost:7126/api/Commnets/CommentCountByBlog?id=" + id);
+                var jsonData2 = await CommentCountResponse.Content.ReadAsStringAsync();
+                ViewBag.commentCount = jsonData2;
+
+                return View(value);
             }
             return View();
         }
