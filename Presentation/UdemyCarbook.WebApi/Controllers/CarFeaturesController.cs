@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Commands.CarFeaturesCommands;
 using UdemyCarbook.Application.Features.Mediator.Queries.CarFeatureQueries;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
