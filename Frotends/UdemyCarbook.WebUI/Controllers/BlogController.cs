@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using UdemyCarbook.Dto.BlogDtos;
+using UdemyCarbook.Dto.CommentDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
@@ -45,8 +48,17 @@ namespace UdemyCarbook.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(string p)
+        public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto)
         {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createCommentDto);
+            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7126/api/Commnets/CreateCommentWithMeditor", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Default");
+            }
+
             return View();
         }
     }
