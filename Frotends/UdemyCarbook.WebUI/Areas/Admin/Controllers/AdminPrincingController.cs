@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminPrincing")]
     public class AdminPrincingController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -33,14 +31,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreatePrincing")]
         public ActionResult CreatePrincing()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreatePrincing")]
         public async Task<IActionResult> CreatePrincing(CreatePrincingDto createPrincingDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -54,7 +50,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemovePrincing/{id}")]
         public async Task<IActionResult> RemovePrincing(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -67,7 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdatePrincing/{id}")]
         public async Task<IActionResult> UpdatePrincing(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdatePrincing/{id}")]
         public async Task<IActionResult> UpdatePrincing(UpdatePrincingDto updatePrincingDto)
         {
             var client = _httpClientFactory.CreateClient();

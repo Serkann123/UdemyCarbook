@@ -7,7 +7,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminComment")]
     public class AdminCommentController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -17,7 +16,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
             ViewBag.v = id;

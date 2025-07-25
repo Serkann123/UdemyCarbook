@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminBlog")]
     public class AdminBlogController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -32,7 +30,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveBlog/{id}")]
         public async Task<IActionResult> RemoveBlog(int id)
         {
             var client = _httpClientFactory.CreateClient();

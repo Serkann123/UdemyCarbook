@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminFooterAddress")]
     public class AdminFooterAddressController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -34,14 +32,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("CreateFooterAddress")]
         public ActionResult CreateFooterAddress()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateFooterAddress")]
         public async Task<IActionResult> CreateFooterAddress(CreateFooterAddressDto createFooterAddressDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -55,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveFooterAddress/{id}")]
         public async Task<IActionResult> RemoveFooterAddress(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -68,7 +63,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateFooterAddress/{id}")]
         public async Task<IActionResult> UpdateFooterAddress(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateFooterAddress/{id}")]
         public async Task<IActionResult> UpdateFooterAddress(UpdateFooterAddressDto updateFooterAddressDto)
         {
             var client = _httpClientFactory.CreateClient();

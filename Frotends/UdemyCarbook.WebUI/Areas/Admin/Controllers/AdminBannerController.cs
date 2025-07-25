@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminBanner")]
     public class AdminBannerController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -33,14 +31,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateBanner")]
         public ActionResult CreateBanner()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateBanner")]
         public async Task<IActionResult> CreateBanner(CreateBannerDto createBannerDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -54,7 +50,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveBanner/{id}")]
         public async Task<IActionResult> RemoveBanner(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -67,7 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateBanner/{id}")]
         public async Task<IActionResult> UpdateBanner(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateBanner/{id}")]
         public async Task<IActionResult> UpdateBanner(UpdateBannerDto updateBannerDto)
         {
             var client = _httpClientFactory.CreateClient();

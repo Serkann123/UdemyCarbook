@@ -7,7 +7,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminStatistics")]
     public class AdminStatisticsController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -17,7 +16,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             Random random = new Random();

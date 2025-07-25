@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminCategory")]
     public class AdminCategoryController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -34,14 +32,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("CreateCategory")]
         public ActionResult CreateCategory()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateCategory")]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -55,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveCategory/{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -68,7 +63,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateCategory/{id}")]
         public async Task<IActionResult> UpdateCategory(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateCategory/{id}")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             var client = _httpClientFactory.CreateClient();

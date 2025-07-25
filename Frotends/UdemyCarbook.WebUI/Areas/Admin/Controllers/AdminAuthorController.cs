@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminAuthor")]
     public class AdminAuthorController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -34,14 +32,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("CreateAuthor")]
         public ActionResult CreateAuthor()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateAuthor")]
         public async Task<IActionResult> CreateAuthor(CreateAuthorDto createAuthorDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -55,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveAuthor/{id}")]
         public async Task<IActionResult> RemoveAuthor(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -68,7 +63,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateAuthor/{id}")]
         public async Task<IActionResult> UpdateAuthor(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateAuthor/{id}")]
         public async Task<IActionResult> UpdateAuthor(UpdateAuthorDto updateAuthorDto)
         {
             var client = _httpClientFactory.CreateClient();
