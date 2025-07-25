@@ -9,7 +9,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminLocation")]
     public class AdminLocationController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -19,7 +18,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -34,14 +32,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateLocation")]
         public ActionResult CreateLocation()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateLocation")]
         public async Task<IActionResult> CreateLocation(CreateLocationDto createLocationDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -55,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveLocation/{id}")]
         public async Task<IActionResult> RemoveLocation(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -68,7 +63,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateLocation/{id}")]
         public async Task<IActionResult> UpdateLocation(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -84,7 +78,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateLocation/{id}")]
         public async Task<IActionResult> UpdateLocation(UpdateLocationDto updateLocationDto)
         {
             var client = _httpClientFactory.CreateClient();

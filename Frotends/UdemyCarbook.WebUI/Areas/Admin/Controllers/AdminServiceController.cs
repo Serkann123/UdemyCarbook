@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminService")]
     public class AdminServiceController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -33,14 +31,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateService")]
         public ActionResult CreateService()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateService")]
         public async Task<IActionResult> CreateService(CreateServiceDto createServiceDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -53,8 +49,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             }
             return View();
         }
-
-        [Route("RemoveService/{id}")]
         public async Task<IActionResult> RemoveService(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -67,7 +61,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateService/{id}")]
         public async Task<IActionResult> UpdateService(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +76,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateService/{id}")]
         public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)
         {
             var client = _httpClientFactory.CreateClient();

@@ -9,7 +9,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminCarFeatureDetail")]
     public class AdminCarFeatureDetailController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -20,7 +19,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("Index/{id}")]
         public async Task<IActionResult> Index(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -35,7 +33,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("Index/{id}")]
         public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdResultDto> getCarFeatureByCarIdResultDto)
         {
 
@@ -56,7 +53,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return RedirectToAction("Index", "AdminCar");
         }
 
-        [Route("CreateCarFeatureByCar")]
         [HttpGet]
         public async Task<IActionResult> CreateCarFeatureByCar()
         {

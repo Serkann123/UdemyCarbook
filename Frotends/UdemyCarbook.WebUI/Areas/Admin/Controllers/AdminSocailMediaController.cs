@@ -8,7 +8,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    [Route("Admin/AdminSocialMedia")]
     public class AdminSocialMediaController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -18,7 +17,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -33,14 +31,12 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("CreateSocialMedia")]
         public ActionResult CreateSocialMedia()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("CreateSocialMedia")]
         public async Task<IActionResult> CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -54,7 +50,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [Route("RemoveSocialMedia/{id}")]
         public async Task<IActionResult> RemoveSocialMedia(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -67,7 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("UpdateSocialMedia/{id}")]
         public async Task<IActionResult> UpdateSocialMedia(int id)
         {
             var client = _httpClientFactory.CreateClient();
@@ -83,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Route("UpdateSocialMedia/{id}")]
         public async Task<IActionResult> UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
         {
             var client = _httpClientFactory.CreateClient();

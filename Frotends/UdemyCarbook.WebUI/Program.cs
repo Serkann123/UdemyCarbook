@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,14 +37,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Default}/{action=Index}/{id?}");
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
-});
+    pattern: "{controller=Default}/{action=Index}/{id?}"
+);
 
 app.Run();
