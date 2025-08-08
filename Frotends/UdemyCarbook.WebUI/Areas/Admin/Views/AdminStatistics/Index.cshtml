@@ -16,11 +16,11 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.v
+                                    @ViewBag.CarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.CarCountRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForDaily
+                                    @ViewBag.GetAvgRentPriceForDaily?.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -168,7 +168,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForWeekly
+                                    @ViewBag.GetAvgRentPriceForWeekly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -193,7 +193,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.getAvgRentPriceForMonthly
+                                    @ViewBag.getAvgRentPriceForMonthly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -270,7 +270,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                   @ViewBag.GetBlogTitleByMaxBlogComment
+                                    @ViewBag.GetBlogTitleByMaxBlogComment
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
