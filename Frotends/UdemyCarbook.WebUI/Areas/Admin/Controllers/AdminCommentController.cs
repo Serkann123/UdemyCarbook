@@ -20,7 +20,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             ViewBag.v = id;
             var client = _httpClientFactory.CreateClient();
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Commnets/CommentListByBlog?id=" + id);
+            var responsMessage = await client.GetAsync("https://localhost:7126/api/Comments/CommentListByBlog?id=" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

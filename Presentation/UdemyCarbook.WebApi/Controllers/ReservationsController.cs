@@ -7,11 +7,11 @@ namespace UdemyCarbook.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservertionsController : ControllerBase
+    public class ReservationsController : ControllerBase
     {
         private readonly IMediator _meditor;
 
-        public ReservertionsController(IMediator meditor)
+        public ReservationsController(IMediator meditor)
         {
             _meditor = meditor;
         }

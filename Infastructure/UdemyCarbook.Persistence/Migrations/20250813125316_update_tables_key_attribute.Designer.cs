@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UdemyCarbook.Persistence.Context;
 
@@ -11,9 +12,11 @@ using UdemyCarbook.Persistence.Context;
 namespace UdemyCarbook.Persistence.Migrations
 {
     [DbContext(typeof(CarbookContext))]
-    partial class CarbookContextModelSnapshot : ModelSnapshot
+    [Migration("20250813125316_update_tables_key_attribute")]
+    partial class update_tables_key_attribute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,17 +199,17 @@ namespace UdemyCarbook.Persistence.Migrations
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Brand", b =>
                 {
-                    b.Property<int>("BrandId")
+                    b.Property<int>("BranId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BrandId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BranId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BrandId");
+                    b.HasKey("BranId");
 
                     b.ToTable("Brands");
                 });
@@ -352,11 +355,11 @@ namespace UdemyCarbook.Persistence.Migrations
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("CommnentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommnentId"));
 
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
@@ -376,7 +379,7 @@ namespace UdemyCarbook.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("CommnentId");
 
                     b.HasIndex("BlogId");
 
@@ -522,11 +525,11 @@ namespace UdemyCarbook.Persistence.Migrations
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.RendACar", b =>
                 {
-                    b.Property<int>("RendACarId")
+                    b.Property<int>("RentACarId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RendACarId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentACarId"));
 
                     b.Property<bool>("Available")
                         .HasColumnType("bit");
@@ -537,7 +540,7 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.HasKey("RendACarId");
+                    b.HasKey("RentACarId");
 
                     b.HasIndex("CarId");
 

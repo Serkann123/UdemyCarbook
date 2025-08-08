@@ -1,15 +1,12 @@
 ﻿@model List<ResultPricingDto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Fiyat";
     int count = 0;
 }
 
-
 <div class="page-content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -41,7 +38,6 @@
                                             <td><a href="/Admin/AdminPrincing/UpdatePrincing/@item.PricingId" class="btn btn-outline-success">Güncelle</a></td>
                                         </tr>
                                     }
-
                                 </tbody>
                             </table>
                              <a href="/Admin/AdminPrincing/CreatePrincing" class="btn btn-outline-primary">Yeni Princing Girişi</a>

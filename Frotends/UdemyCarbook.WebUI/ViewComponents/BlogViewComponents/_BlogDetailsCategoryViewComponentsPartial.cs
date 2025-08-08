@@ -4,7 +4,7 @@ using UdemyCarbook.Dto.CategoryDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
-    public class _BlogDetailsCategoryViewComponentsPartial:ViewComponent
+    public class _BlogDetailsCategoryViewComponentsPartial : ViewComponent
     {
         private readonly IHttpClientFactory _HttpClientFactory;
 
@@ -21,7 +21,12 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
-                return View(values);
+                var randomCategories = values
+                .OrderBy(x => Guid.NewGuid())
+                .Take(10)
+                .ToList();
+
+                return View(randomCategories);
             }
             return View();
         }

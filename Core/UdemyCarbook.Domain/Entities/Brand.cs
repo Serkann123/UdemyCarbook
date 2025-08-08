@@ -9,8 +9,7 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class Brand
     {
-        [Key]
-        public int BranId { get; set; }
+        public int BrandId { get; set; }
         public string Name { get; set; }
         public List<Car> Cars { get; set; }
     }

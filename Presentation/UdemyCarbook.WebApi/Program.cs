@@ -127,7 +127,6 @@ builder.Services.AddAplicationService(builder.Configuration);
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
-builder.Services.AddValidatorsFromAssemblyContaining<UpdateReviewValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateReviewValidator>();
 builder.Services.AddAuthentication();
 

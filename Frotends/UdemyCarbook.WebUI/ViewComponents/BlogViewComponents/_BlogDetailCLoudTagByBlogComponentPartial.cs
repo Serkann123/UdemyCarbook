@@ -22,7 +22,10 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<GetByBlogIdTagCloudDto>>(jsonData);
-                return View(values);
+
+                var limitedValues = values.Take(10).ToList();
+
+                return View(limitedValues);
             }
             return View();
         }

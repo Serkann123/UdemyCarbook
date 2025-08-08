@@ -8,7 +8,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Commands.BrandCommands
 {
     public class UpdateBrandCommand
     {
-        public int BranId { get; set; }
+        public int BrandId { get; set; }
         public string Name { get; set; }
     }
 }

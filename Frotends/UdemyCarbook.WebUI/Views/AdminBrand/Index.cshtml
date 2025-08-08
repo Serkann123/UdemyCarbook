@@ -1,7 +1,7 @@
 ﻿@model List<ResultBrandDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Marka";
     Layout = "~/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
@@ -39,9 +39,9 @@
                                         <tr>
                                             <th scope="row">@count</th>
                                             <td>@item.Name</td>
-                                            <td><a href="/AdminBrand/RemoveBrand/@item.BranId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/AdminBrand/UpdateBrand/@item.BranId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="/AdminBrand/UpdateFeature/@item.BranId" class="btn btn-outline-dark">Markaya Ait Araçlar</a></td>
+                                            <td><a href="/AdminBrand/RemoveBrand/@item.BrandId" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/AdminBrand/UpdateBrand/@item.BrandId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td><a href="/AdminBrand/UpdateFeature/@item.BrandId" class="btn btn-outline-dark">Markaya Ait Araçlar</a></td>
                                         </tr>
                                     }
 

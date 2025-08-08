@@ -1,14 +1,12 @@
 ﻿@model List<ResultFeatureAddressDto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Alt Bilgi Adresi";
     int count = 0;
 }
 
 <div class="page-content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -42,7 +40,6 @@
                                             <td><a href="/Admin/AdminFooterAddress/UpdateFooterAddress/@item.FooterAddressId" class="btn btn-outline-success">Güncelle</a></td>
                                         </tr>
                                     }
-
                                 </tbody>
                             </table>
                            <a href="/Admin/AdminFooterAddress/CreateFooterAddress" class="btn btn-outline-primary">Yeni Adres Girişi</a>

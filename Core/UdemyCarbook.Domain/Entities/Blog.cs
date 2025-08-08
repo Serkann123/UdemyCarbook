@@ -9,7 +9,6 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class Blog
     {
-        [Key]
         public int BlogId { get; set; }
         public string Title { get; set; }
         public int AuthorId { get; set; }

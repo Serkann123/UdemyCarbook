@@ -1,14 +1,12 @@
 ﻿@model List<ResultCategoryDto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Category";
     int count = 0;
 }
 
 <div class="page-content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -42,18 +40,13 @@
                                             <td><a href="#" class="btn btn-outline-success">Kategoriye Ait Bloglar</a></td>
                                         </tr>
                                     }
-
                                 </tbody>
                             </table>
                             <a href="/Admin/AdminCategory/CreateCategory" class="btn btn-outline-primary">Yeni Kategori Blog Girişi</a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-

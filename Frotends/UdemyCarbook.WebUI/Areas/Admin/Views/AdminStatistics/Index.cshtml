@@ -1,6 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "İstatistik";
 }
 
 <div class="page-content">
@@ -16,16 +15,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.v
+                                    @ViewBag.CarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.v1% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@ViewBag.CarCountRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.v1%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.CarCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -143,7 +142,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForDaily
+                                    @ViewBag.GetAvgRentPriceForDaily?.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -168,7 +167,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForWeekly
+                                    @ViewBag.GetAvgRentPriceForWeekly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -193,7 +192,7 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.getAvgRentPriceForMonthly
+                                    @ViewBag.getAvgRentPriceForMonthly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -244,7 +243,7 @@
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
+                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
                                     @ViewBag.GetBrandNameByMaxCar
                                 </h2>
                             </div>
@@ -269,8 +268,8 @@
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                   @ViewBag.GetBlogTitleByMaxBlogComment
+                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
+                                    @ViewBag.GetBlogTitleByMaxBlogComment
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
@@ -371,9 +370,9 @@
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
-                                <h6 class="d-flex align-items-center text-white mb-0">
+                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
                                     @ViewBag.carBrandAndModeByRentPriceDailyMax
-                                </h6>
+                                </h2>
                             </div>
                             <div class="col-4 text-right">
                                 <span class="text-white-50"> @ViewBag.carBrandAndModeByRentPriceDailyMaxRandom% <i class="mdi mdi-arrow-up"></i></span>
@@ -396,17 +395,17 @@
                         </div>
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
-                                <h4 class="d-flex align-items-center text-white mb-0">
+                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
                                     @ViewBag.carBrandAndModeByRentPriceDailyMin
-                                </h4>
+                                </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50"> @ViewBag.carBrandAndModeByRentPriceDailyMinandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50"> @ViewBag.carBrandAndModeByRentPriceDailyMinRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width:  @ViewBag.carBrandAndModeByRentPriceDailyMinRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width:@ViewBag.carBrandAndModeByRentPriceDailyMinRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -414,3 +413,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded",()=>{
+        const h2Element=document.querySelectorAll("#stat-title");
+
+        h2Element.forEach(h2=>{
+            let text=h2.textContent.trim();
+            console.log(h2.textContent.trim().length);
+           if(text.length>15){
+               h2.style.setProperty("font-size","15px","important");
+           }
+        });
+    });
+</script>

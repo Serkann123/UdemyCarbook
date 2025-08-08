@@ -1,41 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
-}
-
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-
-@section Scripts {
-
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <script type="text/javascript">
-                            $(document).ready(()=>{
-                                var connection = new signalR.HubConnectionBuilder()
-                                    .withUrl("https://localhost:7126/CarHub")
-                                    .build();
-                                $('#constatus').text(connection.state);
-
-                                connection.start()
-                                    .then(() => {
-                                        $('#constatus').text(connection.state);
-                                       setInterval(()=>{
-                                            connection.invoke("SendCarCount");
-                                       },1000)
-                                    }).catch((err)=>{console.log(err)});
-
-                                    connection.on("ReceiveCarCount",(value)=>{
-                                        $("#carCount").text(value);
-                                    });
-                            });
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -50,3 +15,38 @@
         </div>
     </div>
 </div>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(()=>{
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl("https://localhost:7126/CarHub")
+                .build();
+            $('#constatus').text(connection.state);
+
+            connection.start()
+                .then(() => {
+                    $('#constatus').text(connection.state);
+                   setInterval(()=>{
+                        connection.invoke("SendCarCount");
+                   },1000)
+                }).catch((err)=>{console.log(err)});
+
+                connection.on("ReceiveCarCount",(value)=>{
+                    $("#carCount").text(value);
+                });
+        });
+    </script>
+}
