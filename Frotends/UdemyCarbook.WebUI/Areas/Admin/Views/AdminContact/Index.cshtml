@@ -1,8 +1,7 @@
 ﻿@model List<ResultContactDto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "İletişim";
     int count = 0;
 }
 
@@ -56,7 +55,6 @@
                                         <td>@item.Message</td>
                                     </tr>
                                 }
-                           
                             </tbody>
                         </table>
                     </div>
@@ -64,7 +62,6 @@
             </div>
         </div>
     </div>
-
     </div>
 
     <script src="assets/js/jquery.min.js"></script>
@@ -88,5 +85,4 @@
     <script src="~/Admin/plugins/datatables/vfs_fonts.js"></script>
 
     <script src="assets/pages/datatables-demo.js"></script>
-
     <script src="assets/js/theme.js"></script>

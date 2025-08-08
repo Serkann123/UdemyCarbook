@@ -1,6 +1,5 @@
 ﻿@{
-	ViewData["Title"] = "Index";
-	Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "Yönetici Paneli";
 	int page = ViewBag.CurrentPage ?? 1;
 }
 
@@ -24,6 +23,5 @@
 
 			@await Component.InvokeAsync("_AdminDashboardBlogListComponentPartial", new { page = page })
 		</div>
-
 	</div>
 </div>
