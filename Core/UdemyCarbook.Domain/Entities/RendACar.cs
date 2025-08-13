@@ -9,6 +9,7 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class RendACar
     {
+        [Key]
         public int RentACarId { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
