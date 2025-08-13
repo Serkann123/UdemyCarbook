@@ -3,10 +3,11 @@
 <div class="sidebar-box ftco-animate">
     <div class="categories">
         <h3>Kategoriler</h3>
-        @foreach (var item in Model)
-        {
-            <li><a href="#">@item.Name <span>(12)</span></a></li>
-        }
+      <ul style="padding:0;">
+            @foreach (var item in Model)
+            {
+                <li><a href="#">@item.Name</a></li>
+            }
+      </ul>
     </div>
-
 </div>

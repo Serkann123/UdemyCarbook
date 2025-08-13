@@ -10,7 +10,6 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class RendACarProcess
     {
-        [Key]
         public int RendACarProcessId { get; set; }
         public int CarId { get; set; }
         public Car Car { get; set; }

@@ -9,7 +9,6 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class Banner
     {
-        [Key]
         public int BannerId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
