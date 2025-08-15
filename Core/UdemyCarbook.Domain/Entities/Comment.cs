@@ -9,8 +9,7 @@ namespace UdemyCarbook.Domain.Entities
 {
     public class Comment
     {
-        [Key]
-        public int CommnentId { get; set; }
+        public int CommentId { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
         public string Description { get; set; }

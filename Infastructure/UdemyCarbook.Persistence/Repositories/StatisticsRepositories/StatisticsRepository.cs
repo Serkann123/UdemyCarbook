@@ -40,7 +40,7 @@ namespace UdemyCarbook.Persistence.Repositories.StatisticsRepositories
                     Count = y.Count()
                 }).OrderByDescending(z => z.Count).FirstOrDefault();
 
-            var brandName = _context.Brands.Where(x => x.BranId == values.BrandId).Select(y => y.Name).FirstOrDefault();
+            var brandName = _context.Brands.Where(x => x.BrandId == values.BrandId).Select(y => y.Name).FirstOrDefault();
             return brandName;
         }
 

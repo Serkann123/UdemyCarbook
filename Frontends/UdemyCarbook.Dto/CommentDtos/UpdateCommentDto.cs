@@ -8,7 +8,7 @@ namespace UdemyCarbook.Dto.CommentDtos
 {
     public class UpdateCommentDto
     {
-        public int CommnentId { get; set; }
+        public int CommentId { get; set; }
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
         public string Description { get; set; }

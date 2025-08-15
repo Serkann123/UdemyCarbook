@@ -29,7 +29,7 @@ namespace UdemyCarbook.Persistence.Repositories.CommentRepositories
         {
             return _context.Comments.Select(x=>new Comment
             {
-                CommnentId=x.CommnentId,
+                CommentId=x.CommentId,
                 Blog=x.Blog,
                 CreateDate=x.CreateDate,
                 Description=x.Description,
@@ -49,7 +49,7 @@ namespace UdemyCarbook.Persistence.Repositories.CommentRepositories
 
         public void Remove(Comment entity)
         {
-            var value = _context.Comments.Find(entity.CommnentId);
+            var value = _context.Comments.Find(entity.CommentId);
             _context.Comments.Remove(value);
             _context.SaveChanges();
         }

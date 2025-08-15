@@ -9,12 +9,12 @@ namespace UdemyCarbook.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommnetsController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly IGenericRepository<Comment> _repository;
         private readonly IMediator _meditor;
 
-        public CommnetsController(IGenericRepository<Comment> repository, IMediator meditor)
+        public CommentsController(IGenericRepository<Comment> repository, IMediator meditor)
         {
             _repository = repository;
             _meditor = meditor;

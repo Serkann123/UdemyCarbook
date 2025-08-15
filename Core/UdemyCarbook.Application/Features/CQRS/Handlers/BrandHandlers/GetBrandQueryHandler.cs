@@ -23,7 +23,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers
             var values = await _repository.GetAllAsync();
             return values.Select(x => new GetBrandQueryResult
             {
-               BranId=x.BranId,
+                BrandId = x.BrandId,
                Name=x.Name
             }).ToList();
         }

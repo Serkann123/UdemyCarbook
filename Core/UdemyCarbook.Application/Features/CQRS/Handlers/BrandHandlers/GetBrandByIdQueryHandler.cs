@@ -24,7 +24,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers
             var values = await _repository.GetByIdAsync(query.Id);
             return new GetBrandByIdQueryResult
             {
-               BranId=values.BranId,
+                BrandId = values.BrandId,
                Name=values.Name
             };
         }

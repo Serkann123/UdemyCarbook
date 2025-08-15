@@ -44,7 +44,7 @@ namespace UdemyCarbook.WebUI.Controllers
                                                 select new SelectListItem
                                                 {
                                                     Text = x.Name,
-                                                    Value = x.BranId.ToString()
+                                                    Value = x.BrandId.ToString()
                                                 }).ToList();
             ViewBag.BrandValues = brandValues;
 
@@ -89,7 +89,7 @@ namespace UdemyCarbook.WebUI.Controllers
                                                 select new SelectListItem
                                                 {
                                                     Text = x.Name,
-                                                    Value = x.BranId.ToString()
+                                                    Value = x.BrandId.ToString()
                                                 }).ToList();
             ViewBag.BrandValues = brandValues;
 
