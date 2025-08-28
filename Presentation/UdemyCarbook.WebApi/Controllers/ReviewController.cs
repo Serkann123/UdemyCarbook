@@ -1,10 +1,7 @@
-﻿using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Commands.ReviewCommands;
 using UdemyCarbook.Application.Features.Mediator.Queries.ReviesQueries;
-using UdemyCarbook.Application.Validators;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
@@ -29,13 +26,6 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpPost("CreateReview")]
         public async Task<IActionResult> CreateReview(CreateReviewCommand command)
         {
-            CreateReviewValidator valitor = new CreateReviewValidator();
-            var validatorResult = valitor.Validate(command);
-            if (!validatorResult.IsValid)
-            {
-                return BadRequest(validatorResult.Errors);
-            }
-
             await _mediator.Send(command);
             return Ok("Ekleme işlemi yapıldı");
         }
@@ -43,13 +33,6 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpPut("UpdateReview")]
         public async Task<IActionResult> UpdateReview(UpdateReviewCommand command)
         {
-            UpdateReviewValidator valitor = new UpdateReviewValidator();
-            var validatorResult = valitor.Validate(command);
-            if (!validatorResult.IsValid)
-            {
-                return BadRequest(validatorResult.Errors);
-            }
-
             await _mediator.Send(command);
             return Ok("Güncelleme işlemi yapıldı");
         }
