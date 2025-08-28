@@ -1,18 +1,24 @@
-using FluentValidation.AspNetCore;
 using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.BannerHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.CategoryHandlers;
 using UdemyCarbook.Application.Features.CQRS.Handlers.ContactHandlers;
-using UdemyCarbook.Application.Features.RepositoryPattern;
 using UdemyCarbook.Application.Interfaces;
+using UdemyCarbook.Application.Interfaces.AppRolesInterfaces;
+using UdemyCarbook.Application.Interfaces.AppUserInterfaces;
 using UdemyCarbook.Application.Interfaces.BlogInterfaces;
 using UdemyCarbook.Application.Interfaces.CarDescriptionInterfaces;
 using UdemyCarbook.Application.Interfaces.CarFeatureInterfaces;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
 using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
+using UdemyCarbook.Application.Interfaces.CommentInterfaces;
 using UdemyCarbook.Application.Interfaces.RentACarInterfaces;
 using UdemyCarbook.Application.Interfaces.ReviewInterfaces;
 using UdemyCarbook.Application.Interfaces.StatisticsInterfaces;
@@ -21,6 +27,8 @@ using UdemyCarbook.Application.Services;
 using UdemyCarbook.Application.Validators;
 using UdemyCarbook.Persistence.Context;
 using UdemyCarbook.Persistence.Repositories;
+using UdemyCarbook.Persistence.Repositories.AppRoleRepositories;
+using UdemyCarbook.Persistence.Repositories.AppUserRepositories;
 using UdemyCarbook.Persistence.Repositories.BlogRepositories;
 using UdemyCarbook.Persistence.Repositories.CarDescriptionRepositories;
 using UdemyCarbook.Persistence.Repositories.CarFeatureRepositories;
@@ -31,13 +39,6 @@ using UdemyCarbook.Persistence.Repositories.RentACarRepositories;
 using UdemyCarbook.Persistence.Repositories.ReviewRepositories;
 using UdemyCarbook.Persistence.Repositories.StatisticsRepositories;
 using UdemyCarbook.Persistence.Repositories.TagCloudRepositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using UdemyCarbook.Application.Interfaces.AppUserInterfaces;
-using UdemyCarbook.Application.Interfaces.AppRolesInterfaces;
-using UdemyCarbook.Persistence.Repositories.AppUserRepositories;
-using UdemyCarbook.Persistence.Repositories.AppRoleRepositories;
 using UdemyCarbook.WebApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,23 +57,24 @@ builder.Services.AddCors(opt =>
 
 builder.Services.AddSignalR();
 
-builder.Services.AddScoped<CarbookContext>();
+builder.Services.AddDbContext<CarbookContext>(options =>
+   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
 builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
 builder.Services.AddScoped(typeof(ICarPirincingRepository), typeof(CarPirincingRepository));
 builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(CommentRepository<>));
+builder.Services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
 builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
 builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
 builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
 builder.Services.AddScoped(typeof(ICarDescriptionInterfaces), typeof(CarDescriptionRepositories));
 builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
-
 builder.Services.AddScoped(typeof(IAppUserRepository), typeof(AppUserRepository));
 builder.Services.AddScoped(typeof(IAppRoleRepository), typeof(AppRoleRepositories));
 
-#region
+#region About
 builder.Services.AddScoped<CreateAboutCommandHandler>();
 builder.Services.AddScoped<GetAboutByIdQueryHandler>();
 builder.Services.AddScoped<GetAboutQueryHandler>();
@@ -80,7 +82,7 @@ builder.Services.AddScoped<RemoveAboutCommandHandler>();
 builder.Services.AddScoped<UpdateAboutCommandHandler>();
 #endregion
 
-#region
+#region Banner
 builder.Services.AddScoped<CreateBannerCommandHandler>();
 builder.Services.AddScoped<GetBannerQueryHandler>();
 builder.Services.AddScoped<GetBannerByIdQýueryHandler>();
@@ -88,7 +90,7 @@ builder.Services.AddScoped<RemoveBannerCommandHandler>();
 builder.Services.AddScoped<UpdateBannerCommandHandler>();
 #endregion
 
-#region
+#region Brand
 builder.Services.AddScoped<CreateBrandCommandHandler>();
 builder.Services.AddScoped<GetBrandByIdQueryHandler>();
 builder.Services.AddScoped<GetBrandQueryHandler>();
@@ -96,7 +98,7 @@ builder.Services.AddScoped<RemoveBrandCommandHandler>();
 builder.Services.AddScoped<UpdateBrandCommandHandler>();
 #endregion
 
-#region
+#region Car
 builder.Services.AddScoped<CreateCarCommandHandler>();
 builder.Services.AddScoped<RemoveCarCommandHandler>();
 builder.Services.AddScoped<UpdateCarCommandHandler>();
@@ -107,7 +109,7 @@ builder.Services.AddScoped<GetLast5CarsQueryHandler>();
 builder.Services.AddScoped<GetCarMainCarFeatureQueryHandler>();
 #endregion
 
-#region
+#region Category
 builder.Services.AddScoped<CreateCategoryCommandHandler>();
 builder.Services.AddScoped<RemoveCategoryCommandHandler>();
 builder.Services.AddScoped<UpdateCategoryCommandHandler>();
@@ -115,7 +117,7 @@ builder.Services.AddScoped<GetCategoryByIdQueryHandler>();
 builder.Services.AddScoped<GetCategoryQueryHandler>();
 #endregion
 
-#region
+#region Contact
 builder.Services.AddScoped<CreateContactCommandHandler>();
 builder.Services.AddScoped<RemoveContactCommandHandler>();
 builder.Services.AddScoped<UpdateContactCommandHandler>();

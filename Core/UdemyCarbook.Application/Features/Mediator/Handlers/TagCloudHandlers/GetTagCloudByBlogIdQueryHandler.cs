@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Queries.TagCloudQueries;
-using UdemyCarbook.Application.Features.RepositoryPattern.TagCloudResults;
+using UdemyCarbook.Application.Features.Mediator.Results.TagCloudResults;
 using UdemyCarbook.Application.Interfaces.TagCloudInterfaces;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.TagCloudHandlers

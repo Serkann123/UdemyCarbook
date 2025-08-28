@@ -5,9 +5,9 @@ namespace UdemyCarbook.Persistence.Context
 {
     public class CarbookContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CarbookContext(DbContextOptions<CarbookContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-8QCVOCH\\SQLEXPRESS; initial Catalog=UdemyCarbookDb; integrated security=true; TrustServerCertificate=true;");
+
         }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }

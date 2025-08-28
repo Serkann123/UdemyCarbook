@@ -32,7 +32,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Route("CreateTestimonial")]
         public ActionResult CreateTestimonial()
         {
             return View();

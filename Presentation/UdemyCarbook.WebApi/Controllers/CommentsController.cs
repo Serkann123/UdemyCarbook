@@ -1,9 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Commands.CommentCommands;
-using UdemyCarbook.Application.Features.RepositoryPattern;
-using UdemyCarbook.Domain.Entities;
+using UdemyCarbook.Application.Features.Mediator.Queries.CommentQueires;
 
 namespace UdemyCarbook.WebApi.Controllers
 {
@@ -11,70 +9,60 @@ namespace UdemyCarbook.WebApi.Controllers
     [ApiController]
     public class CommentsController : ControllerBase
     {
-        private readonly IGenericRepository<Comment> _repository;
         private readonly IMediator _meditor;
 
-        public CommentsController(IGenericRepository<Comment> repository, IMediator meditor)
+        public CommentsController(IMediator meditor)
         {
-            _repository = repository;
             _meditor = meditor;
         }
 
         [HttpGet]
-        public IActionResult CommnentList()
+        public async Task<IActionResult> CommnentList()
         {
-            var values = _repository.GetAll();
+            var values =await _meditor.Send(new GetCommentQuery());
             return Ok(values);
         }
 
         [HttpPost]
-        public IActionResult CreateComment(Comment comment)
+        public async Task<IActionResult> CreateComment(CreateCommentCommannd command)
         {
-            _repository.Create(comment);
+            await _meditor.Send(command);
             return Ok("Yorum başarıyla eklendi");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult RemoveComment(int id)
+        public async Task<IActionResult> RemoveComment(int id)
         {
-            var value=_repository.GetById(id);
-            _repository.Remove(value);
+            await _meditor.Send(new RemoveCommentCommand(id));
             return Ok("Yorum başarıyla silindi");
         }
 
         [HttpPut]
-        public IActionResult UpdateComment(Comment comment)
+        public async Task<IActionResult> UpdateComment(UpdateCommentCommand command)
         {
-            _repository.Update(comment);
+            await _meditor.Send(command);
             return Ok("Yorum başarıyla güncellendi");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetComment(int id)
+        public async Task<IActionResult> GetComment(int id)
         {
-            var values = _repository.GetById(id);
+            var values = await _meditor.Send(new GetCommentByIdQuery(id));
             return Ok(values);
         }
 
         [HttpGet("CommentListByBlog")]
         public async Task<IActionResult> CommentListByBlog(int id)
         {
-            var values = _repository.GetCommentsByBlogId(id);
+            var values =await _meditor.Send(new GetCommentListByBlogIdQuery(id));
             return Ok(values);
         }
 
         [HttpGet("CommentCountByBlog")]
         public async Task<IActionResult> CommentCountByBlog(int id)
         {
-            var value = _repository.GetCountCommentBlog(id);
+            var value = await _meditor.Send(new GetCountCommentBlogQuery(id));
             return Ok(value);
-        }
-
-        [HttpPost("CreateCommentWithMeditor")]
-        public async Task<IActionResult> Handle(CreateCommentCommannd command)
-        {
-            await _meditor.Send(command);
-            return Ok("Yorum işlemi başarıyla yapıldı");
         }
     }
 }

@@ -34,6 +34,5 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandl
 
         }
     }
-
 }
 

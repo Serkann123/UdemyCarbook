@@ -24,7 +24,7 @@ namespace UdemyCarbook.Application.Authors.Mediator.Handlers.AuthorHandlers
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetAuthorByIdQueryResult
             {
-                AuthorId = request.Id,
+                AuthorId = values.AuthorId,
                 Description= values.Description,
                 ImageUrl = values.ImageUrl,
                 Name = values.Name
