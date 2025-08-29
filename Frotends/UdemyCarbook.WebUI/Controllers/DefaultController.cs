@@ -17,7 +17,7 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            var responsMessage = await client.GetAsync("Locations");
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 

@@ -15,7 +15,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Cars/GetLast5CarsQueryHandler");
+            var responsMessage = await client.GetAsync("Cars/GetLast5CarsQueryHandler");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

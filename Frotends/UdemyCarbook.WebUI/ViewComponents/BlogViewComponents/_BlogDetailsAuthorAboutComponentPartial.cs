@@ -15,7 +15,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/getBlogByAuthorId?id={id}");
+            var responsMessage = await client.GetAsync($"Blog/getBlogByAuthorId?id={id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

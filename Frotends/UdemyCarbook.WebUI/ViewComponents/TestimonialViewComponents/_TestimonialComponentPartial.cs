@@ -6,17 +6,16 @@ namespace UdemyCarbook.WebUI.ViewComponents.TestimonialViewComponents
 {
     public class _TestimonialComponentPartial:ViewComponent
     {
-        private readonly IHttpClientFactory _HttpCleintFactory;
+        private readonly HttpClient client;
 
         public _TestimonialComponentPartial(IHttpClientFactory httpCleintFactory)
         {
-            _HttpCleintFactory = httpCleintFactory;
+            client = httpCleintFactory.CreateClient("CarApi");
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _HttpCleintFactory.CreateClient();
-            var ressponsMessage = await client.GetAsync("https://localhost:7126/api/TestiMonial");
+            var ressponsMessage = await client.GetAsync("Testimonial");
             if (ressponsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await ressponsMessage.Content.ReadAsStringAsync();

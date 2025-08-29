@@ -16,7 +16,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HttpResponseMessage responseMessage= await client.GetAsync("https://localhost:7126/api/Reservations");
+            HttpResponseMessage responseMessage= await client.GetAsync("Reservations");
             if (responseMessage.IsSuccessStatusCode)
             {
                 string jsonData = await responseMessage.Content.ReadAsStringAsync();

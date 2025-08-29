@@ -1,27 +1,33 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
 using System;
-using UdemyCarbook.Dto.StatisticsDtos;
+using System.Text.Json;
+using UdemyCarbook.Application.Features.Mediator.Results.StatisticsResults;
 
 namespace UdemyCarbook.WebApi.Hubs
 {
-    public class CarHub:Hub
+    public class CarHub : Hub
     {
-        private readonly HttpClient client;
+        private readonly IHttpClientFactory _httpClientFactory;
         public CarHub(IHttpClientFactory httpClientFactory)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task SendCarCount()
         {
-           
+            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData);
-                await Clients.All.SendAsync("ReceiveCarCount", values.CarCount);
+
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var values = JsonSerializer.Deserialize<GetCarCountQueryResult>(jsonData,options);
+                await Clients.All.SendAsync("ReceiveCarCount", values.CarCount ?? 0);
             }
         }
     }

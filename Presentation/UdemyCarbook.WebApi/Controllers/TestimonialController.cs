@@ -9,11 +9,11 @@ namespace UdemyCarbook.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestiMonialController : ControllerBase
+    public class TestimonialController : ControllerBase
     {
         private readonly IMediator _meditor;
 
-        public TestiMonialController(IMediator meditor)
+        public TestimonialController(IMediator meditor)
         {
             _meditor = meditor;
         }

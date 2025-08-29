@@ -22,7 +22,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
             var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
            
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/RentACars?locationId={id}&available=true");
+            var responsMessage = await client.GetAsync($"RentACars?locationId={id}&available=true");
 
             if (responsMessage.IsSuccessStatusCode)
             {

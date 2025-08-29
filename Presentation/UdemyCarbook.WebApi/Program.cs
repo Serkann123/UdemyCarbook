@@ -61,18 +61,18 @@ builder.Services.AddDbContext<CarbookContext>(options =>
    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped(typeof(ICarRepository), typeof(CarRepository));
-builder.Services.AddScoped(typeof(IBlogRepository), typeof(BlogRepository));
-builder.Services.AddScoped(typeof(ICarPirincingRepository), typeof(CarPirincingRepository));
-builder.Services.AddScoped(typeof(ITagCloudRepository), typeof(TagCloudRepository));
-builder.Services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
-builder.Services.AddScoped(typeof(IStatisticsRepository), typeof(StatisticsRepository));
-builder.Services.AddScoped(typeof(IRentACarRepository), typeof(RentACarRepository));
-builder.Services.AddScoped(typeof(ICarFeatureRepository), typeof(CarFeatureRepository));
-builder.Services.AddScoped(typeof(ICarDescriptionInterfaces), typeof(CarDescriptionRepositories));
-builder.Services.AddScoped(typeof(IReviewRepository), typeof(ReviewRepository));
-builder.Services.AddScoped(typeof(IAppUserRepository), typeof(AppUserRepository));
-builder.Services.AddScoped(typeof(IAppRoleRepository), typeof(AppRoleRepositories));
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<ICarPirincingRepository, CarPirincingRepository>();
+builder.Services.AddScoped<ITagCloudRepository, TagCloudRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+builder.Services.AddScoped<IRentACarRepository, RentACarRepository>();
+builder.Services.AddScoped<ICarFeatureRepository, CarFeatureRepository>();
+builder.Services.AddScoped<ICarDescriptionInterfaces, CarDescriptionRepositories>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+builder.Services.AddScoped<IAppRoleRepository, AppRoleRepositories>();
 
 #region About
 builder.Services.AddScoped<CreateAboutCommandHandler>();

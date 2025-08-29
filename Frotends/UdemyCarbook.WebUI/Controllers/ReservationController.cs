@@ -24,7 +24,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
             ViewBag.v3 = id;
            
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
+            var responsMessage = await client.GetAsync("Locations");
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
@@ -44,7 +44,7 @@ namespace UdemyCarbook.WebUI.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createReservationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7126/api/Reservations", stringContent);
+            var responseMessage = await client.PostAsync("Reservations", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Default");

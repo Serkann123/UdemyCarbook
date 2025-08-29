@@ -29,7 +29,7 @@ namespace UdemyCarbook.WebUI.Controllers
         {
            
             var content = new StringContent(JsonSerializer.Serialize(resultLoginDto), Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7126/api/Login", content);
+            var responseMessage = await client.PostAsync("Login", content);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

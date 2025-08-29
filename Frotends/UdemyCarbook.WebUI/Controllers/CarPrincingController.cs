@@ -18,7 +18,7 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v1 = "Paketler";
             ViewBag.v2 = "Araç Fiyat Paketleri";
            
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/CarPrincings/GetCarPrincingWithTimePeriodQuery");
+            var responsMessage = await client.GetAsync("CarPrincings/GetCarPrincingWithTimePeriodQuery");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

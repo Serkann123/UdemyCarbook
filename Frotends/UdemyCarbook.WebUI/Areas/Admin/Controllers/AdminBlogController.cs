@@ -18,7 +18,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Blog/GetBlogsAllWithAuthorsList");
+            var responsMessage = await client.GetAsync("Blog/GetBlogsAllWithAuthorsList");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -30,7 +30,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveBlog(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Blog/{id}");
+            var responsMessage = await client.DeleteAsync($"Blog/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
