@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("CarApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7126/api/");
+});
 builder.Services.AddTransient<GenericStatistics>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(

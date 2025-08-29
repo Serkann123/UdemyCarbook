@@ -7,16 +7,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminReservationsController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminReservationsController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            HttpClient client = _httpClientFactory.CreateClient();
             HttpResponseMessage responseMessage= await client.GetAsync("https://localhost:7126/api/Reservations");
             if (responseMessage.IsSuccessStatusCode)
             {

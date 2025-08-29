@@ -8,16 +8,15 @@ namespace UdemyCarbook.WebUI.ViewComponents.UIViewComponents
 {
     public class _FooterUILayoutComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public _FooterUILayoutComponentPartial(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress/1");
 
             if (responseMessage.IsSuccessStatusCode)

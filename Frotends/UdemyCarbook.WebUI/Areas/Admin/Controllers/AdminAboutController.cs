@@ -10,16 +10,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminAboutController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminAboutController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Abouts");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -40,7 +39,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createAboutDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/Abouts", stringContent);
@@ -53,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveAbout(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Abouts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -65,7 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/Abouts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -79,7 +75,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateAboutDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/Abouts/", stringContent);

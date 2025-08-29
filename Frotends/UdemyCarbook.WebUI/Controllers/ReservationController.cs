@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text;
 using UdemyCarbook.Dto.LocationDtos;
 using UdemyCarbook.Dto.ReservationDtos;
@@ -10,11 +9,11 @@ namespace UdemyCarbook.WebUI.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public ReservationController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         [HttpGet]
@@ -24,7 +23,7 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v2 = "Araç Rezervasyon Formu";
 
             ViewBag.v3 = id;
-            var client = _httpClientFactory.CreateClient();
+           
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
@@ -43,7 +42,6 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateReservationDto createReservationDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createReservationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7126/api/Reservations", stringContent);

@@ -11,17 +11,16 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminCarFeatureDetailController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminCarFeatureDetailController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/CarFeatures?id=" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -35,18 +34,17 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdResultDto> getCarFeatureByCarIdResultDto)
         {
-
             foreach (var item in getCarFeatureByCarIdResultDto)
             {
                 if (item.Available)
                 {
-                    var client = _httpClientFactory.CreateClient();
+                   
                     await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToTrue?id=" + item.CarFeatureId);
                 }
 
                 else
                 {
-                    var client = _httpClientFactory.CreateClient();
+                   
                     await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToFalse?id=" + item.CarFeatureId);
                 }
             }
@@ -56,7 +54,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateCarFeatureByCar()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Features");
             if (responsMessage.IsSuccessStatusCode)
             {

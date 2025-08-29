@@ -10,16 +10,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminFooterAddressController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminFooterAddressController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -40,7 +39,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFooterAddress(CreateFooterAddressDto createFooterAddressDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createFooterAddressDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/FooterAddress", stringContent);
@@ -53,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveFooterAddress(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/FooterAddress/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -65,7 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateFooterAddress(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/FooterAddress/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -79,7 +75,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateFooterAddress(UpdateFooterAddressDto updateFooterAddressDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateFooterAddressDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/FooterAddress/", stringContent);

@@ -10,16 +10,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminContactController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminContactController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Contacts");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -32,7 +31,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveContact(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Contacts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {

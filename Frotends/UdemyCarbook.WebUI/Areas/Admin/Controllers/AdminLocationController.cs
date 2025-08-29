@@ -11,16 +11,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminLocationController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminLocationController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Locations");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -40,7 +39,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateLocation(CreateLocationDto createLocationDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createLocationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/Locations", stringContent);
@@ -53,7 +51,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveLocation(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Locations/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -65,8 +62,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateLocation(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/Locations/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -80,7 +75,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateLocation(UpdateLocationDto updateLocationDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateLocationDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/Locations/", stringContent);

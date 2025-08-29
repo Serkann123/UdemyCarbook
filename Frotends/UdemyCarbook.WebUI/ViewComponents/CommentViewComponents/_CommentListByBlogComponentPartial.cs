@@ -6,11 +6,11 @@ namespace UdemyCarbook.WebUI.ViewComponents.CommentViewComponents
 {
     public class _CommentListByBlogComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _HttpClientFactory;
+        private readonly HttpClient client;
 
         public _CommentListByBlogComponentPartial(IHttpClientFactory httpClientFactory)
         {
-            _HttpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         private List<string> GetImageUrls()
@@ -43,7 +43,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.CommentViewComponents
             Random rnd = new Random();
             
             ViewBag.blogId = id;
-            var client = _HttpClientFactory.CreateClient();
+           
             var responseMessage = await client.GetAsync($"https://localhost:7126/api/Comments/CommentListByBlog?id=" + id);
 
             if (responseMessage.IsSuccessStatusCode)

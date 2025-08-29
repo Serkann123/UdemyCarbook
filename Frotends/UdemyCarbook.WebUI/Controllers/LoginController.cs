@@ -12,11 +12,11 @@ namespace UdemyCarbook.WebUI.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public LoginController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public IActionResult Index()
@@ -27,7 +27,7 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ResultLoginDto resultLoginDto)
         {
-            var client = _httpClientFactory.CreateClient();
+           
             var content = new StringContent(JsonSerializer.Serialize(resultLoginDto), Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7126/api/Login", content);
             if (responseMessage.IsSuccessStatusCode)

@@ -11,11 +11,11 @@ namespace UdemyCarbook.WebUI.Models
 {
     public class GenericStatistics
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public GenericStatistics(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task setViewBagData<T>(
@@ -25,7 +25,7 @@ namespace UdemyCarbook.WebUI.Models
                 Func<T, object> selector
                 )
         {
-            var client = _httpClientFactory.CreateClient();
+           
             var response = await client.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)

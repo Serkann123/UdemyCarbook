@@ -15,7 +15,6 @@ namespace UdemyCarbook.WebUI.ViewComponents.TestimonialViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-
             var client = _HttpCleintFactory.CreateClient();
             var ressponsMessage = await client.GetAsync("https://localhost:7126/api/TestiMonial");
             if (ressponsMessage.IsSuccessStatusCode)

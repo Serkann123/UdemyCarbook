@@ -9,16 +9,15 @@ namespace UdemyCarbook.WebUI.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminFeatureController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminFeatureController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Features");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -38,7 +37,6 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFeature(CreateFeatureDto CreateFeatureDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(CreateFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/Features", stringContent);
@@ -51,7 +49,6 @@ namespace UdemyCarbook.WebUI.Controllers
 
         public async Task<IActionResult> RemoveFeature(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Features/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -63,8 +60,6 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateFeature(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/Features/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -78,7 +73,6 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateFeature(UpdateFeatureDto updateFeatureDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/Features/", stringContent);
@@ -88,6 +82,5 @@ namespace UdemyCarbook.WebUI.Controllers
             }
             return View();
         }
-
     }
 }
