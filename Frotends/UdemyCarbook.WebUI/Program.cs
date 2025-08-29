@@ -9,6 +9,7 @@ builder.Services.AddHttpClient("CarApi", client =>
 {
     client.BaseAddress = new Uri("https://localhost:7126/api/");
 });
+
 builder.Services.AddTransient<GenericStatistics>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(

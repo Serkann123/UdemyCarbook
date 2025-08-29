@@ -21,7 +21,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Araba Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-              ("https://localhost:7126/api/Statistics/GetCarCount",
+              ("Statistics/GetCarCount",
                "CarCount", ViewData, x => x.CarCount);
 
             #endregion
@@ -29,7 +29,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Konum Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetLocationQuery",
+            ("Statistics/GetLocationQuery",
              "LokasyonCount", ViewData, x => x.LocationCount);
 
             #endregion
@@ -37,7 +37,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Blog Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetBlogCount",
+            ("Statistics/GetBlogCount",
             "BlogCount", ViewData, x => x.BlogCount);
 
             #endregion
@@ -45,7 +45,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Yazar Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetAuthorCount",
+            ("Statistics/GetAuthorCount",
             "AuthorCount", ViewData, x => x.AuthorCount);
 
             #endregion
@@ -53,7 +53,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Marka Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetBrandCount",
+            ("Statistics/GetBrandCount",
             "BrandCount", ViewData, x => x.BrandCount);
 
             #endregion
@@ -61,7 +61,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Günlük Kiralama
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetAvgRentPriceForDaily",
+            ("Statistics/GetAvgRentPriceForDaily",
             "GetAvgRentPriceForDaily", ViewData, x => x.avgRentPriceForDaily);
 
             #endregion
@@ -69,7 +69,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Haftalık Kiralama
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetAvgRentPriceForWeekly",
+            ("Statistics/GetAvgRentPriceForWeekly",
             "GetAvgRentPriceForWeekly", ViewData, x => x.avgRentPriceForWeekly);
 
             #endregion
@@ -77,14 +77,14 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Aylık Kiralama
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetAvgRentPriceForMonthly",
+            ("Statistics/GetAvgRentPriceForMonthly",
             "getAvgRentPriceForMonthly", ViewData, x => x.getAvgRentPriceForMonthly);
 
             #endregion
 
             #region Otomatik Vitesli Araç Sayısı
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarCountByTranmissionIsAuto",
+            ("Statistics/GetCarCountByTranmissionIsAuto",
             "carCountByTranmissionIsAuto", ViewData, x => x.carCountByTranmissionIsAuto);
 
             #endregion
@@ -92,7 +92,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Kilometresi 1000'den az olan araçların sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarCountByKmSmallerThen1000",
+            ("Statistics/GetCarCountByKmSmallerThen1000",
             "carCountByKmSmallerThen1000", ViewData, x => x.carCountByKmSmallerThen1000);
 
             #endregion
@@ -100,7 +100,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Yakıt türü benzinli veya dizel olan araçların sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarCountByFuelGasolineOrDiesel",
+            ("Statistics/GetCarCountByFuelGasolineOrDiesel",
             "GetCarCountByFuelGasolineOrDiesel", ViewData, x => x.carCountByFuelGasolineOrDiesel);
 
             #endregion
@@ -108,7 +108,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Yakıt türü elektrikli olan araçların sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarCountByFuelElectric",
+            ("Statistics/GetCarCountByFuelElectric",
             "GetCarCountByFuelElectric", ViewData, x => x.carCountByFuelElectric);
 
             #endregion
@@ -116,7 +116,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Günlük kiralama fiyatı en yüksek olan aracın marka ve model bilgilerinin Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMax",
+            ("Statistics/GetCarBrandAndModeByRentPriceDailyMax",
             "carBrandAndModeByRentPriceDailyMax", ViewData, x => x.carBrandAndModeByRentPriceDailyMax);
 
             #endregion
@@ -124,7 +124,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region Günlük kiralama fiyatı en düşük olan aracın marka ve model bilgilerinin Sayısı
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetCarBrandAndModeByRentPriceDailyMin",
+            ("Statistics/GetCarBrandAndModeByRentPriceDailyMin",
             "carBrandAndModeByRentPriceDailyMin", ViewData, x => x.carBrandAndModeByRentPriceDailyMin);
 
             #endregion
@@ -132,7 +132,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region En fazla araca sahip marka adını döndüren sorgudur
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetBrandNameByMaxCar",
+            ("Statistics/GetBrandNameByMaxCar",
             "GetBrandNameByMaxCar", ViewData, x => x.brandNameByMaxCar);
 
             #endregion
@@ -140,7 +140,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             #region En fazla yoruma sahip blogun başlığını döndüren sorgudur
 
             await _statistics.setViewBagData<ResultStatisticsDto>
-            ("https://localhost:7126/api/Statistics/GetBlogTitleByMaxBlogComment",
+            ("Statistics/GetBlogTitleByMaxBlogComment",
             "GetBlogTitleByMaxBlogComment", ViewData, x => x.blogTitleByMaxBlogComment);
 
             #endregion

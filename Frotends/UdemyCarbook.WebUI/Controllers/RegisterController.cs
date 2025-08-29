@@ -24,7 +24,7 @@ namespace UdemyCarbook.WebUI.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createRegisterDto);
             StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7126/api/Registers/CreateUser", stringContent);
+            var responseMessage = await client.PostAsync("Registers/CreateUser", stringContent);
 
             if (responseMessage.IsSuccessStatusCode)
             {

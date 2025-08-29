@@ -19,7 +19,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Contacts");
+            var responsMessage = await client.GetAsync("Contacts");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -31,7 +31,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveContact(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Contacts/{id}");
+            var responsMessage = await client.DeleteAsync($"Contacts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

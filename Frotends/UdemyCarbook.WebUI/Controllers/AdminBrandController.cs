@@ -18,7 +18,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Brands");
+            var responsMessage = await client.GetAsync("Brands");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ namespace UdemyCarbook.WebUI.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createBrandDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("https://localhost:7126/api/Brands", stringContent);
+            var responsMessage = await client.PostAsync("Brands", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -49,7 +49,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
         public async Task<IActionResult> RemoveBrand(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Brands/{id}");
+            var responsMessage = await client.DeleteAsync($"Brands/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -60,7 +60,7 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateBrand(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Brands/{id}");
+            var responsMessage = await client.GetAsync($"Brands/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -75,7 +75,7 @@ namespace UdemyCarbook.WebUI.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(updateBrandDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("https://localhost:7126/api/Brands/", stringContent);
+            var responsMessage = await client.PutAsync("Brands/", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

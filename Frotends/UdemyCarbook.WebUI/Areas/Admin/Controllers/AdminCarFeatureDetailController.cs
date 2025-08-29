@@ -21,7 +21,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/CarFeatures?id=" + id);
+            var responsMessage = await client.GetAsync("CarFeatures?id=" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -39,13 +39,13 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
                 if (item.Available)
                 {
                    
-                    await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToTrue?id=" + item.CarFeatureId);
+                    await client.GetAsync("CarFeatures/CarFeatureChangeAvailableToTrue?id=" + item.CarFeatureId);
                 }
 
                 else
                 {
                    
-                    await client.GetAsync("https://localhost:7126/api/CarFeatures/CarFeatureChangeAvailableToFalse?id=" + item.CarFeatureId);
+                    await client.GetAsync("CarFeatures/CarFeatureChangeAvailableToFalse?id=" + item.CarFeatureId);
                 }
             }
             return RedirectToAction("Index", "AdminCar");
@@ -54,7 +54,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateCarFeatureByCar()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Features");
+            var responsMessage = await client.GetAsync("Features");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

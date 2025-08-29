@@ -19,7 +19,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress");
+            var responsMessage = await client.GetAsync("FooterAddress");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createFooterAddressDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("https://localhost:7126/api/FooterAddress", stringContent);
+            var responsMessage = await client.PostAsync("FooterAddress", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminFooterAddress", new { area = "Admin" });
@@ -51,7 +51,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveFooterAddress(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/FooterAddress/{id}");
+            var responsMessage = await client.DeleteAsync($"FooterAddress/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -62,7 +62,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateFooterAddress(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/FooterAddress/{id}");
+            var responsMessage = await client.GetAsync($"FooterAddress/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -77,7 +77,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(updateFooterAddressDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("https://localhost:7126/api/FooterAddress/", stringContent);
+            var responsMessage = await client.PutAsync("FooterAddress/", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminFooterAddress", new { area = "Admin" });

@@ -16,7 +16,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.FooterAddressComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress/1");
+            var responsMessage = await client.GetAsync("FooterAddress/1");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

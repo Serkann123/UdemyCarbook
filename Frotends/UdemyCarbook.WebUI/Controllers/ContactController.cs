@@ -26,7 +26,7 @@ namespace UdemyCarbook.WebUI.Controllers
             createContactDto.SenDate = DateTime.Now;
             var jsonData = JsonConvert.SerializeObject(createContactDto);
             StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responsMessage = await client.PostAsync("https://localhost:7126/api/Contacts", stringContent);
+            var responsMessage = await client.PostAsync("Contacts", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index","Default");

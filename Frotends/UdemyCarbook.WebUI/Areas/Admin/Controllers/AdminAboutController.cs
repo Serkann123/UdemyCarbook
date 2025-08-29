@@ -19,7 +19,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Abouts");
+            var responsMessage = await client.GetAsync("Abouts");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createAboutDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("https://localhost:7126/api/Abouts", stringContent);
+            var responsMessage = await client.PostAsync("Abouts", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminAbout", new { area = "Admin" });
@@ -51,7 +51,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveAbout(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Abouts/{id}");
+            var responsMessage = await client.DeleteAsync($"Abouts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -62,7 +62,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Abouts/{id}");
+            var responsMessage = await client.GetAsync($"Abouts/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -77,7 +77,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(updateAboutDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("https://localhost:7126/api/Abouts/", stringContent);
+            var responsMessage = await client.PutAsync("Abouts/", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminAbout", new { area = "Admin" });

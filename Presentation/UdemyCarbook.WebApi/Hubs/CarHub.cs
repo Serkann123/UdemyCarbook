@@ -16,7 +16,7 @@ namespace UdemyCarbook.WebApi.Hubs
         public async Task SendCarCount()
         {
            
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
+            var responsMessage = await client.GetAsync("Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();

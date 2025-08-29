@@ -17,7 +17,7 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v1 = "Araçlarımız";
             ViewBag.v2 = "Aracınızı Seçiniz";
            
-            var responseMessage = await client.GetAsync("https://localhost:7126/api/CarPrincings");
+            var responseMessage = await client.GetAsync("CarPrincings");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

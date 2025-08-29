@@ -19,7 +19,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/SocialMedias");
+            var responsMessage = await client.GetAsync("SocialMedias");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -40,7 +40,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(createSocialMediaDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("https://localhost:7126/api/SocialMedias", stringContent);
+            var responsMessage = await client.PostAsync("SocialMedias", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminSocialMedia", new { area = "Admin" });
@@ -50,7 +50,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveSocialMedia(int id)
         {
-            var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/SocialMedias/{id}");
+            var responsMessage = await client.DeleteAsync($"SocialMedias/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -61,7 +61,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateSocialMedia(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/SocialMedias/{id}");
+            var responsMessage = await client.GetAsync($"SocialMedias/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -76,7 +76,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         {
             var jsonData = JsonConvert.SerializeObject(updateSocialMediaDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("https://localhost:7126/api/SocialMedias/", stringContent);
+            var responsMessage = await client.PutAsync("SocialMedias/", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "AdminSocialMedia", new { area = "Admin" });

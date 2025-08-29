@@ -44,7 +44,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.CommentViewComponents
             
             ViewBag.blogId = id;
            
-            var responseMessage = await client.GetAsync($"https://localhost:7126/api/Comments/CommentListByBlog?id=" + id);
+            var responseMessage = await client.GetAsync($"Comments/CommentListByBlog?id=" + id);
 
             if (responseMessage.IsSuccessStatusCode)
             {

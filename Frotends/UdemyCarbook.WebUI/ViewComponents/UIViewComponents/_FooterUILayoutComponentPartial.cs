@@ -17,7 +17,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.UIViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responseMessage = await client.GetAsync("https://localhost:7126/api/FooterAddress/1");
+            var responseMessage = await client.GetAsync("FooterAddress/1");
 
             if (responseMessage.IsSuccessStatusCode)
             {

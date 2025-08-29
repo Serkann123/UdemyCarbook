@@ -17,7 +17,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             #region
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
+            var responsMessage = await client.GetAsync("Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
@@ -27,7 +27,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
             #endregion
 
             #region
-            var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Statistics/GetLocationQuery");
+            var responsMessage2 = await client.GetAsync("Statistics/GetLocationQuery");
             if (responsMessage2.IsSuccessStatusCode)
             {
                 var jsonData2 = await responsMessage2.Content.ReadAsStringAsync();
@@ -37,7 +37,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
             #endregion
 
             #region
-            var responsMessage3 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandCount");
+            var responsMessage3 = await client.GetAsync("Statistics/GetBrandCount");
             if (responsMessage3.IsSuccessStatusCode)
             {
                 var jsonData3 = await responsMessage3.Content.ReadAsStringAsync();
@@ -47,7 +47,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
             #endregion
 
             #region
-            var responsMessage4 = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCountByFuelElectric");
+            var responsMessage4 = await client.GetAsync("Statistics/GetCarCountByFuelElectric");
             if (responsMessage4.IsSuccessStatusCode)
             {
                 var jsonData4 = await responsMessage4.Content.ReadAsStringAsync();

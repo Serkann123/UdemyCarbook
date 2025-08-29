@@ -17,13 +17,13 @@ namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responsMessage = await client.GetAsync($"https://localhost:7126/api/Blog/" + id);
+            var responsMessage = await client.GetAsync($"Blog/" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
                 var value = JsonConvert.DeserializeObject<GetBlogByIdDto>(jsonData);
 
-                var CommentCountResponse = await client.GetAsync("https://localhost:7126/api/Comments/CommentCountByBlog?id=" + id);
+                var CommentCountResponse = await client.GetAsync("Comments/CommentCountByBlog?id=" + id);
                 var jsonData2 = await CommentCountResponse.Content.ReadAsStringAsync();
                 var commentCountObj = JsonConvert.DeserializeObject<CommentCountDto>(jsonData2);
                 ViewBag.commentCount = commentCountObj.CommentBlogCount;

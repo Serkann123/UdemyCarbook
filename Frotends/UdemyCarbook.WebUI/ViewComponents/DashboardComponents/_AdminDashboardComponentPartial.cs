@@ -18,7 +18,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
             Random random = new Random();
            
             #region
-            var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
+            var responsMessage = await client.GetAsync("Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {
                 int sayi = random.Next(0, 101);
@@ -30,7 +30,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
             #endregion
 
             #region
-            var responsMessage2 = await client.GetAsync("https://localhost:7126/api/Statistics/GetLocationQuery");
+            var responsMessage2 = await client.GetAsync("Statistics/GetLocationQuery");
             if (responsMessage2.IsSuccessStatusCode)
             {
                 int sayi2 = random.Next(0, 101);
@@ -42,7 +42,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
             #endregion
 
             #region
-            var responsMessage5 = await client.GetAsync("https://localhost:7126/api/Statistics/GetBrandCount");
+            var responsMessage5 = await client.GetAsync("Statistics/GetBrandCount");
             if (responsMessage5.IsSuccessStatusCode)
             {
                 int sayi5 = random.Next(0, 101);
@@ -54,7 +54,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
             #endregion
 
             #region
-            var responsMessage6 = await client.GetAsync("https://localhost:7126/api/Statistics/GetAvgRentPriceForDaily");
+            var responsMessage6 = await client.GetAsync("Statistics/GetAvgRentPriceForDaily");
             if (responsMessage6.IsSuccessStatusCode)
             {
                 int sayi6 = random.Next(0, 101);
