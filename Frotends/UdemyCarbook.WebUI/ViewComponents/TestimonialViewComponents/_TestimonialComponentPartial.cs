@@ -15,7 +15,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.TestimonialViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var ressponsMessage = await client.GetAsync("TestiMonial");
+            var ressponsMessage = await client.GetAsync("Testimonial");
             if (ressponsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await ressponsMessage.Content.ReadAsStringAsync();
