@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
 using UdemyCarbook.Dto.RentACarFilterDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class RentACarListController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public RentACarListController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
@@ -23,8 +21,7 @@ namespace UdemyCarbook.WebUI.Controllers
             var locationId = TempData["locationId"];
 
             var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
-
-            var client = _httpClientFactory.CreateClient();
+           
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/RentACars?locationId={id}&available=true");
 
             if (responsMessage.IsSuccessStatusCode)

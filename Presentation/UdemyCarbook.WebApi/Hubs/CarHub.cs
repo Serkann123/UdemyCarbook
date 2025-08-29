@@ -7,15 +7,15 @@ namespace UdemyCarbook.WebApi.Hubs
 {
     public class CarHub:Hub
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
         public CarHub(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task SendCarCount()
         {
-            var client = _httpClientFactory.CreateClient();
+           
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)
             {

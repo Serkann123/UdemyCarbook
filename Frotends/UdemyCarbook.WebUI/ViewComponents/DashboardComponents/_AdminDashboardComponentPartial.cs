@@ -6,18 +6,17 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
 {
     public class _AdminDashboardComponentPartial : ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public _AdminDashboardComponentPartial(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             Random random = new Random();
-            var client = _httpClientFactory.CreateClient();
-
+           
             #region
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Statistics/GetCarCount");
             if (responsMessage.IsSuccessStatusCode)

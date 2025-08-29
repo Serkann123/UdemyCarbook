@@ -10,16 +10,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminBannerController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminBannerController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Banners");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -39,7 +38,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBanner(CreateBannerDto createBannerDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBannerDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/Banners", stringContent);
@@ -52,7 +50,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveBanner(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Banners/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -64,8 +61,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateBanner(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/Banners/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -79,7 +74,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBanner(UpdateBannerDto updateBannerDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateBannerDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/Banners/", stringContent);

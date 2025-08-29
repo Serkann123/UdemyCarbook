@@ -10,16 +10,15 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminPrincingController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminPrincingController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Pirincings");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -39,7 +38,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePrincing(CreatePrincingDto createPrincingDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createPrincingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PostAsync("https://localhost:7126/api/Pirincings", stringContent);
@@ -52,7 +50,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemovePrincing(int id)
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.DeleteAsync($"https://localhost:7126/api/Pirincings/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -64,8 +61,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdatePrincing(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-
             var responsMessage = await client.GetAsync($"https://localhost:7126/api/Pirincings/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -79,7 +74,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePrincing(UpdatePrincingDto updatePrincingDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updatePrincingDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responsMessage = await client.PutAsync("https://localhost:7126/api/Pirincings/", stringContent);

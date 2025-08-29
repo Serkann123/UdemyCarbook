@@ -6,15 +6,14 @@ namespace UdemyCarbook.WebUI.ViewComponents.ServiceVİewComponents
 {
     public class _ServiceComponentParital:ViewComponent
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
         public _ServiceComponentParital(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _httpClientFactory.CreateClient();
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Services");
             if (responsMessage.IsSuccessStatusCode)
             {

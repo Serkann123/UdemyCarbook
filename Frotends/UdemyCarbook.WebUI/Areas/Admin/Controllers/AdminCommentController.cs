@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text;
 using UdemyCarbook.Dto.CommentDtos;
 
@@ -10,17 +11,17 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminCommentController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public AdminCommentController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index(int id)
         {
             ViewBag.v = id;
-            var client = _httpClientFactory.CreateClient();
+           
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Comments/CommentListByBlog?id=" + id);
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -40,7 +41,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment(CreateCommentDto createCommentDto)
         {
-            var client = _httpClientFactory.CreateClient();
+           
             var jsonData = JsonConvert.SerializeObject(createCommentDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7126/api/Comments",stringContent);
@@ -53,7 +54,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveComment(int id)
         {
-            var client=_httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7126/api/Comments/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -64,8 +64,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdateComment(int id)
         {
-            var client=_httpClientFactory.CreateClient();
-
             var responseMessage = await client.GetAsync($"https://localhost:7126/api/Comments/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -79,7 +77,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateComment(UpdateCommentDto updateCommentDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(updateCommentDto);
             StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
             var responseMessage = await client.PutAsync($"https://localhost:7126/api/Comments/",stringContent);

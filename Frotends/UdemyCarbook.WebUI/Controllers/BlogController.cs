@@ -10,18 +10,18 @@ namespace UdemyCarbook.WebUI.Controllers
 {
     public class BlogController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient client;
 
         public BlogController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+             client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
             ViewBag.v1 = "Bloglar";
             ViewBag.v2 = "Yazarlarımızın Blogları";
-            var client = _httpClientFactory.CreateClient();
+           
             var responsMessage = await client.GetAsync("https://localhost:7126/api/Blog/GetBlogsAllWithAuthorsList");
             if (responsMessage.IsSuccessStatusCode)
             {
@@ -50,7 +50,6 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto)
         {
-            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCommentDto);
             StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
             var responseMessage = await client.PostAsync("https://localhost:7126/api/Comments", stringContent);
