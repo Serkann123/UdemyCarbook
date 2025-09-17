@@ -32,7 +32,7 @@
     <script type="text/javascript">
         $(document).ready(()=>{
             var connection = new signalR.HubConnectionBuilder()
-                .withUrl("https://localhost:7126/CarHub")
+                .withUrl("https://localhost:7126/carhub")
                 .build();
             $('#constatus').text(connection.state);
 
