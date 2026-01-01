@@ -10,10 +10,12 @@ namespace UdemyCarbook.Dto.CarPirincingDtos
     {
         public int CarPirincingId { get; set; }
         public string Brand { get; set; }
-        public string Model { get; set; }
+        public string ModelName { get; set; }
         public decimal Amount { get; set; }
         public string CoverImageUrl { get; set; }
         public int CarId { get; set; }
-        public string Name { get; set; }
+        public decimal DailyAmount { get; set; }
+        public decimal WeeklyAmount { get; set; }
+        public decimal MonthlyAmount { get; set; }
     }
 }

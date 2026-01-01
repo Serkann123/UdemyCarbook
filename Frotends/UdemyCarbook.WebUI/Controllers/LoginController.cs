@@ -56,7 +56,7 @@ namespace UdemyCarbook.WebUI.Controllers
                         };
 
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsİdentity), autProps);
-                        return RedirectToAction("Index", "Default");
+                        return RedirectToAction("Index", "AdminDashoard", new { area = "Admin" });
                     }
                 }
             }

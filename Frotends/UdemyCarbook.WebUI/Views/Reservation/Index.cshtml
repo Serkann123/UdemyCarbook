@@ -7,7 +7,7 @@
 <div class="col-md-12 block-9 mb-md-5">
     <form method="post" class="bg-light p-5 contact-form">
 
-        <h3 class="alert alert-success">Araç Rezervayon Formu</h3>
+        <h3 class="alert alert-success">Araç Rezervasyon Formu</h3>
         <br />
         <input type="hidden" asp-for="CarId" value="@ViewBag.v3" class="form-control" placeholder="Almak İstediğiniz Araba">
 
@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group">
-            <input asp-for="Email" type="text" class="form-control" placeholder="Mail Adresiniz">
+            <input asp-for="Email" type="email" class="form-control" placeholder="Mail Adresiniz">
         </div>
 
         <div class="form-group">
@@ -28,23 +28,23 @@
         </div>
 
         <div class="form-group">
-            <select asp-for="DropOffLocationId" asp-items="ViewBag.v" class="form-control">
+            <select asp-for="PickUpLocationId" asp-items="ViewBag.v" class="form-control">
                 <option value="" disabled selected hidden>Alınacak Lokasyonu Seçin</option>
             </select>
         </div>
 
         <div class="form-group">
-            <select asp-for="PickUpLocationId" asp-items="ViewBag.v" class="form-control">
+            <select asp-for="DropOffLocationId" asp-items="ViewBag.v" class="form-control">
                 <option value="" disabled selected hidden>Teslim Etmek İstediğiniz Lokasyon</option>
             </select>
         </div>
 
         <div class="form-group">
-            <input asp-for="Age" type="text" class="form-control" placeholder="Yaşınız">
+            <input asp-for="Age" type="number" class="form-control" placeholder="Yaşınız">
         </div>
 
         <div class="form-group">
-            <input asp-for="DriverLicenseYear" type="text" class="form-control" placeholder="Ehliyet Yılınız">
+            <input asp-for="DriverLicenseYear" type="number" class="form-control" placeholder="Ehliyet Yılınız">
         </div>
 
         <div class="form-group">

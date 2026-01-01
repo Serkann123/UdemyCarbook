@@ -13,10 +13,10 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Yeni Araç Özellliği Güncelleme Sayfası</h4>
+                        <h4 class="card-title">Araç Özelliği Güncelle</h4>
                         <p class="card-subtitle mb-4">
-                            Araç ile ilgili özellikleri aşağıdaki kutucuğa gidebilirsiniz.
-                            Veri girişinde sonra kaydet butonuna tıklayarak işleminizi tamamlayabilirsiniz.
+                            Seçili araca ait özelliğin adını güncelleyebilirsiniz.
+                            Değişiklik yaptıktan sonra <strong>Kaydet</strong> butonuna basarak işlemi tamamlayın.
                         </p>
 
                         <form method="post">
@@ -24,11 +24,12 @@
                             <input type="hidden" asp-for="FeatureId" />
 
                             <div class="form-group">
-                                <label for="exampleInputName">Özellik Adı</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Özellik adı girişi yapınız">
+                                <label asp-for="Name">Özellik Adı</label>
+                                <input asp-for="Name" class="form-control" placeholder="Örn: Klima, Bluetooth">
+
                             </div>
 
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">özelliği Güncelle</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Özelliği Güncelle</button>
                         </form>
                     </div>
                 </div>

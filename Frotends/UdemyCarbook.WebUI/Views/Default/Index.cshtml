@@ -1,5 +1,4 @@
-﻿@model ResultLocationDto
-
+﻿
 @{
     ViewData["Title"] = "Anasayfa";
     Layout = null;
@@ -25,32 +24,32 @@
                             <form method="post" class="request-form ftco-animate bg-primary p-4">
                                 <h2>Şimdi Aracınızı Kiralayın</h2>
                                 <div class="form-group">
-                                    <label class="label">Alınacak Lokasyon</label><
+                                    <label class="label">Alınacak Lokasyon</label>
 
-                                    @Html.DropDownListFor(x => x.LocationId, (IEnumerable<SelectListItem>)ViewBag.v, new { @class = "form-control", style = "background-color:#1089FF !important; color:white;" })
+                                    @Html.DropDownList("locationId", (IEnumerable<SelectListItem>)ViewBag.Locations, new { @class = "form-control", style = "background-color:#1089FF !important; color:white;" })
                                 </div>
 
                                 <div class="d-flex">
 
                                     <div class="form-group mr-2">
                                         <label class="label">Alınmak İstenen Tarih</label>
-                                        <input type="text" class="form-control" name="book_pick_date" id="book_pick_date" placeholder="Date">
+                                        <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
                                     </div>
 
                                     <div class="form-group ml-2">
                                         <label class="label">İade Tarihi</label>
-                                        <input type="text" class="form-control" name="book_off_date" id="book_off_date" placeholder="Date">
+                                        <input type="text" class="form-control" id="book_off_date" placeholder="Date">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="label">Alış Saati</label>
-                                    <input type="text" class="form-control" name="time_pick" id="time_pick" placeholder="Time">
+                                    <input type="text" class="form-control" id="time_pick" placeholder="Time">
                                 </div>
 
                                 <div class="form-group">
                                     <label class="label">İade Saati</label>
-                                    <input type="text" class="form-control" name="time_off" id="time_off" placeholder="Time">
+                                    <input type="text" class="form-control" id="time_off" placeholder="Time">
                                 </div>
 
                                 <div class="form-group">

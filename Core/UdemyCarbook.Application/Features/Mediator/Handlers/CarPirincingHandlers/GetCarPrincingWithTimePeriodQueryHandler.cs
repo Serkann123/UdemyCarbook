@@ -32,6 +32,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
                 WeeklyAmount = x.WeeklyAmount,
                 MonthlyAmount = x.MonthlyAmount,
                 CoverImageUrl = x.CoverImageUrl,
+                CarId = x.CarId,
             }).ToList();
         }
     }

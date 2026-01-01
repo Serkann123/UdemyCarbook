@@ -17,7 +17,7 @@ namespace UdemyCarbook.WebUI.Controllers
             ViewBag.v1 = "Araçlarımız";
             ViewBag.v2 = "Aracınızı Seçiniz";
            
-            var responseMessage = await client.GetAsync("CarPrincings");
+            var responseMessage = await client.GetAsync("CarPrincings/GetCarPrincingWithTimePeriodQuery");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -27,7 +27,7 @@ namespace UdemyCarbook.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CarDetail(int id)
+        public IActionResult CarDetail(int id)
         {
             ViewBag.v1 = "Araç Detayları";
             ViewBag.v2 = "Aracın Teknik Aksesuar Ve Özellikleri";

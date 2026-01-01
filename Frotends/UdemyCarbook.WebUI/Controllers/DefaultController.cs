@@ -21,19 +21,19 @@ namespace UdemyCarbook.WebUI.Controllers
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
-            List<SelectListItem> values2 = (from x in values
+            List<SelectListItem> items = (from x in values
                                             select new SelectListItem
                                             {
                                                 Text = x.Name,
                                                 Value = x.LocationId.ToString()
                                             }).ToList();
-            ViewBag.v = values2;
+            ViewBag.Locations = items;
 
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string locationId)
+        public IActionResult Index(int locationId)
         {
             TempData["locationId"] = locationId;
             return RedirectToAction("Index", "RentACarList");

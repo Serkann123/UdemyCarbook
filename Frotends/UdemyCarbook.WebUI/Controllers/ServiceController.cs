@@ -4,7 +4,7 @@ namespace UdemyCarbook.WebUI.Controllers
 {
     public class ServiceController : Controller
     {
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             ViewBag.v1 = "Hizmetler";
             ViewBag.v2 = "Hizmetlerimiz";
