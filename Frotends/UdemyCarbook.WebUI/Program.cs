@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using UdemyCarbook.Application.Services;
+using UdemyCarbook.Persistence.Services;
 using UdemyCarbook.WebUI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,12 @@ builder.Services.AddHttpClient("CarApi", client =>
 });
 
 builder.Services.AddScoped<GenericStatistics>();
+
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<BrandApiService>()
+    .AddClasses(c => c.Where(t => t.Name.EndsWith("ApiService")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(
     JwtBearerDefaults.AuthenticationScheme, opt =>

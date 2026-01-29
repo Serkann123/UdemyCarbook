@@ -7,10 +7,14 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminDashoardController : Controller
     {
-        public IActionResult Index(int page = 1)
+        public IActionResult Index()
         {
-            ViewBag.CurrentPage = page;
             return View();
         }
+        public IActionResult BlogListPartial(int page = 1)
+        {
+            return ViewComponent("_AdminDashboardBlogListComponentPartial", new { page });
+        }
+
     }
 }

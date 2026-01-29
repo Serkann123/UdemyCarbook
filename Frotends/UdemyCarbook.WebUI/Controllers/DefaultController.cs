@@ -21,13 +21,11 @@ namespace UdemyCarbook.WebUI.Controllers
             var jsonData = await responsMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
 
-            List<SelectListItem> items = (from x in values
-                                            select new SelectListItem
-                                            {
-                                                Text = x.Name,
-                                                Value = x.LocationId.ToString()
-                                            }).ToList();
-            ViewBag.Locations = items;
+            ViewBag.Locations = values.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.LocationId.ToString()
+            }).ToList();
 
             return View();
         }

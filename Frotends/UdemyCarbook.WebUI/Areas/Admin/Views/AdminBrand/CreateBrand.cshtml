@@ -1,8 +1,7 @@
-﻿@model UpdateBrandDto
+﻿@model CreateBrandDto
 
 @{
-    ViewData["Title"] = "Marka Güncelle";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Marka Ekleme";
 }
 
 <div class="page-content">
@@ -13,22 +12,20 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Marka Güncelleme Güncelleme Sayfası</h4>
+                        <h4 class="card-title">Yeni Marka Özellliği Girişi</h4>
                         <p class="card-subtitle mb-4">
-                            Bu ekrandan sistemde kayıtlı bir markanın adını güncelleyebilirsiniz.
-                            Değişiklik yaptıktan sonra <strong>Kaydet</strong> butonuna basarak işlemi tamamlayın.
+                            Marka ile ilgili özellikleri aşağıdaki kutucuğa gilebilirsiniz.
+                            Veri girişinde sonra kaydet butonuna tıklayarak işleminizi tamamlayabilirsiniz.
                         </p>
 
                         <form method="post">
 
-                            <input type="hidden" asp-for="BrandId" />
-
                             <div class="form-group">
-                                <label for="exampleInputName">Özellik Adı</label>
+                                <label for="exampleInputName">Marka Adı</label>
                                 <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Marka adı girişi yapınız">
                             </div>
 
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Markayı Güncelle</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Markayı Kaydet</button>
                         </form>
                     </div>
                 </div>
@@ -36,4 +33,5 @@
         </div>
     </div>
 </div>
+
 

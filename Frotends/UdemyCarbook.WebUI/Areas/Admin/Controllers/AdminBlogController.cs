@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
-using UdemyCarbook.Dto.BlogDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -10,31 +8,22 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminBlogController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IBlogApiService _blogApiService;
 
-        public AdminBlogController(IHttpClientFactory httpClientFactory)
+        public AdminBlogController(IBlogApiService blogApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _blogApiService = blogApiService;
         }
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Blog/GetBlogsAllWithAuthorsList");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthorDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _blogApiService.GetBlogsAllWithAuthorsAsync();
+            return View(values);
         }
 
         public async Task<IActionResult> RemoveBlog(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Blog/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _blogApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction("Index");
             return View();
         }
     }

@@ -8,47 +8,59 @@
     <form method="post" class="bg-light p-5 contact-form">
 
         <h3 class="alert alert-success">Araç Rezervasyon Formu</h3>
-        <br />
-        <input type="hidden" asp-for="CarId" value="@ViewBag.v3" class="form-control" placeholder="Almak İstediğiniz Araba">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <input type="hidden" asp-for="CarId" value="@ViewBag.v3" />
 
         <div class="form-group">
-            <input asp-for="Name" type="text" class="form-control" placeholder="Adınız">
+            <input asp-for="Name" class="form-control" placeholder="Adınız" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Surname" type="text" class="form-control" placeholder="Soyadınız">
+            <input asp-for="Surname" class="form-control" placeholder="Soyadınız" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Email" type="email" class="form-control" placeholder="Mail Adresiniz">
+            <input asp-for="Email" type="email" class="form-control" placeholder="Mail Adresiniz" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Phone" type="text" class="form-control" placeholder="Telefon Numaranız">
+            <input asp-for="Phone" class="form-control" placeholder="Telefon Numaranız" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <select asp-for="PickUpLocationId" asp-items="ViewBag.v" class="form-control">
-                <option value="" disabled selected hidden>Alınacak Lokasyonu Seçin</option>
+            <select asp-for="PickUpLocationId" asp-items="ViewBag.Locations" class="form-control">
+                <option value="" selected>Alınacak Lokasyonu Seçin</option>
             </select>
+            <span asp-validation-for="PickUpLocationId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <select asp-for="DropOffLocationId" asp-items="ViewBag.v" class="form-control">
-                <option value="" disabled selected hidden>Teslim Etmek İstediğiniz Lokasyon</option>
+            <select asp-for="DropOffLocationId" asp-items="ViewBag.Locations" class="form-control">
+                <option value="" selected>Teslim Etmek İstediğiniz Lokasyon</option>
             </select>
+            <span asp-validation-for="DropOffLocationId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="Age" type="number" class="form-control" placeholder="Yaşınız">
+            <input asp-for="Age" type="number" class="form-control" placeholder="Yaşınız" />
+            <span asp-validation-for="Age" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input asp-for="DriverLicenseYear" type="number" class="form-control" placeholder="Ehliyet Yılınız">
+            <input asp-for="DriverLicenseYear" type="number" class="form-control" placeholder="Ehliyet Yılınız" />
+            <span asp-validation-for="DriverLicenseYear" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <textarea asp-for="Description" cols="30" rows="7" class="form-control" placeholder="Varsa Eklemek İstedikleriniz"></textarea>
+            <textarea asp-for="Description" cols="30" rows="7" class="form-control"
+                      placeholder="Varsa Eklemek İstedikleriniz"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -56,3 +68,7 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

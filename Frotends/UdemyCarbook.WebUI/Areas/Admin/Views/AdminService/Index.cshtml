@@ -11,10 +11,10 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Ödeme Türleri Sayfası</h4>
+                        <h4 class="card-title">Hizmetler</h4>
                         <p class="card-subtitle mb-4">
-                            Ana sayfa ve hizmetler bölümünde yer alan hizmet listesinin admin tarafındaki
-                            işlemlerini asağıdaki bütünlüğü bozmamak için 4 tane veri girişi yapın.
+                            Ana sayfa ve hizmetler bölümünde gösterilen hizmet listesini buradan görüntüleyebilir,
+                            silebilir ve güncelleyebilirsiniz.
                         </p>
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -37,14 +37,24 @@
                                             <td>@item.Title</td>
                                             <td>@item.Description</td>
                                             <td>@item.IconUrl</td>
-                                            <td><a href="/Admin/AdminService/RemoveService/@item.ServiceId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminService/UpdateService/@item.ServiceId" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="AdminService" asp-action="RemoveService" asp-route-id="@item.ServiceId"
+                                                   class="btn btn-outline-danger">Sil</a>
+
+                                                </td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="AdminService" asp-action="UpdateService" asp-route-id="@item.ServiceId"
+                                                   class="btn btn-outline-danger">Güncelle</a>
+
+                                                </td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                             <a href="/Admin/AdminService/CreateService" class="btn btn-outline-primary">Yeni Service Girişi</a>
+                            <a asp-area="Admin" asp-controller="AdminService" asp-action="CreateService" class="btn btn-outline-primary">
+                                Yeni Hizmet Ekle
+                            </a>
                         </div>
                     </div>
                 </div>

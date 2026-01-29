@@ -59,7 +59,6 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> UpdateFooterAddress(int id)
         {
             var responsMessage = await client.GetAsync($"FooterAddress/{id}");

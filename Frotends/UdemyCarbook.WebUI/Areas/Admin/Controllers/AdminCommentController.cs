@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using UdemyCarbook.Dto.CommentDtos;
 
@@ -11,75 +12,24 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminCommentController : Controller
     {
-        private readonly HttpClient client;
+        private readonly HttpClient _httpClient;
+
 
         public AdminCommentController(IHttpClientFactory httpClientFactory)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _httpClient = httpClientFactory.CreateClient("CarApi");
         }
 
-        public async Task<IActionResult> Index(int id)
-        {
-            ViewBag.v = id;
-           
-            var responsMessage = await client.GetAsync("Comments/CommentListByBlog?id=" + id);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCommentDto>>(jsonData);
-                return View(values);
-            }
-            return View();
-        }
 
-        [HttpGet]
-        public ActionResult CreateComment()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateComment(CreateCommentDto createCommentDto)
-        {
-           
-            var jsonData = JsonConvert.SerializeObject(createCommentDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("Comments",stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
+            var values = await _httpClient.GetFromJsonAsync<List<ResultCommentDto>>("Comments");
+            return View(values);
         }
 
         public async Task<IActionResult> RemoveComment(int id)
         {
-            var responseMessage = await client.DeleteAsync($"Comments/{id}");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public async Task<IActionResult> UpdateComment(int id)
-        {
-            var responseMessage = await client.GetAsync($"Comments/{id}");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateCommentDto>(jsonData);
-                return View(values);
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateComment(UpdateCommentDto updateCommentDto)
-        {
-            var jsonData = JsonConvert.SerializeObject(updateCommentDto);
-            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PutAsync($"Comments/",stringContent);
+            var responseMessage = await _httpClient.DeleteAsync($"Comments/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

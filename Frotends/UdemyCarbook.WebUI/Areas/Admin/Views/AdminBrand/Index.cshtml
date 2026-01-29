@@ -2,10 +2,8 @@
 
 @{
     ViewData["Title"] = "Marka";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
-
 
 <div class="page-content">
     <div class="container-fluid">
@@ -26,9 +24,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Özellik</th>
-                                        <th>Sil
+                                        <th>Sil</th>
                                         <th>Güncelle</th>
-                                        <th>Markaya Ait Araçlar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,15 +36,22 @@
                                         <tr>
                                             <th scope="row">@count</th>
                                             <td>@item.Name</td>
-                                            <td><a href="/AdminBrand/RemoveBrand/@item.BrandId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/AdminBrand/UpdateBrand/@item.BrandId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="/AdminBrand/UpdateFeature/@item.BrandId" class="btn btn-outline-dark">Markaya Ait Araçlar</a></td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="AdminBrand" 
+                                                asp-action="RemoveBrand" asp-route-id="@item.BrandId"
+                                                class="btn btn-outline-danger">Sil</a>
+                                            </td>
+                                            <td>
+                                                <a asp-area="Admin" asp-controller="AdminBrand"
+                                                asp-action="UpdateBrand" asp-route-id="@item.BrandId" 
+                                                class="btn btn-outline-success">Güncelle</a>
+                                            </td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                              <a href="/AdminBrand/CreateBrand" class="btn btn-outline-primary">Yeni Marka Girişi</a>
+                            <a asp-area="Admin" asp-controller="AdminBrand" asp-action="CreateBrand" class="btn btn-outline-primary">Yeni Marka Girişi</a>
                         </div>
                     </div>
                 </div>

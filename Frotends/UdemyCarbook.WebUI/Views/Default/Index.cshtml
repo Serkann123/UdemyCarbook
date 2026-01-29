@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Anasayfa";
     Layout = null;
 }
@@ -26,7 +25,10 @@
                                 <div class="form-group">
                                     <label class="label">Alınacak Lokasyon</label>
 
-                                    @Html.DropDownList("locationId", (IEnumerable<SelectListItem>)ViewBag.Locations, new { @class = "form-control", style = "background-color:#1089FF !important; color:white;" })
+                                    <select name="locationId" asp-items="ViewBag.Locations" class="form-control"
+                                            style="background-color:#1089FF !important; color:white">
+                                        <option value="">Seçiniz...</option>
+                                    </select>
                                 </div>
 
                                 <div class="d-flex">

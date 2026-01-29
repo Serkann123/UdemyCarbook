@@ -1,6 +1,5 @@
 ﻿@{
 	ViewData["Title"] = "Yönetici Paneli";
-	int page = ViewBag.CurrentPage ?? 1;
 }
 
 <div class="page-content">
@@ -21,7 +20,28 @@
 		<div class="row">
 			@await Component.InvokeAsync("_AdminDashboardCarPrincingsComponentPartial")
 
-			@await Component.InvokeAsync("_AdminDashboardBlogListComponentPartial", new { page = page })
+				<div id="blogListContainer" class="col-xl-6">
+					@await Component.InvokeAsync("_AdminDashboardBlogListComponentPartial")
+				</div>
 		</div>
-	</div>
 </div>
+</div>
+
+@section Scripts{
+	<script>
+		document.addEventListener("click", (e) => {
+
+			const link = e.target.closest("#blogListContainer .pagination a.page-link");
+			if (!link) return;
+
+			e.preventDefault();
+
+			fetch(link.href)
+				.then(response => response.text())
+				.then(html => {
+					document.getElementById("blogListContainer").innerHTML = html;
+				})
+				.catch(err => console.error(err));
+		});
+	</script>
+}

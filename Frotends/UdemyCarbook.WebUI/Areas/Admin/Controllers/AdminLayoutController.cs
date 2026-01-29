@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace UdemyCarbook.WebUI.Controllers
+namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AdminLayoutController : Controller
     {
         public IActionResult Index()

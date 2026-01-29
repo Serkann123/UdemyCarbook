@@ -40,15 +40,34 @@
                                             <td>@item.Title</td>
                                             <td>@item.AuthorName</td>
                                             <td>@item.CreateDate.ToShortDateString()</td>
-                                            <td><a href="/Admin/AdminBlog/RemoveBlog/@item.BlogId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Blog/BlogDetail/@item.BlogId" class="btn btn-outline-dark">Blog Aç</a></td>
-                                            <td><a href="/Admin/AdminComment/Index/@item.BlogId" class="btn btn-outline-dark">Yorumlar</a></td>
+                                            <td>
+                                                <a asp-action="RemoveBlog"
+                                                   asp-controller="AdminBlog"
+                                                   asp-area="Admin"
+                                                   asp-route-id="@item.BlogId"
+                                                   class="btn btn-outline-danger">Sil</a>
+                                            </td>
+
+                                            <td>
+                                                <a asp-action="BlogDetail"
+                                                   asp-controller="Blog"
+                                                   asp-area=""
+                                                   asp-route-id="@item.BlogId"
+                                                   class="btn btn-outline-dark">Blog Aç</a>
+                                            </td>
+
+                                            <td>
+                                                <a asp-action="Index"
+                                                   asp-controller="AdminComment"
+                                                   asp-area="Admin"
+                                                   asp-route-id="@item.BlogId"
+                                                   class="btn btn-outline-dark">Yorumlar</a>
+                                            </td>
                                         </tr>
                                     }
 
                                 </tbody>
                             </table>
-                            <a href="/Admin/AdminBlog/CreateBlog" class="btn btn-outline-primary">Yeni Blog Girişi</a>
                         </div>
                     </div>
                 </div>

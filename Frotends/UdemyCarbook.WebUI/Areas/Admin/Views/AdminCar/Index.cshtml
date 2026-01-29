@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Araba";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
 
@@ -27,38 +26,60 @@
                                         <th>Model</th>
                                         <th>Vites Türü</th>
                                         <th>Km</th>
-                                        <th>Sil
+                                        <th>Sil</th>
                                         <th>Güncelle</th>
-                                        <th>Detaylar</th>
                                         <th>Özellik Ata</th>
-                                        <th>Sitede Gör</th>
-                                        <th>Fiyat Bilgileri</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                         count++;
-
                                         <tr>
                                             <th scope="row">@count</th>
                                             <td>@item.BrandName</td>
                                             <td>@item.Model</td>
                                             <td>@item.Transmission</td>
                                             <td>@item.Km</td>
-                                            <td><a href="/AdminCar/RemoveCar/@item.CarId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/AdminCar/UpdateCar/@item.CarId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="/Admin/AdminCarFeatureDetail/Index/@item.CarId" class="btn btn-outline-dark">Detaylar</a></td>
-                                            <td><a href="/Admin/AdminCarFeatureDetail/CreateCarFeatureByCar/" class="btn btn-outline-dark">Özellik Ata</a></td>
-                                            <td><a href="/AdminCar/DetailCar/@item.CarId" class="btn btn-outline-warning">Sitede Gör</a></td>
-                                            <td><a href="/AdminCar/DetailCar/@item.CarId" class="btn btn-outline-secondary">Fiyat Bilgileri</a></td>
+                                            <td>
+                                                <a asp-area="Admin"
+                                                   asp-controller="AdminCar"
+                                                   asp-action="RemoveCar"
+                                                   asp-route-id="@item.CarId"
+                                                   class="btn btn-outline-danger btn-sm">
+                                                    Sil
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a asp-area="Admin"
+                                                   asp-controller="AdminCar"
+                                                   asp-action="UpdateCar"
+                                                   asp-route-id="@item.CarId"
+                                                   class="btn btn-outline-success btn-sm">
+                                                    Güncelle
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a asp-area="Admin"
+                                                   asp-controller="AdminCarFeatureDetail"
+                                                   asp-action="CreateCarFeatureByCar"
+                                                   asp-route-id="@item.CarId"
+                                                   class="btn btn-outline-dark btn-sm">
+                                                    Özellik Ata
+                                                </a>
+                                            </td>
                                         </tr>
                                     }
-
                                 </tbody>
                             </table>
-                            <a href="/AdminCar/CreateCar" class="btn btn-outline-primary">Yeni Araç Girişi</a>
+                            <a asp-area="Admin"
+                               asp-controller="AdminCar"
+                               asp-action="CreateCar"
+                               class="btn btn-outline-primary">
+                                Yeni Araç Girişi
+                            </a>
                         </div>
                     </div>
                 </div>

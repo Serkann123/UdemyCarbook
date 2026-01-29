@@ -23,14 +23,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
     <PackageReference Include="X.PagedList" Version="10.5.7" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.7" />
     <PackageReference Include="X.PagedList.Web.Common" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\UdemyCarbook.Application\UdemyCarbook.Application.csproj" />
     <ProjectReference Include="..\..\Frontends\UdemyCarbook.Dto\UdemyCarbook.Dto.csproj" />
+    <ProjectReference Include="..\..\Infastructure\UdemyCarbook.Persistence\UdemyCarbook.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

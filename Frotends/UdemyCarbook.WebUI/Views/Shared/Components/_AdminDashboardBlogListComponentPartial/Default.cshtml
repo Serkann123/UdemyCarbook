@@ -1,12 +1,8 @@
 ﻿@model IPagedList<ResultBlogsAllWithAuthorDto>
-@using X.PagedList
-@using X.PagedList.Mvc.Core
-@using X.PagedList.Web.Common
 
 @{
 	int count = (Model.PageNumber - 1) * Model.PageSize;
 }
-<div class="col-xl-6">
 	<div class="card">
 		<div class="card-body">
 			<h4 class="card-title">Blog Yazıları</h4>
@@ -52,7 +48,7 @@
 				</table>
 			</div>
 			<div class="mt-3">
-				@Html.PagedListPager(Model, page => Url.Action("Index", "AdminDashoard", new { page = page }, null),
+				@Html.PagedListPager(Model, page => Url.Action("BlogListPartial", "AdminDashoard", new { page = page }, null),
 									new PagedListRenderOptions
 				{
 					LiElementClasses = new string[] { "page-item" },
@@ -62,4 +58,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+

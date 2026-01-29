@@ -1,8 +1,7 @@
-﻿@model CreateCarDto
+﻿@model UpdateCarDto
 
 @{
-    ViewData["Title"] = "Araba Ekleme";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Araba Güncelleme";
 }
 
 <div class="page-content">
@@ -13,20 +12,20 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Yeni Araç Girişi</h4>
+                        <h4 class="card-title">Yeni Güncelleme Sayfası</h4>
                         <p class="card-subtitle mb-4">
                             Araç ile ilgili temel bilgileri eksiksiz doldurmanız önemlidir. yeni girişlerden
-                            sonra kaydet butonuna tıklayabilirsiniz.
+                            sonra kaydet butonuna  tıklayarak güncelleme işlemini yapabilirsiniz.
                         </p>
 
                         <form method="post">
+                            <input type="hidden" asp-for="CarId" />
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Marka</label>
-                                @Html.DropDownListFor(
-                                         x => x.BrandId,
-                                         (List<SelectListItem>)ViewBag.brandValues,
-                                         new { @class = "form-control" }
-                                         )
+                                
+                                <select asp-for="BrandId" asp-items="ViewBag.BrandValues" class="form-control">
+                                    <option value="">Marka Seçiniz</option>
+                                </select>
 
                             </div>
 
@@ -71,14 +70,11 @@
                                 <input type="text" class="form-control" id="exampleInputBigImageUrl" asp-for="BigImageUrl" placeholder="Araç detayında gözükecek ekran fotografı">
                             </div>
 
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Aracı Kaydet</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Aracı Güncelle</button>
                         </form>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>

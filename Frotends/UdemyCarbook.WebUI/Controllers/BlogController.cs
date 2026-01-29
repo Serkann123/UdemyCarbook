@@ -1,35 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using UdemyCarbook.Dto.BlogDtos;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.CommentDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class BlogController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IBlogApiService _blogApiService;
+        private readonly ICommentApiService _commentApiService;
 
-        public BlogController(IHttpClientFactory httpClientFactory)
+        public BlogController(IBlogApiService blogApiService, ICommentApiService commentApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _blogApiService = blogApiService;
+            _commentApiService = commentApiService;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewBag.v1 = "Bloglar";
             ViewBag.v2 = "Yazarlarımızın Blogları";
-           
-            var responsMessage = await client.GetAsync("Blog/GetBlogsAllWithAuthorsList");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthorDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+
+            var values = await _blogApiService.GetBlogsAllWithAuthorsAsync();
+            return View(values);
         }
 
         public async Task<IActionResult> BlogDetail(int id)
@@ -50,14 +42,8 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddComment(CreateCommentDto createCommentDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createCommentDto);
-            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("Comments", stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "Default");
-            }
-
+            var ok = await _commentApiService.CreateAsync(createCommentDto);
+            if(ok) return RedirectToAction("Index","Default");
             return View();
         }
     }

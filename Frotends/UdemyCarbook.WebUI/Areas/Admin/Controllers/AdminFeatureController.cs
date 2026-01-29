@@ -2,44 +2,45 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using UdemyCarbook.Dto.BrandDtos;
+using UdemyCarbook.Dto.FeatureDtos;
 
-namespace UdemyCarbook.WebUI.Controllers
+namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminBrandController : Controller
+    [Area("Admin")]
+    public class AdminFeatureController : Controller
     {
         private readonly HttpClient client;
 
-        public AdminBrandController(IHttpClientFactory httpClientFactory)
+        public AdminFeatureController(IHttpClientFactory httpClientFactory)
         {
              client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Brands");
+            var responsMessage = await client.GetAsync("Features");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBrandDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultFeatureDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public ActionResult CreateBrand()
+        public ActionResult CreateFeature()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBrand(CreateBrandDto createBrandDto)
+        public async Task<IActionResult> CreateFeature(CreateFeatureDto CreateFeatureDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createBrandDto);
+            var jsonData = JsonConvert.SerializeObject(CreateFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("Brands", stringContent);
+            var responsMessage = await client.PostAsync("Features", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -47,9 +48,9 @@ namespace UdemyCarbook.WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> RemoveBrand(int id)
+        public async Task<IActionResult> RemoveFeature(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Brands/{id}");
+            var responsMessage = await client.DeleteAsync($"Features/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -58,24 +59,24 @@ namespace UdemyCarbook.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateBrand(int id)
+        public async Task<IActionResult> UpdateFeature(int id)
         {
-            var responsMessage = await client.GetAsync($"Brands/{id}");
+            var responsMessage = await client.GetAsync($"Features/{id}");
             if (responsMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateBrandDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateFeatureDto>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
+        public async Task<IActionResult> UpdateFeature(UpdateFeatureDto updateFeatureDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateBrandDto);
+            var jsonData = JsonConvert.SerializeObject(updateFeatureDto);
             StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("Brands", stringContent);
+            var responsMessage = await client.PutAsync("Features", stringContent);
             if (responsMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
