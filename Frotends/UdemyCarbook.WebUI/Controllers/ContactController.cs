@@ -5,7 +5,7 @@ using UdemyCarbook.Dto.ContactDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
         private readonly HttpClient client;
 
@@ -17,6 +17,7 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            SetPage("İletişim", "Bizimle İletişime Geçin");
             return View();
         }
 

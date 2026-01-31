@@ -23,7 +23,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Ad Soyad</th>
+                                        <th>Yazar</th>
+                                        <th>Görsel</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
                                         <th>Yazar Blogları</th>
@@ -34,10 +35,9 @@
                                     {
                                         count++;
                                         <tr>
-
                                             <td>@count</td>
-                                            <td><img src="@item.ImageUrl" width="50" height="50" style="margin-right:10px"/>@item.Name</td>
-                                            <td>@item.ImageUrl</td>
+                                            <td>@item.Name</td>
+                                            <td><img src="@item.ImageUrl" width="75" height="60" style="margin-right:10px" /></td>
                                             <td><a href="/Admin/AdminAuthor/RemoveAuthor/@item.AuthorId" class="btn btn-outline-danger">Sil</a></td>
                                             <td><a href="/Admin/AdminAuthor/UpdateAuthor/@item.AuthorId" class="btn btn-outline-success">Güncelle</a></td>
                                             <td><a href="#" class="btn btn-outline-success">Yazar Blogları</a></td>
@@ -46,16 +46,12 @@
 
                                 </tbody>
                             </table>
-                             <a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Yeni Yazar Girişi</a>
+                            <a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Yeni Yazar Girişi</a>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 

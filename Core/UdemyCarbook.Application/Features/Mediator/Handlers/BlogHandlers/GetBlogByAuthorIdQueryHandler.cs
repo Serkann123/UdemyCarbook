@@ -22,7 +22,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.BlogHandlers
         public async Task<List<GetBlogByAuthorIdQueryResult>> Handle(GetBlogByAuthorIdQuery request, CancellationToken cancellationToken)
         {
 
-            var values = _repository.GetBlogByAuthorId(request.Id);
+            var values = await _repository.GetBlogByAuthorIdAsync(request.Id);
             return values.Select(x => new GetBlogByAuthorIdQueryResult
             {
                 AuthorId = x.AuthorId,

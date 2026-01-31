@@ -25,11 +25,11 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandl
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetFooterAddressByIdQueryResult
             {
-               Address=values.Address,
-               Description=values.Description,
-               FooterAddressId=values.FooterAddressId,
-               Mail = values.Mail,
-               Phone = values.Phone
+                Address = values.Address,
+                Description = values.Description,
+                FooterAddressId = values.FooterAddressId,
+                Mail = values.Mail,
+                Phone = values.Phone
             };
 
         }

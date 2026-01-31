@@ -1,4 +1,4 @@
-﻿@model List<ResultBlogsAllWithAuthorDto>
+﻿@model IPagedList<ResultBlogsAllWithAuthorDto>
 
 @{
     ViewData["Title"] = "Blog";
@@ -6,26 +6,106 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div class="row d-flex justify-content-center">w
+        <div class="row d-flex">
             @foreach (var item in Model)
             {
-                <div class="col-md-12 text-center d-flex ftco-animate">
-                    <div class="blog-entry justify-content-end mb-md-5">
-                        <a href="blog-single.html" class="block-20 img" style="background-image: url('@item.CoverImageUrl');">
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="blog-entry justify-content-end mb-md-5 w-100 d-flex flex-column">
+
+                        <a href="/Blog/BlogDetail/@item.BlogId" class="block-20 img"
+                           style="background-image: url('@item.CoverImageUrl'); height: 250px; background-size: cover;">
                         </a>
-                        <div class="text px-md-5 pt-4">
+
+                        <div class="text px-md-5 pt-4 d-flex flex-column flex-grow-1">
                             <div class="meta mb-3">
-                                <div><a href="#">@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</a></div>
+                                <div><a href="#">@item.CreateDate.ToString("dd-MM-yyyy")</a></div>
                                 <div><a href="#">@item.AuthorName</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#">@item.Title</a></h3>
-                            <p>@item.Descrpiton</p>
-                            <p><a href="/Blog/BlogDetail/@item.BlogId" class="btn btn-primary">Devamını Oku <span class="icon-long-arrow-right"></span></a></p>
+
+                            <h3 class="heading mt-2">
+                                <a href="/Blog/BlogDetail/@item.BlogId">@item.Title</a>
+                            </h3>
+
+                            <p>
+                                @if (!string.IsNullOrEmpty(item.Descrpiton) && item.Descrpiton.Length > 100)
+                                {
+                                    @item.Descrpiton.Substring(0, 100)
+
+                                    <text>...</text>
+                                }
+                                else
+                                {
+                                    @item.Descrpiton
+                                }
+                            </p>
+
+                            <p class="mt-auto">
+                                <a href="/Blog/BlogDetail/@item.BlogId" class="btn btn-primary">Devamını Oku <span class="icon-long-arrow-right"></span></a>
+                            </p>
                         </div>
                     </div>
                 </div>
             }
         </div>
+
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                                        PageClasses = new string[] { "page-link" },
+                                        Display = X.PagedList.Mvc.Core.PagedListDisplayMode.Always,
+                                        UlElementClasses = new string[] { "pagination justify-content-center" },
+                                        ActiveLiElementClass = "active",
+                                        LinkToPreviousPageFormat = "<",
+                                        LinkToNextPageFormat = ">",
+                                        LinkToFirstPageFormat = "<<",
+                                        LinkToLastPageFormat = ">>"
+                                        })
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        list-style: none;
+        gap: 5px;
+    }
+
+    .page-link {
+        color: black;
+        border: 1px solid #dee2e6;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-radius: 50% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        margin: 0 2px;
+    }
+
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link {
+        border-radius: 50% !important;
+    }
+
+    .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .page-link:hover {
+        background-color: #e9ecef;
+        color: #0056b3;
+        border-radius: 50% !important;
+    }
+</style>

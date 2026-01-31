@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using UdemyCarbook.Application.Interfaces.ReviewInterfaces;
 using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;
@@ -18,10 +14,9 @@ namespace UdemyCarbook.Persistence.Repositories.ReviewRepositories
             _carbookContext = carbookContext;
         }
 
-        public List<Review> GetReviewByCarId(int carId)
+        public async Task<List<Review>> GetReviewByCarIdAsync(int carId)
         {
-           var values=_carbookContext.Reviews.Where(x=>x.CarId == carId).ToList();
-            return values;
+            return await _carbookContext.Reviews.Where(x => x.CarId == carId).ToListAsync();
         }
     }
 }

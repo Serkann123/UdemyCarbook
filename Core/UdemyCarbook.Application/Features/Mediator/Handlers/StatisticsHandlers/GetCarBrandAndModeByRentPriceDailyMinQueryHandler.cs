@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetCarBrandAndModeByRentPriceDailyMinQueryResult> Handle(GetCarBrandAndModeByRentPriceDailyMinQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetCarBrandAndModeByRentPriceDailyMin();
+            var value = await _repository.GetCarBrandAndModeByRentPriceDailyMinAsync();
             return new GetCarBrandAndModeByRentPriceDailyMinQueryResult
             {
                 CarBrandAndModeByRentPriceDailyMin = value

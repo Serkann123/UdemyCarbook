@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Referans";
+    int count = 0;
 }
 
 <div class="page-content">
@@ -31,8 +32,9 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
+                                        count++;
                                         <tr>
-                                            <td><img src="@item.ImageUrl" width="50" height="50"/></td>
+                                            <td>@count</td>
                                             <td>@item.Name</td>
                                             <td>@item.Title</td>
                                             <td>@item.Comment</td>

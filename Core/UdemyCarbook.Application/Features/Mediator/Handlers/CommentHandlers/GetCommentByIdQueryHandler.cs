@@ -20,7 +20,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
         }
         public async Task<GetCommentByIdQueryResult> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
         {
-            var values =await _repository.GetByIdAsync(request.Id);
+            var values = await _repository.GetByIdAsync(request.Id);
 
             return new GetCommentByIdQueryResult
             {

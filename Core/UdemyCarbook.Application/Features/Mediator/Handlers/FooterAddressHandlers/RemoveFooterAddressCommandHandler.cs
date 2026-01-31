@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandler
 {
-    public class RemoveFooterAddressCommandHandler:IRequestHandler<RemoveFooterAddressComamnd>
+    public class RemoveFooterAddressCommandHandler : IRequestHandler<RemoveFooterAddressComamnd>
     {
         private readonly IRepository<FooterAddress> _repository;
 

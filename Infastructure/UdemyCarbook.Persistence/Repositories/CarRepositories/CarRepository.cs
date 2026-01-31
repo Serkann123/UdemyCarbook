@@ -1,10 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
 using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;
@@ -19,28 +13,24 @@ namespace UdemyCarbook.Persistence.Repositories.CarRepositories
             _context = carbookContext;
         }
 
-        public int GetCarCount()
+        public async Task<int> GetCarCountAsync()
         {
-            var values = _context.Cars.Count();
-            return values;
+            return await _context.Cars.CountAsync();
         }
 
-        public Car GetCarMainCarFeature(int id)
+        public async Task<Car?> GetCarMainCarFeatureAsync(int id)
         {
-            var values = _context.Cars.Include(x => x.Brand).Where(x => x.CarId == id).FirstOrDefault();
-            return values;
+            return await _context.Cars.Include(x => x.Brand).FirstOrDefaultAsync(x => x.CarId == id);
         }
 
-        public List<Car> GetCarsListWithBrand()
+        public async Task<List<Car>> GetCarsListWithBrandAsync()
         {
-            var values = _context.Cars.Include(x => x.Brand).ToList();
-            return values;
+            return await _context.Cars.Include(x => x.Brand).ToListAsync();
         }
 
-        public List<Car> GetLast5WithCarsWithBrand()
+        public async Task<List<Car>> GetLast5WithCarsWithBrandAsync()
         {
-            var values = _context.Cars.Include(x => x.Brand).OrderByDescending(x => x.CarId).Take(5).ToList();
-            return values;
+            return await _context.Cars.Include(x => x.Brand).OrderByDescending(x => x.CarId).Take(5).ToListAsync();
         }
     }
 }

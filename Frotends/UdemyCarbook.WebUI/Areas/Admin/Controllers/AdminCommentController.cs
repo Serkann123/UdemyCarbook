@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using UdemyCarbook.Dto.CommentDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -12,29 +8,29 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminCommentController : Controller
     {
-        private readonly HttpClient _httpClient;
-
-
-        public AdminCommentController(IHttpClientFactory httpClientFactory)
+        private readonly ICommentApiService _commentApiService;
+        public AdminCommentController(ICommentApiService commentApiService)
         {
-            _httpClient = httpClientFactory.CreateClient("CarApi");
+            _commentApiService = commentApiService;
         }
-
 
         public async Task<IActionResult> Index()
         {
-            var values = await _httpClient.GetFromJsonAsync<List<ResultCommentDto>>("Comments");
+            var values = await _commentApiService.GetAllAsync();
             return View(values);
         }
 
         public async Task<IActionResult> RemoveComment(int id)
         {
-            var responseMessage = await _httpClient.DeleteAsync($"Comments/{id}");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _commentApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction("Index");
             return View();
+        }
+
+        public async Task<IActionResult> BlogComments(int id)
+        {
+            var values = await _commentApiService.GetByBlogIdAsync(id);
+            return View(values);
         }
     }
 }

@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.LocationHandlers
 {
-    public class CreateLocationCommandHandler:IRequestHandler<CreateLocationCommand>
+    public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
     {
         private readonly IRepository<Location> _repository;
         public CreateLocationCommandHandler(IRepository<Location> repository)
@@ -22,7 +22,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.LocationHandlers
         {
             await _repository.CreateAsync(new Location
             {
-                Name= request.Name
+                Name = request.Name
             });
         }
     }

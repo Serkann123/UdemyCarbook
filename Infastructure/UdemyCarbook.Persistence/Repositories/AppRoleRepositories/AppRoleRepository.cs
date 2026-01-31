@@ -6,19 +6,18 @@ using UdemyCarbook.Persistence.Context;
 
 namespace UdemyCarbook.Persistence.Repositories.AppRoleRepositories
 {
-    public class AppRoleRepositories : IAppRoleRepository
+    public class AppRoleRepository : IAppRoleRepository
     {
-        readonly CarbookContext _context;
+        private readonly CarbookContext _context;
 
-        public AppRoleRepositories(CarbookContext context)
+        public AppRoleRepository(CarbookContext context)
         {
             _context = context;
         }
 
-        public async Task<AppRole> GetByFilterAsync(Expression<Func<AppRole, bool>> filter)
+        public async Task<AppRole?> GetByFilterAsync(Expression<Func<AppRole, bool>> filter)
         {
-            var value = await _context.AppRoles.Where(filter).FirstOrDefaultAsync();
-            return value;
+            return await _context.AppRoles.FirstOrDefaultAsync(filter);
         }
     }
 }

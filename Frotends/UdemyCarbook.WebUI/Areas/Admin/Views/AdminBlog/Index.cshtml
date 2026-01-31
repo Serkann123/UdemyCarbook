@@ -53,11 +53,13 @@
                                                    asp-controller="Blog"
                                                    asp-area=""
                                                    asp-route-id="@item.BlogId"
-                                                   class="btn btn-outline-dark">Blog Aç</a>
+                                                   class="btn btn-outline-dark">
+                                                    Blog Aç
+                                                </a>
                                             </td>
 
                                             <td>
-                                                <a asp-action="Index"
+                                                <a asp-action="BlogComments"
                                                    asp-controller="AdminComment"
                                                    asp-area="Admin"
                                                    asp-route-id="@item.BlogId"

@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.CQRS.Queries.CarQueries;
 using UdemyCarbook.Application.Features.CQRS.Results.CarResults;
-using UdemyCarbook.Application.Features.Mediator.Queries.BlogQueries;
-using UdemyCarbook.Application.Features.Mediator.Results.BlogResults;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
 
 namespace UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers
@@ -22,7 +20,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers
 
         public async Task<GetCarMainCarFeatureResult> Handle(GetCarMainCarFeatureQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetCarMainCarFeature(request.Id);
+            var values = await _repository.GetCarMainCarFeatureAsync(request.Id);
             return new GetCarMainCarFeatureResult
             {
                 BigImageUrl = values.BigImageUrl,

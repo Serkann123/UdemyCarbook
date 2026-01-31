@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetAvgRentPriceForDailyQueryResult> Handle(GetAvgRentPriceForDailyQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetAvgRentPriceForDaily();
+            var value = await _repository.GetAvgRentPriceForDailyAsync();
             return new GetAvgRentPriceForDailyQueryResult
             {
                 AvgRentPriceForDaily = value

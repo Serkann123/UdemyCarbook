@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetBlogCountQueryResult> Handle(GetBlogCountQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetBlogCount();
+            var value = await _repository.GetBlogCountAsync();
             return new GetBlogCountQueryResult
             {
                 BlogCount = value

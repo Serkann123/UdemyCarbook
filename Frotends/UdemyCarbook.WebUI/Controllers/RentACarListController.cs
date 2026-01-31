@@ -4,24 +4,23 @@ using UdemyCarbook.Dto.RentACarFilterDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class RentACarListController : Controller
+    public class RentACarListController : BaseController
     {
         private readonly HttpClient client;
 
         public RentACarListController(IHttpClientFactory httpClientFactory)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.v1 = "Araçlarımız";
-            ViewBag.v2 = "Seçiminize Uygun Araçlar";
+            SetPage("Araçlarımız", "Seçiminize Uygun Araçlar");
 
             var locationId = TempData["locationId"];
 
             var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
-           
+
             var responsMessage = await client.GetAsync($"RentACars?locationId={id}&available=true");
 
             if (responsMessage.IsSuccessStatusCode)

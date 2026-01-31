@@ -21,13 +21,13 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandlers
 
         public async Task<List<GetCarFeatureByCarIdQueryResult>> Handle(GetCarFeatureByCarIdQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetCarFeatureByCarId(request.Id);
+            var values = await _repository.GetCarFeatureByCarIdAsync(request.Id);
             return values.Select(x => new GetCarFeatureByCarIdQueryResult
             {
                 Available = x.Available,
                 CarFeatureId = x.CarFeatureId,
                 FeatureId = x.FeatureId,
-                FeatureName=x.Feature.Name
+                FeatureName = x.Feature.Name
             }).ToList();
         }
     }

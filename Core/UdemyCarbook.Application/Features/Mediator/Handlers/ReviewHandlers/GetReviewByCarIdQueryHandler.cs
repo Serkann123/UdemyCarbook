@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReviewHandlers
 
         public async Task<List<GetReviewByCarIdQueryResult>> Handle(GetReviewByCarIdQuery request, CancellationToken cancellationToken)
         {
-            var values = _reviewRepository.GetReviewByCarId(request.Id);
+            var values = await _reviewRepository.GetReviewByCarIdAsync(request.Id);
             return values.Select(x => new GetReviewByCarIdQueryResult
             {
                 CarId = x.CarId,

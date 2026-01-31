@@ -25,8 +25,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.PirincingHandlers
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetPirincingByIdQueryResult
             {
-                PricingId=values.PricingId,
-                Name=values.Name
+                PricingId = values.PricingId,
+                Name = values.Name
             };
         }
     }

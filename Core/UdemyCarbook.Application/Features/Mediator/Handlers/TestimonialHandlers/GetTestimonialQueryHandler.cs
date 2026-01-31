@@ -11,7 +11,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandlers
 {
-    public class GetTestimonialQueryHandler:IRequestHandler<GetTestimonialQuery,List<GetTestimonialQueryResult>>
+    public class GetTestimonialQueryHandler : IRequestHandler<GetTestimonialQuery, List<GetTestimonialQueryResult>>
     {
         private readonly IRepository<Testimonial> _repository;
 
@@ -25,9 +25,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandler
             var values = await _repository.GetAllAsync();
             return values.Select(x => new GetTestimonialQueryResult
             {
-                Comment=x.Comment,
-                TestimonialId=x.TestimonialId,
-                ImageUrl=x.ImageUrl,
+                Comment = x.Comment,
+                TestimonialId = x.TestimonialId,
+                ImageUrl = x.ImageUrl,
                 Name = x.Name,
                 Title = x.Title
             }).ToList();

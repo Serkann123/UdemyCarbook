@@ -4,38 +4,32 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using UdemyCarbook.Application.Validators.Tools;
+using UdemyCarbook.Dto.CarDtos;
 using UdemyCarbook.Dto.LocationDtos;
 using UdemyCarbook.Dto.ReservationDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class ReservationController : Controller
+    public class ReservationController : BaseController
     {
         private readonly HttpClient client;
 
         public ReservationController(IHttpClientFactory httpClientFactory)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            client = httpClientFactory.CreateClient("CarApi");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int? id)
         {
-            ViewBag.v1 = "Araç Kiralama";
-            ViewBag.v2 = "Araç Rezervasyon Formu";
+            SetPage("Araç Kiralama", "Araç Rezervasyon Formu");
+            ViewBag.v3 = id ?? 0;
 
-            ViewBag.v3 = id;
-           
-            var responsMessage = await client.GetAsync("Locations");
-            var jsonData = await responsMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+            await LoadLocations();
 
-
-            ViewBag.Locations = values.Select(x => new SelectListItem
-            {
-                Text = x.Name,
-                Value = x.LocationId.ToString()
-            }).ToList();
+            // id gelmediyse araç listesi yükle
+            if (!id.HasValue || id.Value <= 0)
+                await LoadCars();
 
             return View();
         }
@@ -43,13 +37,20 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateReservationDto createReservationDto)
         {
-            ViewBag.v1 = "Araç Kiralama";
-            ViewBag.v2 = "Araç Rezervasyon Formu";
+            SetPage("Araç Kiralama", "Araç Rezervasyon Formu");
             ViewBag.v3 = createReservationDto.CarId;
+
+            if (createReservationDto.CarId <= 0)
+                ModelState.AddModelError(nameof(createReservationDto.CarId), "Lütfen bir araç seçin.");
 
             if (!ModelState.IsValid)
             {
                 await LoadLocations();
+
+                // CarId yoksa araç dropdown'u tekrar dolsun
+                if (createReservationDto.CarId <= 0)
+                    await LoadCars();
+
                 return View(createReservationDto);
             }
 
@@ -63,6 +64,10 @@ namespace UdemyCarbook.WebUI.Controllers
             await AddApiErrorsToModelState(responseMessage);
 
             await LoadLocations();
+
+            if (createReservationDto.CarId <= 0)
+                await LoadCars();
+
             return View(createReservationDto);
         }
 
@@ -76,6 +81,27 @@ namespace UdemyCarbook.WebUI.Controllers
             {
                 Text = x.Name,
                 Value = x.LocationId.ToString()
+            }).ToList();
+        }
+
+        private async Task LoadCars()
+        {
+            var response = await client.GetAsync("Cars/GetCarWithBrand");
+            if (!response.IsSuccessStatusCode)
+            {
+                ViewBag.Cars = new List<SelectListItem>();
+                ModelState.AddModelError(string.Empty, "Araç listesi getirilemedi.");
+                return;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            var cars = JsonConvert.DeserializeObject<List<ResultCarForReservationDto>>(json) ?? new();
+
+            ViewBag.Cars = cars.Select(c => new SelectListItem
+            {
+                Text = $"{c.BrandName} {c.Model}",
+                Value = c.CarId.ToString()
             }).ToList();
         }
 

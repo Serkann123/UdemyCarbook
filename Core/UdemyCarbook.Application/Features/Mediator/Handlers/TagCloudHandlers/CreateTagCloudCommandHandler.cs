@@ -22,8 +22,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TagCloudHandlers
         {
             await _repository.CreateAsync(new TagCloud
             {
-                Title=request.Title,
-                BlogId=request.BlogId
+                Title = request.Title,
+                BlogId = request.BlogId
             });
         }
     }

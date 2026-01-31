@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.PirincingHandlers
 {
-    public class CreatePrincingCommandHandler:IRequestHandler<CreatePirincingCommand>
+    public class CreatePrincingCommandHandler : IRequestHandler<CreatePirincingCommand>
     {
         private readonly IRepository<Piricing> _repository;
         public CreatePrincingCommandHandler(IRepository<Piricing> repository)
@@ -22,7 +22,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.PirincingHandlers
         {
             await _repository.CreateAsync(new Piricing
             {
-                Name=request.Name
+                Name = request.Name
             });
         }
     }

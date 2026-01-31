@@ -22,8 +22,8 @@ namespace UdemyCarbook.Application.TagClouds.Mediator.Handlers.TagCloudHandlers
         public async Task Handle(UpdateTagCloudCommand request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetByIdAsync(request.TagCloudId);
-            values.Title=request.Title;
-            values.BlogId=request.BlogId;
+            values.Title = request.Title;
+            values.BlogId = request.BlogId;
             await _repository.UpdateAsync(values);
         }
     }

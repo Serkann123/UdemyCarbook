@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UdemyCarbook.Application.Interfaces.StatisticsInterfaces
+﻿namespace UdemyCarbook.Application.Interfaces.StatisticsInterfaces
 {
     public interface IStatisticsRepository
     {
-        int GetCarCount();
-        int GetLocationCount();
-        int GetAuthorCount();
-        int GetBlogCount();
-        int GetBrandCount();
-        decimal GetAvgRentPriceForDaily();
-        decimal GetAvgRentPriceForWeekly();
-        decimal GetAvgRentPriceForMonthly();
-        int GetCarCountByTranmissionIsAuto();
-        string GetBrandNameByMaxCar();
-        string GetBlogTitleByMaxBlogComment();
+        Task<int> GetCarCountAsync();
+        Task<int> GetLocationCountAsync();
+        Task<int> GetAuthorCountAsync();
+        Task<int> GetBlogCountAsync();
+        Task<int> GetBrandCountAsync();
+        Task<decimal> GetAvgRentPriceForDailyAsync();
+        Task<decimal> GetAvgRentPriceForWeeklyAsync();
+        Task<decimal> GetAvgRentPriceForMonthlyAsync();
+        Task<int> GetCarCountByTranmissionIsAutoAsync();
+        Task<string> GetBrandNameByMaxCarAsync();
+        Task<string> GetBlogTitleByMaxBlogCommentAsync();
 
-        int GetCarCountByKmSmallerThen1000();
-        int GetCarCountByFuelGasolineOrDiesel();
-        int GetCarCountByFuelElectric();
-        string GetCarBrandAndModeByRentPriceDailyMax();
-        string GetCarBrandAndModeByRentPriceDailyMin();
+        Task<int> GetCarCountByKmSmallerThen1000Async();
+        Task<int> GetCarCountByFuelGasolineOrDieselAsync();
+        Task<int> GetCarCountByFuelElectricAsync();
+        Task<string> GetCarBrandAndModeByRentPriceDailyMaxAsync();
+        Task<string> GetCarBrandAndModeByRentPriceDailyMinAsync();
     }
 }

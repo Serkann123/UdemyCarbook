@@ -15,7 +15,7 @@ namespace UdemyCarbook.WebUI.Models
 
         public GenericStatistics(IHttpClientFactory httpClientFactory)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            client = httpClientFactory.CreateClient("CarApi");
         }
 
         public async Task setViewBagData<T>(
@@ -25,7 +25,7 @@ namespace UdemyCarbook.WebUI.Models
                 Func<T, object> selector
                 )
         {
-           
+
             var response = await client.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)
@@ -37,6 +37,11 @@ namespace UdemyCarbook.WebUI.Models
                 viewData[viewBagKey] = dataValue;
 
                 viewData[viewBagKey + "Random"] = new Random().Next(0, 101);
+            }
+            else
+            {
+                viewData[viewBagKey] = 0;
+                viewData[viewBagKey + "Random"] = 0;
             }
         }
     }

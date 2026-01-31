@@ -10,13 +10,13 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
 {
-    public class RemoveCommentHandler:IRequestHandler<RemoveCommentCommand>
+    public class RemoveCommentHandler : IRequestHandler<RemoveCommentCommand>
     {
         private readonly IRepository<Comment> _repository;
 
         public RemoveCommentHandler(IRepository<Comment> repository)
         {
-            _repository= repository;
+            _repository = repository;
         }
 
         public async Task Handle(RemoveCommentCommand request, CancellationToken cancellationToken)

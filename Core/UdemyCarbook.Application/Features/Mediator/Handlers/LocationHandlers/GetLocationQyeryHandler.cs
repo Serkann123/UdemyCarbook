@@ -11,7 +11,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.LocationHandlers
 {
-    public class GetLocationQyeryHandler:IRequestHandler<GetLocationQuery,List<GetLocationQueryResult>>
+    public class GetLocationQyeryHandler : IRequestHandler<GetLocationQuery, List<GetLocationQueryResult>>
     {
         private readonly IRepository<Location> _repository;
         public GetLocationQyeryHandler(IRepository<Location> repository)

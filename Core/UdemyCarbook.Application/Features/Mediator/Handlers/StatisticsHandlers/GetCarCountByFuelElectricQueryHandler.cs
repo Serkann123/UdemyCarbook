@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetCarCountByFuelElectricQueryResult> Handle(GetCarCountByFuelElectricQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetCarCountByFuelElectric();
+            var value = await _repository.GetCarCountByFuelElectricAsync();
             return new GetCarCountByFuelElectricQueryResult
             {
                 CarCountByFuelElectric = value

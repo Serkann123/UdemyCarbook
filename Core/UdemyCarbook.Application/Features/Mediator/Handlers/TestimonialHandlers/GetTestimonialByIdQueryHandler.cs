@@ -11,7 +11,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandlers
 {
-    public class GetTestimonialByIdQueryHandler:IRequestHandler<GetTestimonialByIdQuery,GetTestimonialByIdQıeryResult>
+    public class GetTestimonialByIdQueryHandler : IRequestHandler<GetTestimonialByIdQuery, GetTestimonialByIdQıeryResult>
     {
         private readonly IRepository<Testimonial> _repository;
 
@@ -25,11 +25,11 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandler
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetTestimonialByIdQıeryResult
             {
-                Title=values.Title,
-                Name=values.Name,
-                Comment=values.Comment,
-                ImageUrl=values.ImageUrl,
-                TestimonialId=values.TestimonialId
+                Title = values.Title,
+                Name = values.Name,
+                Comment = values.Comment,
+                ImageUrl = values.ImageUrl,
+                TestimonialId = values.TestimonialId
             };
         }
     }

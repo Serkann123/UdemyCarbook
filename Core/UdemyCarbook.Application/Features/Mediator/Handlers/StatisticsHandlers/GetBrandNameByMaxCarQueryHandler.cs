@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetBrandNameByMaxCarQueryResult> Handle(GetBrandNameByMaxCarQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetBrandNameByMaxCar();
+            var value = await _repository.GetBrandNameByMaxCarAsync();
             return new GetBrandNameByMaxCarQueryResult
             {
                 BrandNameByMaxCar = value

@@ -23,9 +23,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandlers
         {
             await _repository.CreateAsync(new CarFeature
             {
-               Available = false,
-               CarId = request.CarId,
-               FeatureId = request.FeatureId,
+                Available = false,
+                CarId = request.CarId,
+                FeatureId = request.FeatureId,
             });
         }
     }

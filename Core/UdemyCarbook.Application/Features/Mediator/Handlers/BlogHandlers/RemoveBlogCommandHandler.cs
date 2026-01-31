@@ -12,8 +12,8 @@ namespace UdemyCarbook.Application.Blogs.Mediator.Handlers.BlogHandlers
 {
     public class RemoveBlogCommandHandler : IRequestHandler<RemoveBlogCommand>
     {
-        private readonly IRepository<Brand> _repository;
-        public RemoveBlogCommandHandler(IRepository<Brand> repository)
+        private readonly IRepository<Blog> _repository;
+        public RemoveBlogCommandHandler(IRepository<Blog> repository)
         {
             _repository = repository;
         }

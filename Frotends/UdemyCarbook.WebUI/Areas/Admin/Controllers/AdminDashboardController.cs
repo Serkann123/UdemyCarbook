@@ -5,7 +5,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class AdminDashoardController : Controller
+    public class AdminDashboardController : Controller
     {
         public IActionResult Index()
         {
