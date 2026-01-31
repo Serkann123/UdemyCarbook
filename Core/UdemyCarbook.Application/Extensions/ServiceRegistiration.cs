@@ -9,7 +9,7 @@ namespace UdemyCarbook.Application.Extensions
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServiceRegistiration).Assembly));
 
-            // CQRS Handler'ları otomatik DI
+            // CQRS Handler sınıflarını otomatik olarak DI'a ekler
             services.Scan(scan => scan
                 .FromAssemblies(typeof(ServiceRegistiration).Assembly)
                 .AddClasses(c => c

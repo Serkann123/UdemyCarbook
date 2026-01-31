@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandlers
 {
-    public class RemoveCarFeatureByCarCommandHandler:IRequestHandler<RemoveCarFeatureByCarCommand>
+    public class RemoveCarFeatureByCarCommandHandler : IRequestHandler<RemoveCarFeatureByCarCommand>
     {
         private readonly IRepository<CarFeature> _repository;
 
@@ -20,7 +20,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandlers
         }
         public async Task Handle(RemoveCarFeatureByCarCommand request, CancellationToken cancellationToken)
         {
-            var values =await _repository.GetByIdAsync(request.Id);
+            var values = await _repository.GetByIdAsync(request.Id);
             await _repository.RemoveAync(values);
         }
     }

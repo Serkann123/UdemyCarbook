@@ -10,7 +10,7 @@ using UdemyCarbook.Application.Interfaces.RentACarInterfaces;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandlers
 {
-    public class GetRentACarQueryHandler:IRequestHandler<GetRentACarQuery,List<GetRentACarQueryResult>>
+    public class GetRentACarQueryHandler : IRequestHandler<GetRentACarQuery, List<GetRentACarQueryResult>>
     {
         private readonly IRentACarRepository _rentACarRepository;
 
@@ -28,7 +28,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.RentACarHandlers
                 CarId = x.CarId,
                 Brand = x.Car.Brand.Name,
                 Model = x.Car.Model,
-                CoverImageUrl=x.Car.CoverImageUrl,
+                CoverImageUrl = x.Car.CoverImageUrl,
                 Amount = x.Car.CarPricings.Where(cp => cp.CarId == x.CarId).Select(cp => cp.Ammount).FirstOrDefault(),
                 Name = x.Car.CarPricings.FirstOrDefault()?.Piricing?.Name
             }).ToList();

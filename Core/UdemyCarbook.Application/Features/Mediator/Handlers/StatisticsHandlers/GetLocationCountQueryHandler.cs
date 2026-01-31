@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetLocationCountQueryResult> Handle(GetLocationCountQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetLocationCount();
+            var value = await _repository.GetLocationCountAsync();
             return new GetLocationCountQueryResult
             {
                 LocationCount = value

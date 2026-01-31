@@ -10,7 +10,7 @@ using UdemyCarbook.Application.Interfaces.TagCloudInterfaces;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.TagCloudHandlers
 {
-    public class GetTagCloudByBlogIdQueryHandler:IRequestHandler<GetTagCloudByBlogIdQuery,List<GetTagCloudByBlogIdQueryResult>>
+    public class GetTagCloudByBlogIdQueryHandler : IRequestHandler<GetTagCloudByBlogIdQuery, List<GetTagCloudByBlogIdQueryResult>>
     {
         private readonly ITagCloudRepository _repository;
 
@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TagCloudHandlers
 
         public async Task<List<GetTagCloudByBlogIdQueryResult>> Handle(GetTagCloudByBlogIdQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetTagCloudByBlogId(request.Id);
+            var values =  await _repository.GetTagCloudByBlogIdAsync(request.Id);
             return values.Select(x => new GetTagCloudByBlogIdQueryResult
             {
                 BlogId = x.BlogId,

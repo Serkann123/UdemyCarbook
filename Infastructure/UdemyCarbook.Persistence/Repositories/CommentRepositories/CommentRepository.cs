@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using UdemyCarbook.Application.Interfaces.CommentInterfaces;
 using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;
@@ -19,14 +14,14 @@ namespace UdemyCarbook.Persistence.Repositories.CommentRepositories
             _context = context;
         }
 
-        public List<Comment> GetCommentsByBlogId(int id)
+        public async Task<List<Comment>> GetCommentsByBlogIdAsync(int id)
         {
-            return _context.Comments.Where(x => x.BlogId == id).ToList();
+            return await _context.Comments.Where(x => x.BlogId == id).ToListAsync();
         }
 
-        public int GetCountCommentBlog(int id)
+        public async Task<int> GetCountCommentBlogAsync(int id)
         {
-            return _context.Comments.Where(x=>x.BlogId==id).Count();
+            return await _context.Comments.Where(x => x.BlogId == id).CountAsync();
         }
     }
 }

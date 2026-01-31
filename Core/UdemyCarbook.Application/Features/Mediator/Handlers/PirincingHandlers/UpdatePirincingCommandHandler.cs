@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.PirincingHandlers
 {
-    public class UpdatePirincingCommandHandler:IRequestHandler<UpdatePirincingCommand>
+    public class UpdatePirincingCommandHandler : IRequestHandler<UpdatePirincingCommand>
     {
         private readonly IRepository<Piricing> _repository;
         public UpdatePirincingCommandHandler(IRepository<Piricing> repository)

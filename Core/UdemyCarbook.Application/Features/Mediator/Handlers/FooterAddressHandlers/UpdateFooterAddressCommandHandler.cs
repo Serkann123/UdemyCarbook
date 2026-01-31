@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandler
 {
-    public class UpdateFooterAddressCommandHandler:IRequestHandler<UpdateFooterAddressCommand>
+    public class UpdateFooterAddressCommandHandler : IRequestHandler<UpdateFooterAddressCommand>
     {
         private readonly IRepository<FooterAddress> _repository;
 
@@ -22,8 +22,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandl
         {
             var values = await _repository.GetByIdAsync(request.FooterAddressId);
             values.Description = request.Description;
-            values.Phone=request.Phone;
-            values.Address=request.Address;
+            values.Phone = request.Phone;
+            values.Address = request.Address;
             values.Mail = request.Mail;
             await _repository.UpdateAsync(values);
         }

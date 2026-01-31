@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UdemyCarbook.Domain.Entities;
+﻿using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Interfaces.CarInterfaces
 {
     public interface ICarRepository
     {
-        List<Car> GetCarsListWithBrand();
-        List<Car> GetLast5WithCarsWithBrand();
-        int GetCarCount();
-        Car GetCarMainCarFeature(int id);
+        Task<List<Car>> GetCarsListWithBrandAsync();
+        Task<List<Car>> GetLast5WithCarsWithBrandAsync();
+        Task<int> GetCarCountAsync();
+        Task<Car> GetCarMainCarFeatureAsync(int id);
     }
 }

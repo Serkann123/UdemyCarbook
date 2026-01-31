@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetCarCountByTranmissionIsAutoQueryResult> Handle(GetCarCountByTranmissionIsAutoQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetCarCountByTranmissionIsAuto();
+            var value = await _repository.GetCarCountByTranmissionIsAutoAsync();
             return new GetCarCountByTranmissionIsAutoQueryResult
             {
                 CarCountByTranmissionIsAuto = value

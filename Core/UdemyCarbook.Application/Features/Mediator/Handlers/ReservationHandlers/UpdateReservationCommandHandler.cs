@@ -29,14 +29,14 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
             values.Age = request.Age;
             values.CarId = request.CarId;
             values.Description = request.Description;
-            values.DriverLicenseYear=request.DriverLicenseYear;
+            values.DriverLicenseYear = request.DriverLicenseYear;
             values.DropOffLocationId = request.DropOffLocationId;
             values.Email = request.Email;
             values.Name = request.Name;
             values.Surname = request.Surname;
             values.Phone = request.Phone;
-            values.PickUpLocationId= request.PickUpLocationId;
-            values.Status =  "Rezervasyon Alındı";
+            values.PickUpLocationId = request.PickUpLocationId;
+            values.Status = "Rezervasyon Alındı";
 
             await _repository.UpdateAsync(values);
         }

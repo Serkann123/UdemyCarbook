@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandlers
 {
-    public class CreateTestimonialCommandHandler:IRequestHandler<CreateTestimonialCommand>
+    public class CreateTestimonialCommandHandler : IRequestHandler<CreateTestimonialCommand>
     {
         private readonly IRepository<Testimonial> _repository;
 

@@ -69,16 +69,16 @@ namespace UdemyCarbook.WebApi.Controllers
         }
 
         [HttpGet("GetCarWithBrand")]
-        public IActionResult GetCarWithBrand()
+        public async Task<IActionResult> GetCarWithBrand()
         {
-            var values = _getCarWithBrandQueryHandler.Handle();
+            var values = await _getCarWithBrandQueryHandler.Handle();
             return Ok(values);
         }
 
         [HttpGet("GetLast5CarsQueryHandler")]
-        public IActionResult GetLast5CarsQueryHandler()
+        public async Task<IActionResult> GetLast5CarsQueryHandler()
         {
-            var values = _getLast5CarsQueryHandler.Handle();
+            var values = await _getLast5CarsQueryHandler.Handle();
             return Ok(values);
         }
 

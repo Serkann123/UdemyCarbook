@@ -11,7 +11,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.LocationHandlers
 {
-    public class GetLocationByIdQueryHandler:IRequestHandler<GetLocationByIdQuery,GetLocationByIdQueryResult>
+    public class GetLocationByIdQueryHandler : IRequestHandler<GetLocationByIdQuery, GetLocationByIdQueryResult>
     {
         private readonly IRepository<Location> _repository;
         public GetLocationByIdQueryHandler(IRepository<Location> repository)
@@ -24,8 +24,8 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.LocationHandlers
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetLocationByIdQueryResult
             {
-               LocationId=values.LocationId,
-               Name=values.Name
+                LocationId = values.LocationId,
+                Name = values.Name
             };
         }
     }

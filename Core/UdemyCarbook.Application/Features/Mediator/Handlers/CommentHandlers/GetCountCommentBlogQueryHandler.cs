@@ -20,7 +20,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
         }
         public async Task<GetCountCommentBlogQueryResult> Handle(GetCountCommentBlogQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetCountCommentBlog(request.Id);
+            var value = await _repository.GetCountCommentBlogAsync(request.Id);
             return new GetCountCommentBlogQueryResult
             {
                 CommentBlogCount = value

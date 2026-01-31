@@ -19,24 +19,23 @@ namespace UdemyCarbook.Persistence.Repositories.CarFeatureRepositories
             _context = context;
         }
 
-        public void ChangeCarFeaturesAvailableToFalse(int id)
+        public async Task ChangeCarFeaturesAvailableToFalseAsync(int id)
         {
-            var values = _context.CarFeatures.Where(x => x.CarFeatureId == id).FirstOrDefault();
+            var values = await _context.CarFeatures.FirstOrDefaultAsync(x => x.CarFeatureId == id);
             values.Available = false;
             _context.SaveChangesAsync();
         }
 
-        public void ChangeCarFeaturesAvailableToTrue(int id)
+        public async Task ChangeCarFeaturesAvailableToTrueAsync(int id)
         {
-            var values = _context.CarFeatures.Where(x => x.CarFeatureId == id).FirstOrDefault();
+            var values = await _context.CarFeatures.FirstOrDefaultAsync(x => x.CarFeatureId == id);
             values.Available = true;
             _context.SaveChangesAsync();
         }
 
-        public List<CarFeature> GetCarFeatureByCarId(int carId)
+        public async Task<List<CarFeature>> GetCarFeatureByCarIdAsync(int carId)
         {
-            var values = _context.CarFeatures.Include(y => y.Feature).Where(x => x.CarId == carId).ToList();
-            return values;
+            return await _context.CarFeatures.Include(y => y.Feature).Where(x => x.CarId == carId).ToListAsync();
         }
     }
 }

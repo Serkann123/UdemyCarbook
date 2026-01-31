@@ -24,10 +24,10 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ServiceHandlers
             var values = await _repository.GetByIdAsync(request.Id);
             return new GetServiceByIdQueryResult
             {
-               Description=values.Description,
-               Title=values.Title,
-               IconUrl=values.IconUrl,
-               ServiceId = values.ServiceId
+                Description = values.Description,
+                Title = values.Title,
+                IconUrl = values.IconUrl,
+                ServiceId = values.ServiceId
             };
         }
     }

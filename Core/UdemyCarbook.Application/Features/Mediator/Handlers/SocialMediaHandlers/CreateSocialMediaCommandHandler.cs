@@ -22,9 +22,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.SocialMediaHandler
         {
             await _repository.CreateAsync(new SocialMedia
             {
-                Icon=request.Icon,
-                Name=request.Name,
-                Url=request.Url
+                Icon = request.Icon,
+                Name = request.Name,
+                Url = request.Url
             });
         }
     }

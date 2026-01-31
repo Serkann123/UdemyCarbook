@@ -21,15 +21,15 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
 
         public async Task<List<GetCommentListByBlogIdQueryResult>> Handle(GetCommentListByBlogIdQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetCommentsByBlogId(request.Id);
+            var values = await _repository.GetCommentsByBlogIdAsync(request.Id);
             return values.Select(x => new GetCommentListByBlogIdQueryResult
             {
-                CommentId=x.CommentId,
-                Name=x.Name,
-                CreateDate=x.CreateDate,
-                Description=x.Description,
-                BlogId=x.BlogId,
-                Email=x.Email
+                CommentId = x.CommentId,
+                Name = x.Name,
+                CreateDate = x.CreateDate,
+                Description = x.Description,
+                BlogId = x.BlogId,
+                Email = x.Email
             }).ToList();
         }
     }

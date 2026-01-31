@@ -11,7 +11,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.SocialMediaHandlers
 {
-    public class GetSocialMediaQueryHandler : IRequestHandler<GetSocailMediaQuery,List<GetSocialMediaQueryResult>>
+    public class GetSocialMediaQueryHandler : IRequestHandler<GetSocailMediaQuery, List<GetSocialMediaQueryResult>>
     {
         private readonly IRepository<SocialMedia> _repository;
 
@@ -25,10 +25,10 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.SocialMediaHandler
             var values = await _repository.GetAllAsync();
             return values.Select(x => new GetSocialMediaQueryResult
             {
-               Url = x.Url,
-               SocialMediaId = x.SocialMediaId,
-               Name = x.Name,
-               Icon = x.Icon
+                Url = x.Url,
+                SocialMediaId = x.SocialMediaId,
+                Name = x.Name,
+                Icon = x.Icon
             }).ToList();
         }
     }

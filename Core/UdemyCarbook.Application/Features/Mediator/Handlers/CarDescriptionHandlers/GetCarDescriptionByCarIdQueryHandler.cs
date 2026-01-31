@@ -12,16 +12,16 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarDescriptionHand
 {
     public class GetCarDescriptionByCarIdQueryHandler : IRequestHandler<GetCarDescriptionByCarIdQuery, GetCarDescriptionQueryResult>
     {
-        private readonly ICarDescriptionInterfaces _repository;
+        private readonly ICarDescriptionRepository _repository;
 
-        public GetCarDescriptionByCarIdQueryHandler(ICarDescriptionInterfaces repository)
+        public GetCarDescriptionByCarIdQueryHandler(ICarDescriptionRepository repository)
         {
             _repository = repository;
         }
 
         public async Task<GetCarDescriptionQueryResult> Handle(GetCarDescriptionByCarIdQuery request, CancellationToken cancellationToken)
         {
-            var values = _repository.GetCarDescription(request.Id);
+            var values = await _repository.GetCarDescriptionAsync(request.Id);
 
             if (values == null)
             {

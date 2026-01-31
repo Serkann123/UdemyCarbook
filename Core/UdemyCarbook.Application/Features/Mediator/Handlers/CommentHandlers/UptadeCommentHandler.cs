@@ -10,7 +10,7 @@ using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
 {
-    public class UptadeCommentHandler:IRequestHandler<UpdateCommentCommand>
+    public class UptadeCommentHandler : IRequestHandler<UpdateCommentCommand>
     {
         private readonly IRepository<Comment> _repository;
 
@@ -26,7 +26,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CommentHandlers
             values.CreateDate = request.CreateDate;
             values.Description = request.Description;
             values.BlogId = request.BlogId;
-            values.Email= request.Email;
+            values.Email = request.Email;
 
             await _repository.UpdateAsync(values);
         }

@@ -21,7 +21,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.StatisticsHandlers
 
         public async Task<GetBrandCountQueryResult> Handle(GetBrandCountQuery request, CancellationToken cancellationToken)
         {
-            var value = _repository.GetBrandCount();
+            var value = await _repository.GetBrandCountAsync();
             return new GetBrandCountQueryResult
             {
                 BrandCount = value

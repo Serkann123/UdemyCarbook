@@ -10,7 +10,7 @@ using UdemyCarbook.Application.Interfaces.CarPirincingInterfaces;
 
 namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandlers
 {
-    public class GetCarPİrincingWithCarQueryHandler:IRequestHandler<GetCarPirincingWithCarQuery,List<GetCarPirincingWithCarQueryResult>>
+    public class GetCarPİrincingWithCarQueryHandler : IRequestHandler<GetCarPirincingWithCarQuery, List<GetCarPirincingWithCarQueryResult>>
     {
         private readonly ICarPirincingRepository _pirincing;
 
@@ -21,15 +21,15 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
 
         public async Task<List<GetCarPirincingWithCarQueryResult>> Handle(GetCarPirincingWithCarQuery request, CancellationToken cancellationToken)
         {
-            var values = _pirincing.GetCarPirincingWihCars();
+            var values = await _pirincing.GetCarPirincingWihCarsAsync();
             return values.Select(x => new GetCarPirincingWithCarQueryResult
             {
-                Amount=x.Ammount,
-                Brand=x.Car.Brand.Name,
-                CoverImageUrl=x.Car.CoverImageUrl,
-                Model=x.Car.Model,
-                CarPirincingId=x.CarPricingId,
-                CarId=x.CarId,
+                Amount = x.Ammount,
+                Brand = x.Car.Brand.Name,
+                CoverImageUrl = x.Car.CoverImageUrl,
+                Model = x.Car.Model,
+                CarPirincingId = x.CarPricingId,
+                CarId = x.CarId,
                 Name = x.Piricing.Name
             }).ToList();
         }

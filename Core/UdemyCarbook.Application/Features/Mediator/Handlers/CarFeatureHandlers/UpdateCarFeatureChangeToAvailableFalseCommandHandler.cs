@@ -20,7 +20,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarFeatureHandlers
 
         public async Task Handle(UpdateCarFeatureChangeToAvailableFalseCommand request, CancellationToken cancellationToken)
         {
-            _repository.ChangeCarFeaturesAvailableToFalse(request.Id);
+            await _repository.ChangeCarFeaturesAvailableToFalseAsync(request.Id);
         }
     }
 }

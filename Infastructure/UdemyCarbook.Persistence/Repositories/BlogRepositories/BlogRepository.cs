@@ -14,21 +14,22 @@ namespace UdemyCarbook.Persistence.Repositories.BlogRepositories
             _context = context;
         }
 
-        public List<Blog> GetBlogByAuthorId(int id)
+        public async Task<List<Blog>> GetBlogByAuthorIdAsync(int id)
         {
-            var values = _context.Blogs.Include(x => x.Author).Where(y => y.BlogId == id).ToList();
+            var values = await _context.Blogs.Include(x => x.Author).Where(y => y.BlogId == id).ToListAsync();
             return values;
         }
 
-        public List<Blog> GetBlogsAllWithAuthors()
+        public async Task<List<Blog>> GetBlogsAllWithAuthorsAsync()
         {
-            var values = _context.Blogs.Include(x => x.Author).ToList();
+            var values = await _context.Blogs.Include(x => x.Author).ToListAsync();
             return values;
         }
 
-        public List<Blog> GetLast3BlogsWithAuthors()
+        public async Task<List<Blog>> GetLast3BlogsWithAuthorsAsync()
         {
-            var values = _context.Blogs.Include(x => x.Author).OrderByDescending(x => x.AuthorId).Take(3).ToList();
+            var values = await _context.Blogs.Include(x => x.Author).
+                OrderByDescending(x => x.AuthorId).Take(3).ToListAsync();
             return values;
         }
     }

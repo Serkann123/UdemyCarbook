@@ -6,11 +6,11 @@ using UdemyCarbook.Persistence.Context;
 
 namespace UdemyCarbook.Persistence.Repositories.AppRoleRepositories
 {
-    public class AppRoleRepositories : IAppRoleRepository
+    public class AppRoleRepository : IAppRoleRepository
     {
         private readonly CarbookContext _context;
 
-        public AppRoleRepositories(CarbookContext context)
+        public AppRoleRepository(CarbookContext context)
         {
             _context = context;
         }
