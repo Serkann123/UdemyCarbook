@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using UdemyCarbook.Application.Services;
 using UdemyCarbook.Persistence.Services;
 using UdemyCarbook.WebUI.Models;
 

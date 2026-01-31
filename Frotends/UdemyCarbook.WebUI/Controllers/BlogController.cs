@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.CommentDtos;
+using X.PagedList.Extensions;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class BlogController : Controller
+    public class BlogController : BaseController
     {
         private readonly IBlogApiService _blogApiService;
         private readonly ICommentApiService _commentApiService;
@@ -15,21 +16,18 @@ namespace UdemyCarbook.WebUI.Controllers
             _commentApiService = commentApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            ViewBag.v1 = "Bloglar";
-            ViewBag.v2 = "Yazarlarımızın Blogları";
+            SetPage("Bloglar", "Yazarlarımızın Blogları");
 
             var values = await _blogApiService.GetBlogsAllWithAuthorsAsync();
-            return View(values);
+            return View(values.ToPagedList(page, 12));
         }
 
         public async Task<IActionResult> BlogDetail(int id)
         {
-            ViewBag.v1 = "Bloglar";
-            ViewBag.v2 = "Blog Detayı ve Yorumlar";
+            SetPage("Bloglar", "Blog Detayı ve Yorumlar");
             ViewBag.BlogId = id;
-
             return View();
         }
 

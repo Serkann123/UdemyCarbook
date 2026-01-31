@@ -30,5 +30,8 @@ namespace UdemyCarbook.Persistence.Services
             var response = await _client.DeleteAsync($"Blog/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        
+
     }
 }

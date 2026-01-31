@@ -51,7 +51,7 @@ namespace UdemyCarbook.WebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("CommentListByBlog")]
+        [HttpGet("CommentListByBlog/{id}")]
         public async Task<IActionResult> CommentListByBlog(int id)
         {
             var values =await _meditor.Send(new GetCommentListByBlogIdQuery(id));

@@ -2,12 +2,11 @@
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class AboutController : Controller
+    public class AboutController : BaseController
     {
         public IActionResult Index()
         {
-            ViewBag.v1 = "Hakkımızda";
-            ViewBag.v2 = "Vizyonumuz & Misyonumuz";
+            SetPage("Hakkımızda", "Vizyonumuz & Misyonumuz");
             return View();
         }
     }

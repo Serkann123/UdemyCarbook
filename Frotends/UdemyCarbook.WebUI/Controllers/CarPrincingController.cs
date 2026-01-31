@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.CarPirincingDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
-    public class CarPrincingController : Controller
+    public class CarPrincingController : BaseController
     {
         private readonly ICarPricingApiService _carPricingApiService;
         public CarPrincingController(ICarPricingApiService carPricingApiService)
@@ -15,8 +14,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.v1 = "Paketler";
-            ViewBag.v2 = "Araç Fiyat Paketleri";
+            SetPage("Paketler", "Araç Fiyat Paketleri");
 
             var values = await _carPricingApiService.GetCarPricingWithTimePeriodAsync<ResultCarPrincingListModelDto>();
             return View(values);

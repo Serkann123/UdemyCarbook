@@ -52,7 +52,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
             {
                 var jsonData4 = await responsMessage4.Content.ReadAsStringAsync();
                 var values4 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData4);
-                ViewBag.GetCarCountByFuelElectric = values4.carCountByFuelElectric;
+                ViewBag.CarCountByFuelElectric = values4.carCountByFuelElectric;
             }
             #endregion
 

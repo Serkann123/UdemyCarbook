@@ -48,7 +48,7 @@
 				</table>
 			</div>
 			<div class="mt-3">
-				@Html.PagedListPager(Model, page => Url.Action("BlogListPartial", "AdminDashoard", new { page = page }, null),
+			@Html.PagedListPager(Model, page => Url.Action("BlogListPartial", "AdminDashboard", new { page = page }, null),
 									new PagedListRenderOptions
 				{
 					LiElementClasses = new string[] { "page-item" },
