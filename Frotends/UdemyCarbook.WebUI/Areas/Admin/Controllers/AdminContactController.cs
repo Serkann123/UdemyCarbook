@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
-using UdemyCarbook.Dto.ContactDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -10,32 +8,24 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminContactController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IContactApiService _contactApiService;
 
-        public AdminContactController(IHttpClientFactory httpClientFactory)
+        public AdminContactController(IContactApiService contactApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _contactApiService = contactApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Contacts");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _contactApiService.GetAllAsync();
+            return View(values);
         }
 
         public async Task<IActionResult> RemoveContact(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Contacts/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _contactApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction(nameof(Index));
+
             return View();
         }
     }

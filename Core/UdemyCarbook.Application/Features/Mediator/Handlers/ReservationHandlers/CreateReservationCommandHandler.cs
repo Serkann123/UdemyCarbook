@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Commands.ReservationCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -23,17 +18,19 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
         {
             await _repository.CreateAsync(new Reservation
             {
-                Age = request.Age,
-                CarId = request.CarId,
-                Description = request.Description,
-                DriverLicenseYear = request.DriverLicenseYear,
-                DropOffLocationId = request.DropOffLocationId,
-                Email = request.Email,
                 Name = request.Name,
                 Surname = request.Surname,
+                Email = request.Email,
                 Phone = request.Phone,
                 PickUpLocationId = request.PickUpLocationId,
-                Status = "Rezervasyon Alındı"
+                DropOffLocationId = request.DropOffLocationId,
+                CarId = request.CarId,
+                PickUpDateTime = request.PickUpDateTime,
+                DropOffDateTime = request.DropOffDateTime,
+                Age = request.Age,
+                DriverLicenseYear = request.DriverLicenseYear,
+                Description = request.Description,
+                Status = "Pending"
             });
         }
     }

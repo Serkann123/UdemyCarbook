@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.ContactDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class ContactController : BaseController
     {
-        private readonly HttpClient client;
-
-        public ContactController(IHttpClientFactory httpClientFactory)
+        private readonly IContactApiService _contactApiService;
+        public ContactController(IContactApiService contactApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _contactApiService = contactApiService;
         }
+
 
         [HttpGet]
         public IActionResult Index()
@@ -24,15 +23,13 @@ namespace UdemyCarbook.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateContactDto createContactDto)
         {
-            createContactDto.SenDate = DateTime.Now;
-            var jsonData = JsonConvert.SerializeObject(createContactDto);
-            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responsMessage = await client.PostAsync("Contacts", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index","Default");
-            }
-            return View();
+            var ok = await _contactApiService.CreateAsync(createContactDto);
+
+            if (ok)
+                return RedirectToAction("Index", "Default");
+
+            SetPage("İletişim", "Bizimle İletişime Geçin");
+            return View(createContactDto);
         }
     }
 }

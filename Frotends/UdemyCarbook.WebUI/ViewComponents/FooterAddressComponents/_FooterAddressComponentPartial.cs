@@ -1,29 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using UdemyCarbook.Dto.FooterAdressDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.FooterAddressComponents
 {
     public class _FooterAddressComponentPartial:ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly IFooterAddressApiService _footerAddressApiService;
 
-        public _FooterAddressComponentPartial(IHttpClientFactory httpClientFactory)
+        public _FooterAddressComponentPartial(IFooterAddressApiService footerAddressApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _footerAddressApiService = footerAddressApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("FooterAddress/1");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultFeatureAddressDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _footerAddressApiService.GetByIdAsync(1);
+            return View(value);
         }
     }
 }

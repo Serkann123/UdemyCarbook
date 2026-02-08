@@ -1,0 +1,65 @@
+﻿@model List<ResultPendingDto>
+
+@{
+    ViewData["Title"] = "Bekleyen Rezervasyonlar";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bekleyen Rezervasyonlar</h4>
+                        <p class="card-subtitle mb-4">
+                            Bu sayfada, kullanıcılar tarafından oluşturulan ancak henüz admin tarafından onaylanmamış
+                            araç kiralama talepleri listelenmektedir. Rezervasyonları sağ taraftaki butonları kullanarak
+                            onaylayabilir veya reddedebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Müşteri</th>
+                                        <th>Araç</th>
+                                        <th>Başlangıç</th>
+                                        <th>Bitiş</th>
+                                        <th>Durum</th>
+                                        <th style="width:200px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.ReservationId</td>
+                                            <td>@item.Name @item.Surname</td>
+                                            <td>@item.CarName</td>
+                                            <td>@item.PickUpDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+                                            <td>@item.DropOffDateTime.ToString("dd.MM.yyyy HH:mm")</td>
+
+                                            <td><span class="badge bg-warning text-dark">@item.Status</span></td>
+
+                                            <td class="d-flex gap-2">
+                                                <form method="post" asp-action="Approve">
+                                                    <input type="hidden" name="id" value="@item.ReservationId" />
+                                                    <button class="btn btn-success btn-sm">Onayla</button>
+                                                </form>
+
+                                                <form method="post" asp-action="Reject">
+                                                    <input type="hidden" name="id" value="@item.ReservationId" />
+                                                    <button class="btn btn-danger btn-sm">Reddet</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

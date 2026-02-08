@@ -45,6 +45,16 @@ namespace UdemyCarbook.Application.Validators.Reservation
 
             RuleFor(x => x.Description)
                 .MaximumLength(500).WithMessage("Açıklama en fazla 500 karakter olabilir.");
+
+            RuleFor(x => x.PickUpDateTime)
+                .NotEmpty().WithMessage("Alış tarih/saat zorunludur.");
+
+            RuleFor(x => x.DropOffDateTime)
+                .NotEmpty().WithMessage("Teslim tarih/saat zorunludur.");
+
+            RuleFor(x => x)
+                .Must(x => x.DropOffDateTime > x.PickUpDateTime)
+                .WithMessage("Teslim tarihi, alış tarihinden sonra olmalıdır.");
         }
     }
 }

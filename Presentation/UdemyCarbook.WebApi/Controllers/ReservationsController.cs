@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Commands.ReservationCommands;
 using UdemyCarbook.Application.Features.Mediator.Queries.ReservationQueries;
@@ -50,6 +49,27 @@ namespace UdemyCarbook.WebApi.Controllers
         {
             await _meditor.Send(command);
             return Ok("Rezervayon başarıyla güncelendi");
+        }
+
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetPending()
+        {
+            var values = await _meditor.Send(new GetPendingReservationsQuery());
+            return Ok(values);
+        }
+
+        [HttpPost("{id}/approve")]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var ok = await _meditor.Send(new ApproveReservationCommand { ReservationId = id });
+            return ok ? Ok() : BadRequest("Rezervasyon bulunamadı veya Pending değil.");
+        }
+
+        [HttpPost("{id}/reject")]
+        public async Task<IActionResult> Reject(int id)
+        {
+            var ok = await _meditor.Send(new RejectReservationCommand { ReservationId = id });
+            return ok ? Ok() : BadRequest("Rezervasyon bulunamadı veya Pending değil.");
         }
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using UdemyCarbook.Application.Services;
-using UdemyCarbook.Dto.BlogDtos;
-using UdemyCarbook.Dto.CarDtos;
 using UdemyCarbook.Dto.CommentDtos;
 
 namespace UdemyCarbook.Persistence.Services
@@ -28,8 +21,8 @@ namespace UdemyCarbook.Persistence.Services
 
         public async Task<List<ResultCommentDto>> GetByBlogIdAsync(int id)
         {
-            return await _client.GetFromJsonAsync<List<ResultCommentDto>>($"Comments/CommentListByBlog/{id}")
-                   ?? new List<ResultCommentDto>();
+           return await _client.GetFromJsonAsync<List<ResultCommentDto>>(
+               $"Comments/CommentListByBlog/{id}") ?? new();
         }
 
         public async Task<bool> RemoveAsync(int id)
@@ -37,8 +30,10 @@ namespace UdemyCarbook.Persistence.Services
             var response = await _client.DeleteAsync($"Comments/{id}");
             return response.IsSuccessStatusCode;
         }
-
         public async Task<bool> CreateAsync(CreateCommentDto dto)
             => (await _client.PostAsJsonAsync("Comments", dto)).IsSuccessStatusCode;
+
+        public async Task<CommentCountDto?> GetCountByBlogIdAsync(int blogId)
+             => await _client.GetFromJsonAsync<CommentCountDto>($"Comments/CommentCountByBlog?id={blogId}");
     }
 }

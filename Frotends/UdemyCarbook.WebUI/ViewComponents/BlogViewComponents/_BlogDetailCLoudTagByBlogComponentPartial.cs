@@ -1,32 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.TagCloudDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
     public class _BlogDetailCLoudTagByBlogComponentPartial : ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly ITagCloudApiService _tagCloudApiService;
 
-        public _BlogDetailCLoudTagByBlogComponentPartial(IHttpClientFactory httpClientFactory)
+        public _BlogDetailCLoudTagByBlogComponentPartial(ITagCloudApiService tagCloudApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _tagCloudApiService = tagCloudApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responseMessage = await client.GetAsync($"TagClouds/GetTagCloudByBlogId?id={id}");
-
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<GetByBlogIdTagCloudDto>>(jsonData);
-
-                var limitedValues = values.Take(10).ToList();
-
-                return View(limitedValues);
-            }
-            return View();
+            var values = await _tagCloudApiService.GetByBlogIdAsync(id);
+            var limitedValues = values.Take(10).ToList();
+            return View(limitedValues);
         }
     }
 }

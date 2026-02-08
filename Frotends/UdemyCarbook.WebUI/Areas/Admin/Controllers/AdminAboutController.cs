@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.AboutDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
@@ -10,23 +9,16 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminAboutController : Controller
     {
-        private readonly HttpClient client;
-
-        public AdminAboutController(IHttpClientFactory httpClientFactory)
+        private readonly IAboutApiService _aboutApiService;
+        public AdminAboutController(IAboutApiService aboutApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _aboutApiService = aboutApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Abouts");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _aboutApiService.GetAllAsync();
+            return View(values);
         }
 
 
@@ -39,50 +31,38 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createAboutDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("Abouts", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _aboutApiService.CreateAsync(createAboutDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminAbout", new { area = "Admin" });
-            }
+
             return View();
         }
 
         public async Task<IActionResult> RemoveAbout(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Abouts/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _aboutApiService.RemoveAsync(id);
+            if (ok)
                 return RedirectToAction("Index");
-            }
+
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateAbout(int id)
         {
-            var responsMessage = await client.GetAsync($"Abouts/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _aboutApiService.GetByIdAsync(id);
+            if (value is null) return RedirectToAction("Index");
+            return View(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateAboutDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("Abouts/", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _aboutApiService.UpdateAsync(updateAboutDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminAbout", new { area = "Admin" });
-            }
-            return View();
+
+            return View(updateAboutDto);
         }
     }
 }

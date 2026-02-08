@@ -14,9 +14,7 @@ namespace UdemyCarbook.Dto.StatisticsDtos
         public int AuthorCount { get; set; }
         public int BlogCount { get; set; }
         public int BrandCount { get; set; }
-        public decimal avgRentPriceForDaily { get; set; }
-        public decimal avgRentPriceForWeekly { get; set; }
-        public decimal getAvgRentPriceForMonthly { get; set; }
+        public decimal AvgPrice { get; set; }
         public decimal carCountByTranmissionIsAuto { get; set; }
         public decimal carCountByKmSmallerThen1000 { get; set; }
         public int carCountByFuelGasolineOrDiesel { get; set; }

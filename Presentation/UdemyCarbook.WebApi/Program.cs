@@ -6,7 +6,6 @@ using System.Text;
 using UdemyCarbook.Application.Extensions;
 using UdemyCarbook.Application.Validators.Review;
 using UdemyCarbook.Persistence.Extensions;
-using UdemyCarbook.WebApi.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +72,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<CarHub>("/carhub");
 
 app.Run();

@@ -1,29 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.CarPirincingDtos;
 
 namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
 {
     public class _AdminDashboardCarPrincingsComponentPartial:ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly ICarPricingApiService _carPricingApiService;
 
-        public _AdminDashboardCarPrincingsComponentPartial(IHttpClientFactory httpClientFactory)
+        public _AdminDashboardCarPrincingsComponentPartial(
+            ICarPricingApiService carPricingApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _carPricingApiService = carPricingApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("CarPrincings/GetCarPrincingWithTimePeriodQuery");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCarPrincingListModelDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _carPricingApiService
+                .GetCarPricingWithTimePeriodAsync<ResultCarPrincingListModelDto>();
+            return View(values);
         }
-
     }
 }

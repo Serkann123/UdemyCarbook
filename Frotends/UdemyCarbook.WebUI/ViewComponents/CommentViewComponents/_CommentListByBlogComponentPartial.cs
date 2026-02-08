@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.CommentDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.CommentViewComponents
 {
     public class _CommentListByBlogComponentPartial : ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly ICommentApiService _commentApiService;
 
-        public _CommentListByBlogComponentPartial(IHttpClientFactory httpClientFactory)
+        public _CommentListByBlogComponentPartial(ICommentApiService commentApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _commentApiService = commentApiService;
         }
-
         private List<string> GetImageUrls()
         {
             return new List<string>
@@ -39,26 +37,19 @@ namespace UdemyCarbook.WebUI.ViewComponents.CommentViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
+            ViewBag.blogId = id;
+
+            var values = await _commentApiService.GetByBlogIdAsync(id);
+
             List<string> imageUrls = GetImageUrls();
             Random rnd = new Random();
-            
-            ViewBag.blogId = id;
-           
-            var responseMessage = await client.GetAsync($"Comments/CommentListByBlog/{id}");
 
-            if (responseMessage.IsSuccessStatusCode)
+            foreach (var comment in values)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultCommentDto>>(jsonData);
-
-                foreach (var comment in values)
-                {
-                    comment.ImageUrl = imageUrls[rnd.Next(imageUrls.Count)];
-                }
-
-                return View(values);
+                comment.ImageUrl = imageUrls[rnd.Next(imageUrls.Count)];
             }
-            return View();
+
+            return View(values);
         }
     }
 }

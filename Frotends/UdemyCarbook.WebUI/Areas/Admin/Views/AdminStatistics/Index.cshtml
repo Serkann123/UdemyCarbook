@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AdminStatisticsVm
+
+@{
     ViewData["Title"] = "İstatistik";
 }
 
@@ -15,16 +17,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.CarCount
+                                    @Model.CarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.CarCountRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@Model.CarCountRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.CarCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.CarCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -40,16 +42,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.LokasyonCount
+                                    @Model.LocationCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.LokasyonCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.LokasyonCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.LocationCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -65,16 +67,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.AuthorCount
+                                    @Model.AuthorCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.AuthorCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.AuthorCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.AuthorCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AuthorCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -90,16 +92,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.BlogCount
+                                    @Model.BlogCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.BlogCountRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.BlogCountRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.BlogCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BlogCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -117,16 +119,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.BrandCount
+                                    @Model.BrandCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.BrandCountRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@Model.BrandCountRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.BrandCountRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BrandCountRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -142,16 +144,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForDaily?.ToString("N2")
+                                    @Model.AvgRentPriceDaily.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetAvgRentPriceForDailyRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.AvgDailyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetAvgRentPriceForDailyRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgDailyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -167,16 +169,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetAvgRentPriceForWeekly.ToString("N2")
+                                    @Model.AvgRentPriceWeekly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetAvgRentPriceForWeeklyRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.AvgWeeklyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetAvgRentPriceForWeeklyRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgWeeklyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -192,16 +194,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.getAvgRentPriceForMonthly.ToString("N2")
+                                    @Model.AvgRentPriceMonthly.ToString("N2")
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.getAvgRentPriceForMonthlyRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.AvgMonthlyRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.getAvgRentPriceForMonthlyRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgMonthlyRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -219,16 +221,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.carCountByTranmissionIsAuto
+                                    @Model.AutoTransmissionCarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.carCountByTranmissionIsAutoRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@Model.AutoTransmissionRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.carCountByTranmissionIsAutoRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AutoTransmissionRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -244,16 +246,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @ViewBag.GetBrandNameByMaxCar
+                                    @Model.BrandWithMaxCar
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetBrandNameByMaxCarRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.BrandWithMaxCarRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetBrandNameByMaxCarRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BrandWithMaxCarRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -269,16 +271,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @ViewBag.GetBlogTitleByMaxBlogComment
+                                    @Model.BlogWithMaxComment
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetBlogTitleByMaxBlogCommentRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@Model.BlogWithMaxCommentRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetBlogTitleByMaxBlogCommentRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BlogWithMaxCommentRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -294,16 +296,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.carCountByKmSmallerThen1000
+                                    @Model.KmSmallerThan1000CarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.carCountByKmSmallerThen1000Random% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.KmSmallerThan1000Random% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.carCountByKmSmallerThen1000Random%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.KmSmallerThan1000Random%;"></div>
                         </div>
                     </div>
                 </div>
@@ -321,16 +323,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @ViewBag.GetCarCountByFuelGasolineOrDiesel
+                                    @Model.GasolineOrDieselCarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetCarCountByFuelGasolineOrDieselRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50">@Model.GasolineOrDieselRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetCarCountByFuelGasolineOrDieselRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.GasolineOrDieselRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -346,16 +348,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0">
-                                    @ViewBag.GetCarCountByFuelElectric
+                                    @Model.ElectricCarCount
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50">@ViewBag.GetCarCountByFuelElectricRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50">@Model.ElectricRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @ViewBag.GetCarCountByFuelElectricRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.ElectricRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -371,16 +373,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @ViewBag.carBrandAndModeByRentPriceDailyMax
+                                    @Model.MaxDailyRentCar
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50"> @ViewBag.carBrandAndModeByRentPriceDailyMaxRandom% <i class="mdi mdi-arrow-up"></i></span>
+                                <span class="text-white-50"> @Model.MaxDailyRentCarRandom% <i class="mdi mdi-arrow-up"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width:  @ViewBag.carBrandAndModeByRentPriceDailyMaxRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width:  @Model.MaxDailyRentCarRandom%;"></div>
                         </div>
                     </div>
                 </div>
@@ -396,16 +398,16 @@
                         <div class="row d-flex align-items-center mb-4">
                             <div class="col-8">
                                 <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @ViewBag.carBrandAndModeByRentPriceDailyMin
+                                    @Model.MinDailyRentCar
                                 </h2>
                             </div>
                             <div class="col-4 text-right">
-                                <span class="text-white-50"> @ViewBag.carBrandAndModeByRentPriceDailyMinRandom% <i class="mdi mdi-arrow-down"></i></span>
+                                <span class="text-white-50"> @Model.MinDailyRentCarRandom% <i class="mdi mdi-arrow-down"></i></span>
                             </div>
                         </div>
 
                         <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width:@ViewBag.carBrandAndModeByRentPriceDailyMinRandom%;"></div>
+                            <div class="progress-bar bg-light" role="progressbar" style="width:@Model.MinDailyRentCarRandom%;"></div>
                         </div>
                     </div>
                 </div>

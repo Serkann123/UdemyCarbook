@@ -11,8 +11,6 @@ builder.Services.AddHttpClient("CarApi", client =>
     client.BaseAddress = new Uri("https://localhost:7126/api/");
 });
 
-builder.Services.AddScoped<GenericStatistics>();
-
 builder.Services.Scan(scan => scan
     .FromAssemblyOf<BrandApiService>()
     .AddClasses(c => c.Where(t => t.Name.EndsWith("ApiService")))

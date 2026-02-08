@@ -1,36 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using UdemyCarbook.Dto.BlogDtos;
-using UdemyCarbook.Dto.CommentDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
     public class _BlogDetailsMainCompenentPartial : ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly IBlogApiService _blogApiService;
+        private readonly ICommentApiService _commentApiService;
 
-        public _BlogDetailsMainCompenentPartial(IHttpClientFactory httpClientFactory)
+        public _BlogDetailsMainCompenentPartial(IBlogApiService blogApiService,
+            ICommentApiService commentApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _blogApiService = blogApiService;
+            _commentApiService = commentApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responsMessage = await client.GetAsync($"Blog/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<GetBlogByIdDto>(jsonData);
+            var blog = await _blogApiService.GetByIdAsync(id);
+            if (blog is null) return View();
 
-                var CommentCountResponse = await client.GetAsync("Comments/CommentCountByBlog?id=" + id);
-                var jsonData2 = await CommentCountResponse.Content.ReadAsStringAsync();
-                var commentCountObj = JsonConvert.DeserializeObject<CommentCountDto>(jsonData2);
-                ViewBag.commentCount = commentCountObj.CommentBlogCount;
+            var countDto = await _commentApiService.GetCountByBlogIdAsync(id);
+            ViewBag.commentCount = countDto?.CommentBlogCount ?? 0;
 
-                return View(value);
-            }
-            return View();
+            return View(blog);
         }
     }
 }

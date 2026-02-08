@@ -1,29 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.TestimonialDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.TestimonialViewComponents
 {
-    public class _TestimonialComponentPartial:ViewComponent
+    public class _TestimonialComponentPartial : ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly ITestimonialApiService _testimonialApiService;
 
-        public _TestimonialComponentPartial(IHttpClientFactory httpCleintFactory)
+        public _TestimonialComponentPartial(ITestimonialApiService testimonialApiService)
         {
-            client = httpCleintFactory.CreateClient("CarApi");
+            _testimonialApiService = testimonialApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var ressponsMessage = await client.GetAsync("Testimonial");
-            if (ressponsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await ressponsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
-                return View(values);
-            }
-
-            return View();
+            var values = await _testimonialApiService.GetAllAsync();
+            return View(values);
         }
     }
 }

@@ -1,35 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.RentACarFilterDtos;
+using UdemyCarbook.Application.Services;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class RentACarListController : BaseController
     {
-        private readonly HttpClient client;
+        private readonly IRentACarApiService _rentACarApiService;
 
-        public RentACarListController(IHttpClientFactory httpClientFactory)
+        public RentACarListController(IRentACarApiService rentACarApiService)
         {
-            client = httpClientFactory.CreateClient("CarApi");
+            _rentACarApiService = rentACarApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(RentSearchDto model)
         {
             SetPage("Araçlarımız", "Seçiminize Uygun Araçlar");
 
-            var locationId = TempData["locationId"];
 
-            var id = locationId != null ? int.Parse(locationId.ToString()) : 0;
+            // Rezervasyon formundaki input alanlarını seçilen değerlerle doldurmak için
+            ViewBag.locationId = model.LocationId;
+            ViewBag.pickUp = model.PickUp.ToString("yyyy-MM-ddTHH:mm");
+            ViewBag.dropOff = model.DropOff.ToString("yyyy-MM-ddTHH:mm");
 
-            var responsMessage = await client.GetAsync($"RentACars?locationId={id}&available=true");
-
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<FilterRentACarDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _rentACarApiService.GetAvailableAsync(model);
+            return View(values);
         }
     }
 }
+

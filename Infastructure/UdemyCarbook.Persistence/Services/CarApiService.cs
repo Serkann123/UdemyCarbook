@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using UdemyCarbook.Application.Services;
+using UdemyCarbook.Dto.CarDescriptionDtos;
 using UdemyCarbook.Dto.CarDtos;
-using UdemyCarbook.Dto.CarPirincingDtos;
 
 namespace UdemyCarbook.Persistence.Services
 {
@@ -32,5 +27,23 @@ namespace UdemyCarbook.Persistence.Services
 
         public async Task<bool> RemoveAsync(int id)
             => (await _client.DeleteAsync($"Cars/{id}")).IsSuccessStatusCode;
+
+        public async Task<List<ResultCarForReservationDto>> GetCarWithBrandAsync()
+        {
+            return await _client.GetFromJsonAsync<List<ResultCarForReservationDto>>("Cars/GetCarWithBrand")
+                ?? new();
+        }
+
+        public async Task<List<ResultLast5CarsWithBrandDto>> GetLast5CarsWithBrandAsync()
+          => await _client.GetFromJsonAsync<List<ResultLast5CarsWithBrandDto>>("Cars/GetLast5CarsQueryHandler")
+            ?? new();
+
+        public async Task<ResultCarDescriptionByCarIdDto?> GetDescriptionByCarIdAsync(int carId)
+            => await _client.GetFromJsonAsync<ResultCarDescriptionByCarIdDto>(
+                   $"CarDescription/CarDetailByCarId?id={carId}");
+
+        public async Task<ResultCarMainCarFeatureDto?> GetMainCarFeatureAsync(int carId)
+            => await _client.GetFromJsonAsync<ResultCarMainCarFeatureDto>(
+                $"Cars/GetCarMainCarFeature?id={carId}");
     }
 }

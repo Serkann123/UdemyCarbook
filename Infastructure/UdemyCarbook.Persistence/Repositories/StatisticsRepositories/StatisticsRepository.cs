@@ -45,24 +45,13 @@ namespace UdemyCarbook.Persistence.Repositories.StatisticsRepositories
             return await _context.Authors.CountAsync();
         }
 
-        public async Task<decimal> GetAvgRentPriceForDailyAsync()
+        public async Task<decimal> GetAvgRentPriceByPricingNameAsync(string pricingName)
         {
-            int id = await _context.Piricings.Where(x => x.Name == "Günlük").Select(y => y.PricingId).FirstOrDefaultAsync();
-            var value = await _context.CarPricings.Where(x => x.CarPricingId == id).AverageAsync(x => x.Ammount);
-            return value;
-        }
+            int pricingId = await _context.Piricings.Where(x => x.Name == pricingName)
+                .Select(y => y.PricingId).FirstOrDefaultAsync();
 
-        public async Task<decimal> GetAvgRentPriceForMonthlyAsync()
-        {
-            int id = await _context.Piricings.Where(x => x.Name == "Aylık").Select(y => y.PricingId).FirstOrDefaultAsync();
-            var value = await _context.CarPricings.Where(x => x.CarPricingId == id).AverageAsync(x => x.Ammount);
-            return value;
-        }
-
-        public async Task<decimal> GetAvgRentPriceForWeeklyAsync()
-        {
-            int id = await _context.Piricings.Where(x => x.Name == "Haftalık").Select(y => y.PricingId).FirstOrDefaultAsync();
-            var value = await _context.CarPricings.Where(x => x.CarPricingId == id).AverageAsync(x => x.Ammount);
+            var value = await _context.CarPricings.Where(x => x.PiricingId == pricingId)
+                .AverageAsync(x => x.Ammount);
             return value;
         }
 

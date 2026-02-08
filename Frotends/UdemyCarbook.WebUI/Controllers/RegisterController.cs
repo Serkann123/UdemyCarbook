@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.RegisterDtos;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class RegisterController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IRegisterApiService _registerApiService;
 
-        public RegisterController(IHttpClientFactory httpClientFactory)
+        public RegisterController(IRegisterApiService registerApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _registerApiService = registerApiService;
         }
 
         public IActionResult CreateAppUser()
@@ -20,18 +19,14 @@ namespace UdemyCarbook.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAppUser(CreateRegisterDto createRegisterDto)
+        public async Task<IActionResult> CreateAppUser(CreateRegisterDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(createRegisterDto);
-            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("Registers/CreateUser", stringContent);
+            var ok = await _registerApiService.CreateUserAsync(dto);
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index","Login");
-            }
+            if (ok)
+                return RedirectToAction("Index", "Login");
 
-            return View();
+            return View(dto);
         }
     }
 }

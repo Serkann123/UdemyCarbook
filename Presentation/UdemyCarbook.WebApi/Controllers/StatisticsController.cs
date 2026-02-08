@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Queries.StatisticsQueries;
 
@@ -55,22 +54,21 @@ namespace UdemyCarbook.WebApi.Controllers
         [HttpGet("GetAvgRentPriceForDaily")]
         public async Task<IActionResult> GetAvgRentPriceForDaily()
         {
-            var values =await _meditor.Send(new GetAvgRentPriceForDailyQuery());
+            var values =await _meditor.Send(new GetAvgRentPriceQuery("Günlük"));
             return Ok(values);
         }
 
         [HttpGet("GetAvgRentPriceForWeekly")]
         public async Task<IActionResult> GetAvgRentPriceForWeekly()
         {
-            var values =await _meditor.Send(new GetAvgRentPriceForWeeklyQuery());
+            var values =await _meditor.Send(new GetAvgRentPriceQuery("Haftalık"));
             return Ok(values);
         }
-
 
         [HttpGet("GetAvgRentPriceForMonthly")]
         public async Task<IActionResult> GetAvgRentPriceForMonthly()
         {
-            var values = await _meditor.Send(new GetAvgRentPriceForMonthlyQuery());
+            var values = await _meditor.Send(new GetAvgRentPriceQuery("Aylık"));
             return Ok(values);
         }
 

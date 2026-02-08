@@ -60,7 +60,7 @@ namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
                 int sayi6 = random.Next(0, 101);
                 var jsonData6 = await responsMessage6.Content.ReadAsStringAsync();
                 var values6 = JsonConvert.DeserializeObject<ResultStatisticsDto>(jsonData6);
-                ViewBag.GetAvgRentPriceForDaily = values6.avgRentPriceForDaily.ToString("0.00");
+                ViewBag.GetAvgRentPriceForDaily = values6.AvgPrice.ToString("0.00");
                 ViewBag.GetAvgRentPriceForDailyRandom = sayi6;
             }
             #endregion

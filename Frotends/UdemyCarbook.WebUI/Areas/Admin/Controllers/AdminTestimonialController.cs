@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.TestimonialDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
@@ -10,79 +9,56 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminTestimonialController : Controller
     {
-        private readonly HttpClient client;
+        private readonly ITestimonialApiService _testimonialApiService;
 
-        public AdminTestimonialController(IHttpClientFactory httpClientFactory)
+        public AdminTestimonialController(ITestimonialApiService testimonialApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _testimonialApiService = testimonialApiService;
         }
-
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Testimonial");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _testimonialApiService.GetAllAsync();
+            return View(values);
         }
 
-
         [HttpGet]
-        public ActionResult CreateTestimonial()
+        public IActionResult CreateTestimonial()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTestimonial(CreateTestimonialDto createTestimonialDto)
+        public async Task<IActionResult> CreateTestimonial(CreateTestimonialDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(createTestimonialDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("Testimonial", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminTestimonial", new { area = "Admin" });
-            }
-            return View();
-        }
+            var ok = await _testimonialApiService.CreateAsync(dto);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminTestimonial", new { area = "Admin" });
 
+            return View(dto);
+        }
         public async Task<IActionResult> RemoveTestimonial(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Testimonial/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
+            await _testimonialApiService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateTestimonial(int id)
         {
-            var responsMessage = await client.GetAsync($"Testimonial/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateTestimonialDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _testimonialApiService.GetByIdAsync(id);
+            if (value is null) return View();
+
+            return View(value);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateTestimonialDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("Testimonial", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminTestimonial", new { area = "Admin" });
-            }
-            return View();
+            var ok = await _testimonialApiService.UpdateAsync(dto);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminTestimonial", new { area = "Admin" });
+
+            return View(dto);
         }
     }
 }

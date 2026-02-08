@@ -12,9 +12,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
 {
     public class GetCarPrincingWithTimePeriodQueryHandler : IRequestHandler<GetCarPrincingWithTimePeriodQuery, List<GetCarPrincingWithTimePeriodQueryResult>>
     {
-        private readonly ICarPirincingRepository _repository;
+        private readonly ICarPricingRepository _repository;
 
-        public GetCarPrincingWithTimePeriodQueryHandler(ICarPirincingRepository repository)
+        public GetCarPrincingWithTimePeriodQueryHandler(ICarPricingRepository repository)
         {
             _repository = repository;
         }

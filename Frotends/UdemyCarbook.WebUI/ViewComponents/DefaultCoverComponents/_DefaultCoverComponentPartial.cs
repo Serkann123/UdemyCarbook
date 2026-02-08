@@ -1,29 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using UdemyCarbook.Dto.BannerDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.DefaultCoverComponents
 {
     public class _DefaultCoverComponentPartial:ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly IBannerApiService _bannerApiService;
 
-        public _DefaultCoverComponentPartial(IHttpClientFactory httpClientFactory)
+        public _DefaultCoverComponentPartial(IBannerApiService bannerApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _bannerApiService = bannerApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("Banners");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBannerDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _bannerApiService.GetAllAsync();
+            return View(values);
         }
     }
 }

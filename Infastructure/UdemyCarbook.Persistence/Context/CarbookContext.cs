@@ -9,6 +9,8 @@ namespace UdemyCarbook.Persistence.Context
         {
 
         }
+
+        #region DbSets
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<About> Abouts { get; set; }
@@ -33,10 +35,9 @@ namespace UdemyCarbook.Persistence.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<RendACar> RendACars { get; set; }
         public DbSet<RendACarProcess> RendACarProcesses { get; set; }
-        public DbSet<Customer> Customers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Review> Reviews { get; set; }
-
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Reservation>()

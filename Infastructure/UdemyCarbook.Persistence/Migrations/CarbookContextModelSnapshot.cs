@@ -17,7 +17,7 @@ namespace UdemyCarbook.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "8.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -415,31 +415,6 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
-
-                    b.Property<string>("CustomerMail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerSurname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CustomerId");
-
-                    b.ToTable("Customers");
-                });
-
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Feature", b =>
                 {
                     b.Property<int>("FeatureId")
@@ -557,30 +532,27 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DropOffDate")
-                        .HasColumnType("Date");
-
-                    b.Property<int>("DropOffLocation")
-                        .HasColumnType("int");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DropOffLocationDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DropOffLocationId")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("DropOffTime")
                         .HasColumnType("time");
 
                     b.Property<DateTime>("PickUpDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PickUpDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PickUpLocation")
+                    b.Property<int>("PickUpLocationId")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("PickUpTime")
@@ -592,8 +564,6 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.HasKey("RendACarProcessId");
 
                     b.HasIndex("CarId");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("RendACarProcesses");
                 });
@@ -619,8 +589,10 @@ namespace UdemyCarbook.Persistence.Migrations
                     b.Property<int>("DriverLicenseYear")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DropOffDateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("DropOffLocationId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -635,8 +607,10 @@ namespace UdemyCarbook.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("PickUpDateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("PickUpLocationId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -924,20 +898,12 @@ namespace UdemyCarbook.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UdemyCarbook.Domain.Entities.Customer", "Customer")
-                        .WithMany("rendACarProcesses")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Car");
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Reservation", b =>
                 {
-                    b.HasOne("UdemyCarbook.Domain.Entities.Car", "Cars")
+                    b.HasOne("UdemyCarbook.Domain.Entities.Car", "Car")
                         .WithMany("Reservations")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -945,15 +911,13 @@ namespace UdemyCarbook.Persistence.Migrations
 
                     b.HasOne("UdemyCarbook.Domain.Entities.Location", "DropOffLocation")
                         .WithMany("DropOffReservations")
-                        .HasForeignKey("DropOffLocationId")
-                        .IsRequired();
+                        .HasForeignKey("DropOffLocationId");
 
                     b.HasOne("UdemyCarbook.Domain.Entities.Location", "PickUpLocation")
                         .WithMany("PickUpReservations")
-                        .HasForeignKey("PickUpLocationId")
-                        .IsRequired();
+                        .HasForeignKey("PickUpLocationId");
 
-                    b.Navigation("Cars");
+                    b.Navigation("Car");
 
                     b.Navigation("DropOffLocation");
 
@@ -1025,11 +989,6 @@ namespace UdemyCarbook.Persistence.Migrations
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Blogs");
-                });
-
-            modelBuilder.Entity("UdemyCarbook.Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("rendACarProcesses");
                 });
 
             modelBuilder.Entity("UdemyCarbook.Domain.Entities.Feature", b =>

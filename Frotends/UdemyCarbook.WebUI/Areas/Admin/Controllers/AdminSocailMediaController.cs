@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.SocialMediaDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
@@ -10,78 +9,58 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminSocialMediaController : Controller
     {
-        private readonly HttpClient client;
+        private readonly ISocialMediaApiService _socialMediaApiService;
 
-        public AdminSocialMediaController(IHttpClientFactory httpClientFactory)
+        public AdminSocialMediaController(ISocialMediaApiService socialMediaApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _socialMediaApiService = socialMediaApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("SocialMedias");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultSocialMediaDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _socialMediaApiService.GetAllAsync();
+            return View(values);
         }
 
         [HttpGet]
-        public ActionResult CreateSocialMedia()
+        public IActionResult CreateSocialMedia()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
+        public async Task<IActionResult> CreateSocialMedia(CreateSocialMediaDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(createSocialMediaDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("SocialMedias", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminSocialMedia", new { area = "Admin" });
-            }
-            return View();
+            var ok = await _socialMediaApiService.CreateAsync(dto);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminSocialMedia", new { area = "Admin" });
+
+            return View(dto);
         }
 
         public async Task<IActionResult> RemoveSocialMedia(int id)
         {
-            var responsMessage = await client.DeleteAsync($"SocialMedias/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
+            await _socialMediaApiService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateSocialMedia(int id)
         {
-            var responsMessage = await client.GetAsync($"SocialMedias/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateSocialMediaDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _socialMediaApiService.GetByIdAsync(id);
+            if (value is null) return View();
+
+            return View(value);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
+        public async Task<IActionResult> UpdateSocialMedia(UpdateSocialMediaDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateSocialMediaDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("SocialMedias/", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminSocialMedia", new { area = "Admin" });
-            }
-            return View();
+            var ok = await _socialMediaApiService.UpdateAsync(dto);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminSocialMedia", new { area = "Admin" });
+
+            return View(dto);
         }
     }
 }

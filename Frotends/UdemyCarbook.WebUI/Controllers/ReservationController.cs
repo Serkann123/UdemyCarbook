@@ -2,80 +2,86 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Net;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Application.Validators.Tools;
-using UdemyCarbook.Dto.CarDtos;
-using UdemyCarbook.Dto.LocationDtos;
 using UdemyCarbook.Dto.ReservationDtos;
+using UdemyCarbook.WebUI.Models;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class ReservationController : BaseController
     {
-        private readonly HttpClient client;
+        private readonly ILocationApiService _locationApiService;
+        private readonly ICarApiService _carApiService;
+        private readonly IReservationApiService _reservationApiService;
 
-        public ReservationController(IHttpClientFactory httpClientFactory)
+        public ReservationController(ILocationApiService locationApiService, ICarApiService carApiService,
+            IReservationApiService reservationApiService)
         {
-            client = httpClientFactory.CreateClient("CarApi");
+            _locationApiService = locationApiService;
+            _carApiService = carApiService;
+            _reservationApiService = reservationApiService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Create(ReservationInputDto input)
         {
             SetPage("Araç Kiralama", "Araç Rezervasyon Formu");
-            ViewBag.v3 = id ?? 0;
 
             await LoadLocations();
 
             // id gelmediyse araç listesi yükle
-            if (!id.HasValue || id.Value <= 0)
+            if (input.CarId <= 0)
                 await LoadCars();
 
-            return View();
+            var model = new CreateReservationDto
+            {
+                CarId = input.CarId,
+                PickUpLocationId = input.LocationId,
+                DropOffLocationId = input.LocationId,
+                PickUpDateTime = input.PickUp,
+                DropOffDateTime = input.DropOff
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(CreateReservationDto createReservationDto)
+        public async Task<IActionResult> Create(CreateReservationDto dto)
         {
             SetPage("Araç Kiralama", "Araç Rezervasyon Formu");
-            ViewBag.v3 = createReservationDto.CarId;
+            ViewBag.v3 = dto.CarId;
 
-            if (createReservationDto.CarId <= 0)
-                ModelState.AddModelError(nameof(createReservationDto.CarId), "Lütfen bir araç seçin.");
+            if (dto.CarId <= 0)
+                ModelState.AddModelError(nameof(dto.CarId), "Lütfen bir araç seçin.");
 
             if (!ModelState.IsValid)
             {
                 await LoadLocations();
 
                 // CarId yoksa araç dropdown'u tekrar dolsun
-                if (createReservationDto.CarId <= 0)
+                if (dto.CarId <= 0)
                     await LoadCars();
 
-                return View(createReservationDto);
+                return View(dto);
             }
 
-            var jsonData = JsonConvert.SerializeObject(createReservationDto);
-            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("Reservations", stringContent);
+            var result = await _reservationApiService.CreateAsync(dto);
 
-            if (responseMessage.IsSuccessStatusCode)
+            if (result.Success)
                 return RedirectToAction("Index", "Default");
 
-            await AddApiErrorsToModelState(responseMessage);
+            AddApiErrorsToModelState(result);
 
             await LoadLocations();
+            if (dto.CarId <= 0) await LoadCars();
 
-            if (createReservationDto.CarId <= 0)
-                await LoadCars();
-
-            return View(createReservationDto);
+            return View(dto);
         }
 
         private async Task LoadLocations()
         {
-            var responsMessage = await client.GetAsync("Locations");
-            var jsonData = await responsMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData) ?? new();
+            var values = await _locationApiService.GetAllAsync();
 
             ViewBag.Locations = values.Select(x => new SelectListItem
             {
@@ -86,17 +92,7 @@ namespace UdemyCarbook.WebUI.Controllers
 
         private async Task LoadCars()
         {
-            var response = await client.GetAsync("Cars/GetCarWithBrand");
-            if (!response.IsSuccessStatusCode)
-            {
-                ViewBag.Cars = new List<SelectListItem>();
-                ModelState.AddModelError(string.Empty, "Araç listesi getirilemedi.");
-                return;
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-
-            var cars = JsonConvert.DeserializeObject<List<ResultCarForReservationDto>>(json) ?? new();
+            var cars = await _carApiService.GetAllAsync();
 
             ViewBag.Cars = cars.Select(c => new SelectListItem
             {
@@ -105,25 +101,22 @@ namespace UdemyCarbook.WebUI.Controllers
             }).ToList();
         }
 
-        private async Task AddApiErrorsToModelState(HttpResponseMessage responseMessage)
+        private void AddApiErrorsToModelState(ApiPostResult result)
         {
-            var body = await responseMessage.Content.ReadAsStringAsync();
-
-            if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
+            if (result.StatusCode == HttpStatusCode.BadRequest)
             {
-                var errorResponse = JsonConvert.DeserializeObject<ApiValidationProblem>(body);
-
+                var errorResponse = JsonConvert.DeserializeObject<ApiValidationProblem>(result.RawBody ?? "");
                 if (errorResponse?.Errors != null)
                 {
                     foreach (var error in errorResponse.Errors)
-                    {
                         foreach (var message in error.Value)
                             ModelState.AddModelError(error.Key, message);
-                    }
                     return;
                 }
             }
-            ModelState.AddModelError(string.Empty, $"İşlem başarısız: {(int)responseMessage.StatusCode} {responseMessage.ReasonPhrase}");
+
+            ModelState.AddModelError(string.Empty,
+                $"İşlem başarısız: {(int)result.StatusCode} {result.ReasonPhrase}");
         }
     }
 }

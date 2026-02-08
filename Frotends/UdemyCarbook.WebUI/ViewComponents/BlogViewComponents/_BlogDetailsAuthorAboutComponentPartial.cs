@@ -1,28 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.AuthorDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.BlogViewComponents
 {
     public class _BlogDetailsAuthorAboutComponentPartial:ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly IBlogApiService _blogApiService;
 
-        public _BlogDetailsAuthorAboutComponentPartial(IHttpClientFactory httpClientFactory)
+        public _BlogDetailsAuthorAboutComponentPartial(IBlogApiService blogApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _blogApiService = blogApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responsMessage = await client.GetAsync($"Blog/getBlogByAuthorId?id={id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogByAuthorIdDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _blogApiService.GetByAuthorIdAsync(id);
+            return View(values);
         }
     }
 }

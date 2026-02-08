@@ -1,25 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.LocationDtos;
+using UdemyCarbook.Application.Services;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class DefaultController : Controller
     {
-        private readonly HttpClient client;
+        private readonly ILocationApiService _locationApiService;
 
-        public DefaultController(IHttpClientFactory httpClientFactory)
+        public DefaultController(ILocationApiService locationApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _locationApiService = locationApiService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Locations");
-            var jsonData = await responsMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultLocationDto>>(jsonData);
+            var values = await _locationApiService.GetAllAsync();
 
             ViewBag.Locations = values.Select(x => new SelectListItem
             {
@@ -31,10 +29,14 @@ namespace UdemyCarbook.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int locationId)
+        public IActionResult Index(RentSearchDto model)
         {
-            TempData["locationId"] = locationId;
-            return RedirectToAction("Index", "RentACarList");
+            return RedirectToAction("Index", "RentACarList", new
+            {
+                LocationId = model.LocationId,
+                PickUp = model.PickUp,
+                DropOff = model.DropOff
+            });
         }
     }
 }

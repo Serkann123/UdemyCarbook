@@ -1,27 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using UdemyCarbook.Dto.ServiceDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.ServiceVİewComponents
 {
-    public class _ServiceComponentParital:ViewComponent
+    public class _ServiceComponentParital : ViewComponent
     {
-        private readonly HttpClient client;
-        public _ServiceComponentParital(IHttpClientFactory httpClientFactory)
+        private readonly IServiceApiService _serviceApiService;
+
+        public _ServiceComponentParital(IServiceApiService serviceApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _serviceApiService = serviceApiService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var responsMessage = await client.GetAsync("Services");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultServiceDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _serviceApiService.GetAllAsync();
+            return View(values);
         }
     }
 }

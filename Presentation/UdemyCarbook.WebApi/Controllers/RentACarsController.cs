@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Features.Mediator.Queries.RentACarQueiries;
 
@@ -16,17 +15,11 @@ namespace UdemyCarbook.WebApi.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetRentACarListByLocation(int locationId, bool avilable)
+        [HttpGet("available")]
+        public async Task<IActionResult> Available( [FromQuery] GetAvailableRentACarsQuery query)
         {
-            GetRentACarQuery getRentACarQuery = new GetRentACarQuery()
-            {
-                Available = avilable,
-                LocationId = locationId,
-            };
-
-            var values = await _mediator.Send(getRentACarQuery);
-            return Ok(values);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.FooterAdressDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
@@ -10,28 +9,21 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminFooterAddressController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IFooterAddressApiService _footerAddressApiService;
 
-        public AdminFooterAddressController(IHttpClientFactory httpClientFactory)
+        public AdminFooterAddressController(IFooterAddressApiService footerAddressApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _footerAddressApiService = footerAddressApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("FooterAddress");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultFeatureAddressDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _footerAddressApiService.GetAllAsync();
+            return View(values);
         }
 
-
         [HttpGet]
-        public ActionResult CreateFooterAddress()
+        public IActionResult CreateFooterAddress()
         {
             return View();
         }
@@ -39,49 +31,38 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFooterAddress(CreateFooterAddressDto createFooterAddressDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createFooterAddressDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("FooterAddress", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _footerAddressApiService.CreateAsync(createFooterAddressDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminFooterAddress", new { area = "Admin" });
-            }
-            return View();
+
+            return View(createFooterAddressDto);
         }
 
         public async Task<IActionResult> RemoveFooterAddress(int id)
         {
-            var responsMessage = await client.DeleteAsync($"FooterAddress/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _footerAddressApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction("Index");
+
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> UpdateFooterAddress(int id)
         {
-            var responsMessage = await client.GetAsync($"FooterAddress/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateFooterAddressDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _footerAddressApiService.GetByIdAsync(id);
+            if (value is null) return RedirectToAction("Index");
+
+            return View(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateFooterAddress(UpdateFooterAddressDto updateFooterAddressDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateFooterAddressDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("FooterAddress/", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _footerAddressApiService.UpdateAsync(updateFooterAddressDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminFooterAddress", new { area = "Admin" });
-            }
-            return View();
+
+            return View(updateFooterAddressDto);
         }
     }
 }

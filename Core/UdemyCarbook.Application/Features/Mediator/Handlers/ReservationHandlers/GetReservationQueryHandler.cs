@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Queries.ReservationQueries;
 using UdemyCarbook.Application.Features.Mediator.Results.ReservationResults;
 using UdemyCarbook.Application.Interfaces;
@@ -37,7 +32,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
                 Surname = x.Surname,
                 Phone = x.Phone,
                 PickUpLocationId = x.PickUpLocationId,
-                Status = "Rezervasyon Alındı"
+                Status = x.Status
             }).ToList();
         }
     }

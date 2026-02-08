@@ -12,9 +12,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarPirincingHandle
 {
     public class GetCarPİrincingWithCarQueryHandler : IRequestHandler<GetCarPirincingWithCarQuery, List<GetCarPirincingWithCarQueryResult>>
     {
-        private readonly ICarPirincingRepository _pirincing;
+        private readonly ICarPricingRepository _pirincing;
 
-        public GetCarPİrincingWithCarQueryHandler(ICarPirincingRepository pirincing)
+        public GetCarPİrincingWithCarQueryHandler(ICarPricingRepository pirincing)
         {
             _pirincing = pirincing;
         }

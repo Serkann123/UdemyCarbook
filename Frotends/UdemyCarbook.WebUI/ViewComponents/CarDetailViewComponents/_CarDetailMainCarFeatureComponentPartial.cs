@@ -1,28 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using UdemyCarbook.Dto.CarDtos;
+using UdemyCarbook.Application.Services;
 
 namespace UdemyCarbook.WebUI.ViewComponents.CarDetailViewComponents
 {
     public class _CarDetailMainCarFeatureComponentPartial:ViewComponent
     {
-        private readonly HttpClient client;
+        private readonly ICarApiService _carApiService;
 
-        public _CarDetailMainCarFeatureComponentPartial(IHttpClientFactory httpClientFactory)
+        public _CarDetailMainCarFeatureComponentPartial(ICarApiService carApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _carApiService = carApiService;
         }
+
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var responsMessage = await client.GetAsync($"Cars/GetCarMainCarFeature?id={id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<ResultCarMainCarFeatureDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _carApiService.GetMainCarFeatureAsync(id);
+            return View(value);
         }
     }
 }

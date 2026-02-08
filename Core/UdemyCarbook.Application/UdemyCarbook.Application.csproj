@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Features\Mediator\Handlers\RentACarHandlers\GetAvailableRentACarsQueryHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Frontends\UdemyCarbook.Dto\UdemyCarbook.Dto.csproj" />
     <ProjectReference Include="..\UdemyCarbook.Domain\UdemyCarbook.Domain.csproj" />
   </ItemGroup>

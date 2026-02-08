@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Application.Validators.Tools;
 using UdemyCarbook.Dto.ServiceDtos;
 
@@ -12,20 +12,16 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminServiceController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IServiceApiService _serviceApiService;
 
-        public AdminServiceController(IHttpClientFactory httpClientFactory)
+        public AdminServiceController(IServiceApiService serviceApiService)
         {
-            client = httpClientFactory.CreateClient("CarApi");
+            _serviceApiService = serviceApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responseMessage = await client.GetAsync("Services");
-            if (!responseMessage.IsSuccessStatusCode) return View();
-
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<List<ResultServiceDto>>(jsonData);
+            var values = await _serviceApiService.GetAllAsync();
             return View(values);
         }
 
@@ -38,51 +34,45 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateService(CreateServiceDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(dto);
-            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var (ok, response) = await _serviceApiService.CreateAsync(dto);
 
-            var responseMessage = await client.PostAsync("Services", stringContent);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminService", new { area = "Admin" });
 
-            if (responseMessage.IsSuccessStatusCode)
-                return RedirectToAction("Index", "AdminService", new { area = "Admin" });
+            if (response is not null)
+                await AddApiErrorsToModelState(response);
 
-            await AddApiErrorsToModelState(responseMessage);
             return View(dto);
         }
 
         public async Task<IActionResult> RemoveService(int id)
         {
-            var responseMessage = await client.DeleteAsync($"Services/{id}");
-            if (responseMessage.IsSuccessStatusCode)
-                return RedirectToAction("Index");
-
-            ModelState.AddModelError(string.Empty, "Silme işlemi başarısız.");
-            return RedirectToAction("Index");
+            var ok = await _serviceApiService.RemoveAsync(id);
+            if (ok)
+                return RedirectToAction(nameof(Index));
+            return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateService(int id)
         {
-            var responseMessage = await client.GetAsync($"Services/{id}");
-            if (!responseMessage.IsSuccessStatusCode) return View();
+            var value = await _serviceApiService.GetByIdAsync(id);
+            if (value is null) return View();
 
-            var jsonData = await responseMessage.Content.ReadAsStringAsync();
-            var values = JsonConvert.DeserializeObject<UpdateServiceDto>(jsonData);
-            return View(values);
+            return View(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateService(UpdateServiceDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(dto);
-            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var (ok, response) = await _serviceApiService.UpdateAsync(dto);
 
-            var responseMessage = await client.PutAsync("Services", stringContent);
+            if (ok)
+                return RedirectToAction(nameof(Index), "AdminService", new { area = "Admin" });
 
-            if (responseMessage.IsSuccessStatusCode)
-                return RedirectToAction("Index", "AdminService", new { area = "Admin" });
+            if (response is not null)
+                await AddApiErrorsToModelState(response);
 
-            await AddApiErrorsToModelState(responseMessage);
             return View(dto);
         }
 
@@ -92,7 +82,7 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 
             if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
             {
-                var errorResponse = JsonConvert.DeserializeObject<ApiValidationProblem>(body);
+                var errorResponse = JsonConvert.DeserializeObject<ApiValidationProblemDto>(body);
 
                 if (errorResponse?.Errors != null)
                 {

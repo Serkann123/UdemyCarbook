@@ -3,70 +3,55 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
-using System.Text.Json;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.LoginDtos;
-using UdemyCarbook.WebUI.Models;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly HttpClient client;
+        private readonly ILoginApiService _loginApiService;
 
-        public LoginController(IHttpClientFactory httpClientFactory)
+        public LoginController(ILoginApiService loginApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _loginApiService = loginApiService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet]
+        public IActionResult Index() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Index(ResultLoginDto resultLoginDto)
+        public async Task<IActionResult> Index(ResultLoginDto dto)
         {
-           
-            var content = new StringContent(JsonSerializer.Serialize(resultLoginDto), Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("Login", content);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var tokenModel = JsonSerializer.Deserialize<JwtTokenModel>(jsonData, new JsonSerializerOptions
+            var tokenDto = await _loginApiService.LoginAsync(dto);
+
+            if (tokenDto?.Token == null)
+                return View();
+
+            var jwt = new JwtSecurityTokenHandler().ReadJwtToken(tokenDto.Token);
+
+            var claims = jwt.Claims.ToList();
+            claims.Add(new Claim("accessToken", tokenDto.Token));
+
+            var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                JwtBearerDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                new AuthenticationProperties
                 {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
-
-                if (tokenModel != null)
-                {
-
-                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                    var token = handler.ReadJwtToken(tokenModel.Token);
-                    var claims = token.Claims.ToList();
-
-                    if (tokenModel.Token != null)
-                    {
-                        claims.Add(new Claim("accessToken", tokenModel.Token));
-                        var claimsİdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-                        var autProps = new AuthenticationProperties
-                        {
-                            ExpiresUtc = tokenModel.ExpireDate,
-                            IsPersistent = true
-                        };
-
-                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsİdentity), autProps);
-                        return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
-                    }
+                    ExpiresUtc = tokenDto.ExpireDate,
+                    IsPersistent = true
                 }
-            }
-            return View();
+            );
+
+            return RedirectToAction("Index", "AdminDashboard", new { area = "Admin" });
         }
 
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index","Login");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

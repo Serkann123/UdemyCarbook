@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.AuthorDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
@@ -10,25 +9,18 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminAuthorController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IAuthorApiService _authorApiService;
 
-        public AdminAuthorController(IHttpClientFactory httpClientFactory)
+        public AdminAuthorController(IAuthorApiService authorApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _authorApiService = authorApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Author");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAuthorDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _authorApiService.GetAllAsync();
+            return View(values);
         }
-
 
         [HttpGet]
         public ActionResult CreateAuthor()
@@ -39,50 +31,38 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAuthor(CreateAuthorDto createAuthorDto)
         {
-            var jsonData = JsonConvert.SerializeObject(createAuthorDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("Author", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _authorApiService.CreateAsync(createAuthorDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminAuthor", new { area = "Admin" });
-            }
-            return View();
+
+            return View(createAuthorDto);
         }
 
         public async Task<IActionResult> RemoveAuthor(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Author/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _authorApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction("Index");
+
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateAuthor(int id)
         {
-            var responsMessage = await client.GetAsync($"Author/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateAuthorDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _authorApiService.GetByIdAsync(id);
+            if (value is null) return RedirectToAction("Index");
+
+            return View(value);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateAuthor(UpdateAuthorDto updateAuthorDto)
         {
-            var jsonData = JsonConvert.SerializeObject(updateAuthorDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("Author/", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
+            var ok = await _authorApiService.UpdateAsync(updateAuthorDto);
+            if (ok)
                 return RedirectToAction("Index", "AdminAuthor", new { area = "Admin" });
-            }
-            return View();
+
+            return View(updateAuthorDto);
         }
     }
 }

@@ -7,9 +7,7 @@
         Task<int> GetAuthorCountAsync();
         Task<int> GetBlogCountAsync();
         Task<int> GetBrandCountAsync();
-        Task<decimal> GetAvgRentPriceForDailyAsync();
-        Task<decimal> GetAvgRentPriceForWeeklyAsync();
-        Task<decimal> GetAvgRentPriceForMonthlyAsync();
+        Task<decimal> GetAvgRentPriceByPricingNameAsync(string pricingName);
         Task<int> GetCarCountByTranmissionIsAutoAsync();
         Task<string> GetBrandNameByMaxCarAsync();
         Task<string> GetBlogTitleByMaxBlogCommentAsync();

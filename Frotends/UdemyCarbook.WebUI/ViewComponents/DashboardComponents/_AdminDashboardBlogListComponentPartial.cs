@@ -1,31 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using UdemyCarbook.Dto.BlogDtos;
+using UdemyCarbook.Application.Services;
 using X.PagedList.Extensions;
 
 namespace UdemyCarbook.WebUI.ViewComponents.DashboardComponents
 {
     public class _AdminDashboardBlogListComponentPartial : ViewComponent
     {
-        private readonly HttpClient client;
-        public _AdminDashboardBlogListComponentPartial(IHttpClientFactory httpClientFactory)
+        private readonly IBlogApiService _blogApiService;
+        public _AdminDashboardBlogListComponentPartial(IBlogApiService blogApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _blogApiService = blogApiService;
         }
         public async Task<IViewComponentResult> InvokeAsync(int page = 1)
         {
-            var responsMessage = await client.GetAsync("Blog/GetBlogsAllWithAuthorsList");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBlogsAllWithAuthorDto>>(jsonData);
 
-                var pagedValues = values.ToPagedList(page, 4);
+            var values = await _blogApiService.GetBlogsAllWithAuthorsAsync();
+            var pagedValues = values.ToPagedList(page, 4);
 
-                return View(pagedValues);
-            }
-            return View();
+            return View(pagedValues);
         }
     }
 }

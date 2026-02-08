@@ -1,87 +1,62 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text;
+using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.PirincingDtos;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class AdminPrincingController : Controller
+    public class AdminPricingController : Controller
     {
-        private readonly HttpClient client;
+        private readonly IPricingApiService _pricingApiService;
 
-        public AdminPrincingController(IHttpClientFactory httpClientFactory)
+        public AdminPricingController(IPricingApiService pricingApiService)
         {
-             client = httpClientFactory.CreateClient("CarApi");
+            _pricingApiService = pricingApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var responsMessage = await client.GetAsync("Pirincings");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultPricingDto>>(jsonData);
-                return View(values);
-            }
-            return View();
+            var values = await _pricingApiService.GetAllAsync();
+            return View(values);
         }
 
         [HttpGet]
-        public ActionResult CreatePrincing()
+        public IActionResult CreatePricing()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePrincing(CreatePrincingDto createPrincingDto)
+        public async Task<IActionResult> CreatePricing(CreatePrincingDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(createPrincingDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PostAsync("Pirincings", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminPrincing", new { area = "Admin" });
-            }
-            return View();
+            var ok = await _pricingApiService.CreateAsync(dto);
+            if (ok) return RedirectToAction(nameof(Index), "AdminPrincing", new { area = "Admin" });
+            return View(dto);
         }
 
-        public async Task<IActionResult> RemovePrincing(int id)
+        public async Task<IActionResult> RemovePricing(int id)
         {
-            var responsMessage = await client.DeleteAsync($"Pirincings/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var ok = await _pricingApiService.RemoveAsync(id);
+            if (ok) return RedirectToAction(nameof(Index));
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdatePrincing(int id)
+        public async Task<IActionResult> UpdatePricing(int id)
         {
-            var responsMessage = await client.GetAsync($"Pirincings/{id}");
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                var jsonData = await responsMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdatePrincingDto>(jsonData);
-                return View(values);
-            }
-            return View();
+            var value = await _pricingApiService.GetByIdAsync(id);
+            if (value is null) return RedirectToAction(nameof(Index));
+            return View(value);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdatePrincing(UpdatePrincingDto updatePrincingDto)
+        public async Task<IActionResult> UpdatePricing(UpdatePrincingDto dto)
         {
-            var jsonData = JsonConvert.SerializeObject(updatePrincingDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responsMessage = await client.PutAsync("Pirincings/", stringContent);
-            if (responsMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index", "AdminPrincing", new { area = "Admin" });
-            }
-            return View();
+            var ok = await _pricingApiService.UpdateAsync(dto);
+            if (ok) return RedirectToAction(nameof(Index), "AdminPrincing", new { area = "Admin" });
+            return View(dto);
         }
     }
 }
