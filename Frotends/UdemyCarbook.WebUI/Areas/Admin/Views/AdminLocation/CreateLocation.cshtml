@@ -1,34 +1,52 @@
 ﻿@model CreateLocationDto
 
 @{
-    ViewData["Title"] = "Lokasyon Ekleme";
+    ViewData["Title"] = "Lokasyon Ekle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
+<div class="page-content-custom">
 
-                        <h4 class="card-title">Yeni Lokasyon Giriş Alanı </h4>
-                        <p class="card-subtitle mb-4">
-                            Araçların alındıgı ve teslim edildiği noktalar ait lokasyon
-                            bilgisinin girildiği sayfadır.Bilgileri eksiksiz doldurunuz.
-                        </p>
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <label for="exampleInputName">Lokasyon</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name" placeholder="Lokasyon Adını Giriniz">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Lokasyon Bilgisini Kaydet</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Lokasyon Ekle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Araçların alındığı ve teslim edildiği lokasyon bilgisini buradan ekleyebilirsiniz.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminLocation"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <div class="form-group mb-4">
+                <label asp-for="Name" class="font-weight-bold" style="color:#1b2559;">Lokasyon</label>
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Lokasyon adını giriniz" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-primary rounded-pill px-4 py-2"
+                        style="background:#4318FF; border:none;">
+                    <i class="fas fa-save mr-1"></i> Kaydet
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminLocation"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 </div>

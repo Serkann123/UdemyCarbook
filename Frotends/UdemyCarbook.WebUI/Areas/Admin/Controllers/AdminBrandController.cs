@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.BrandDtos;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Controllers
 {
@@ -16,10 +18,14 @@ namespace UdemyCarbook.WebUI.Controllers
             _brandService = brandService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
             var values = await _brandService.GetAllAsync();
-            return View(values);
+
+            var pagedList = values.ToFilteredPagedList(this, req,
+                (x, search) => x.Name.Contains(search, StringComparison.OrdinalIgnoreCase));
+
+            return View(pagedList);
         }
 
         [HttpGet]

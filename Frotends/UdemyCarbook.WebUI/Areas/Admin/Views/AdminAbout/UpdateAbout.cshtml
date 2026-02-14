@@ -1,50 +1,73 @@
 ﻿@model UpdateAboutDto
 
 @{
-    ViewData["Title"] = "Hakkımda Güncelleme";
+    ViewData["Title"] = "Hakkımızda Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Hakkımızda Veri Güncelleme Alanı</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Hakkımızda sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-
-                        <form method="post">
-                            <input type="hidden" asp-for="AboutId">
-                            <div class="form-group">
-                                <label for="exampleInputTitle">Başlık</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title" placeholder="Başlığı Giriniz">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputDescription">Açıklama</label>
-                                <textarea class="form-control" rows="5" asp-for="Description" placeholder="Açıklamayı Giriniz"></textarea>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputImageUrl">Fotoğraf Linki</label>
-                                <input type="text" class="form-control" id="exampleInputImageUrl" asp-for="ImageUrl" placeholder="Fotograf Linkini Giriniz">
-                            </div>
-
-                            <button type="submit" class="btn btn-warning waves-effect waves-light">Hakkımızda Bilgisini Güncelleme</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Hakkımızda Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Ana sayfa ve “Hakkımızda” bölümünde görünen bilgileri buradan güncelleyin.
+                Tema bütünlüğü için tek kayıt üzerinden ilerleyin.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <a asp-area="Admin"
+               asp-controller="AdminAbout"
+               asp-action="Index"
+               class="btn btn-light btn-sm rounded-pill px-4 py-2"
+               style="border:1px solid #e6e8f0;">
+                <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+            <input type="hidden" asp-for="AboutId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="font-weight-bold" style="color:#1b2559;"></label>
+                <input asp-for="Title"
+                       class="form-control"
+                       placeholder="Başlığı giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="font-weight-bold" style="color:#1b2559;"></label>
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="6"
+                          placeholder="Açıklamayı giriniz"></textarea>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="ImageUrl" class="font-weight-bold" style="color:#1b2559;"></label>
+                <input asp-for="ImageUrl"
+                       class="form-control"
+                       placeholder="Fotoğraf linkini giriniz" />
+                <small class="text-muted d-block mt-1">Örn: https://.../about.jpg</small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminAbout"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 
 </div>

@@ -7,15 +7,13 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class AdminCarFeatureDetailController : Controller
+    public class AdminCarFeatureController : Controller
     {
         private readonly ICarFeatureApiService _carFeatureApiService;
-        public AdminCarFeatureDetailController(ICarFeatureApiService carFeatureApiService)
+        public AdminCarFeatureController(ICarFeatureApiService carFeatureApiService)
         {
             _carFeatureApiService = carFeatureApiService;
         }
-
-        [HttpGet]
         public async Task<IActionResult> Index(int id)
         {
             var values = await _carFeatureApiService.GetByCarIdAsync(id);
@@ -23,17 +21,10 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdResultDto> getCarFeatureByCarIdResultDto)
+        public async Task<IActionResult> Index(List<ResultCarFeatureByCarIdResultDto> model)
         {
-            await _carFeatureApiService.UpdateAvailabilityBatchAsync(getCarFeatureByCarIdResultDto);
+            await _carFeatureApiService.UpdateCarFeatureAvailableListAsync(model);
             return RedirectToAction("Index", "AdminCar");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CreateCarFeatureByCar()
-        {
-            var values = await _carFeatureApiService.GetAllFeaturesAsync();
-            return View(values);
         }
     }
 }

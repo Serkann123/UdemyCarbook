@@ -1,75 +1,80 @@
-﻿@model List<ResultFeatureDto>
+﻿@model IPagedList<ResultFeatureDto>
 
 @{
-    ViewData["Title"] = "Özellik";
-    int count = 0;
+    ViewData["Title"] = "Özellik Listesi";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Yeni Özellikler Listesi</h4>
-                        <p class="card-subtitle mb-4">
-                            Araba ile yeni özellikler ekleme,(klima,bluetooth,Audio,Elektrik vs.) özellikler
-                            listesi, özellikler üzerinden düzenleme ve bir özelliği kaldırma işlemini birazdan
-                            gerçekleştirebilirsiniz.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Özellik</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-
-                                        <tr>
-                                            <th scope="row">@count</th>
-                                            <td>@item.Name</td>
-                                            <td>
-                                                <a asp-area="Admin"
-                                                   asp-controller="AdminFeature"
-                                                   asp-action="RemoveFeature"
-                                                   asp-route-id="@item.FeatureId"
-                                                   class="btn btn-outline-danger btn-sm">
-                                                    Sil
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <a asp-area="Admin"
-                                                   asp-controller="AdminFeature"
-                                                   asp-action="UpdateFeature"
-                                                   asp-route-id="@item.FeatureId"
-                                                   class="btn btn-outline-success btn-sm">
-                                                    Güncelle
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-                            </table>
-                            <a asp-area="Admin"
-                               asp-controller="AdminFeature"
-                               asp-action="CreateFeature"
-                               class="btn btn-outline-primary">
-                                Yeni Özellik Girişi
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Özellik Listesi</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Araç özelliklerini yönetin (klima, bluetooth, audio, vb.).
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
+
+            <a asp-area="Admin"
+               asp-controller="AdminFeature"
+               asp-action="CreateFeature"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th>ÖZELLİK</th>
+                        <th class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.Name</td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminFeature"
+                                   asp-action="UpdateFeature"
+                                   asp-route-id="@item.FeatureId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminFeature"
+                                   asp-action="RemoveFeature"
+                                   asp-route-id="@item.FeatureId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Özellik Sil"
+                                   data-message="Bu özelliği silmek istediğinize emin misiniz?"
+                                   title="Sil">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"></partial>
     </div>
 </div>

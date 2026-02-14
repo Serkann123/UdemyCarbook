@@ -1,0 +1,244 @@
+﻿body {
+    background-color: #f4f7fe !important;
+}
+
+/* admin-custom.css - Bootstrap 4.3.1 Uyumlu */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Linklerin alt çizgisini kaldır */
+a {
+    text-decoration: none !important;
+}
+
+/* Sayfa Genel Yapısı */
+.page-content-custom {
+    background-color: #f4f7fe;
+    /* Arka plan rengini buradan kontrol edebilirsin */
+    font-family: 'Poppins', sans-serif;
+    color: #2b3674;
+    padding: 30px;
+}
+
+/* Tablo Kartı */
+.table-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    padding: 20px;
+    border: 1px solid #f0f2f5;
+    margin-bottom: 40px;
+}
+
+/* Arama Kutusu Tasarımı */
+.search-container {
+    position: relative;
+    width: 250px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border-radius: 20px;
+    border: 1px solid #e0e5f2;
+    background-color: white;
+    color: #2b3674;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    /* Bootstrap 4 input focus override */
+    height: calc(1.5em + .75rem + 2px);
+}
+
+    .search-input:focus {
+        outline: none;
+        border-color: #4318FF;
+        box-shadow: 0 0 0 3px rgba(67, 24, 255, 0.1);
+    }
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a3aed0;
+    font-size: 0.9rem;
+    z-index: 4;
+    /* İkonun input üzerinde kalması için */
+}
+
+/* Modern Tablo Tasarımı */
+.table-modern {
+    width: 100%;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+    .table-modern thead th {
+        border-bottom: 2px solid #f0f2f5;
+        color: #a3aed0;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 12px 15px;
+        background-color: white;
+        border-top: none;
+        /* Bootstrap 4 border override */
+    }
+
+    .table-modern tbody tr {
+        border-bottom: 1px solid #f0f2f5;
+        transition: background-color 0.2s;
+    }
+
+        .table-modern tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .table-modern tbody tr:hover {
+            background-color: #f9fafc;
+        }
+
+    .table-modern td {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        color: #2b3674;
+        vertical-align: middle;
+        border-top: none;
+        /* Bootstrap 4 border override */
+    }
+
+/* Avatar Tasarımı */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-right: 10px;
+    /* mr-2 yerine sabit css */
+    flex-shrink: 0;
+}
+
+.text-truncate-custom {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+    color: #707eae;
+}
+
+/* Renk Sınıfları */
+.bg-blue-light {
+    background-color: #e0e7ff;
+    color: #4318FF;
+}
+
+.bg-orange-light {
+    background-color: #fff7e6;
+    color: #ff9f43;
+}
+
+.bg-green-light {
+    background-color: #e6fbf4;
+    color: #05cd99;
+}
+
+/* Buton İkonları */
+.btn-icon-sm {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a3aed0;
+    transition: 0.2s;
+    background: transparent;
+    text-decoration: none;
+    border: none;
+}
+
+    .btn-icon-sm:hover {
+        background: #eff4fb;
+        color: #4318FF;
+    }
+
+    .btn-icon-sm.delete:hover {
+        background: #fee2e2;
+        color: #ef4444;
+    }
+
+/* Sayfalama (Pagination) */
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/* Bootstrap 4 Pagination Override */
+.page-item .page-link {
+    border: none;
+    border-radius: 8px !important;
+    /* Bootstrap 4 ezmesi için !important */
+    color: #a3aed0;
+    background-color: transparent;
+    font-weight: 500;
+    padding: 8px 14px;
+    transition: all 0.2s;
+    margin: 0 3px;
+    /* gap olmadığı için elemanlara margin veriyoruz */
+}
+
+    .page-item .page-link:hover {
+        background-color: #eff4fb;
+        color: #4318FF;
+        transform: translateY(-2px);
+    }
+
+.page-item.active .page-link {
+    background-color: #4318FF;
+    color: white;
+    box-shadow: 0 4px 10px rgba(67, 24, 255, 0.3);
+}
+
+.page-item.disabled .page-link {
+    color: #dbeafe;
+    background-color: transparent;
+}
+
+/* Tablo içi scroll */
+.table-scroll {
+    max-height: 520px;
+    /* İstersen arttır/azalt */
+    overflow-y: auto;
+}
+
+    /* Başlık sabit kalsın (isteğe bağlı ama güzel oluyor) */
+    .table-scroll thead th {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: #fff;
+        /* senin header zaten beyaz */
+    }
+
+    /* (Opsiyonel) scrollbar daha ince dursun */
+    .table-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .table-scroll::-webkit-scrollbar-thumb {
+        background: #e0e5f2;
+        border-radius: 10px;
+    }
+
+
+.is-truncated{
+    cursor:pointer;
+}

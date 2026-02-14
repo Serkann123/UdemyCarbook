@@ -4,12 +4,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-@await Html.PartialAsync("/Areas/Admin/Views/AdminLayout/AdminHeaderPartial.cshtml")
+    @await Html.PartialAsync("/Areas/Admin/Views/AdminLayout/AdminHeaderPartial.cshtml")
+
+    @RenderSection("Styles", required: false)
+
 <body>
     <div id="layout-wrapper">
-
-        @await Html.PartialAsync("/Areas/Admin/Views/AdminLayout/AdminNavbarPartial.cshtml")
-
 
         @await Html.PartialAsync("/Areas/Admin/Views/AdminLayout/AdminSidebarPartial.cshtml")
 
@@ -25,6 +25,8 @@
 
     @await Html.PartialAsync("/Areas/Admin/Views/AdminLayout/AdminScriptPartial.cshtml")
 
-    @RenderSection("Scripts", false);
+    <partial name="Partials/_ConfirmDeleteModal" />
+
+    @RenderSection("Scripts", false)
 </body>
 </html>

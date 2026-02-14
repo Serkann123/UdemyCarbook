@@ -4,76 +4,78 @@
     ViewData["Title"] = "Hizmet Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div>
-                                <h4 class="card-title mb-1">Hizmet Güncelle</h4>
-                                <p class="card-subtitle text-muted mb-0">
-                                    Seçilen hizmete ait bilgileri güncelleyerek değişiklikleri kaydedebilirsiniz.
-                                </p>
-                            </div>
-
-                            <a asp-area="Admin"
-                               asp-controller="AdminService"
-                               asp-action="Index"
-                               class="btn btn-outline-secondary btn-sm">
-                                Listeye Dön
-                            </a>
-                        </div>
-
-                        <form method="post" class="mt-4">
-                            <input type="hidden" asp-for="ServiceId" />
-
-                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
-                            <div class="mb-3">
-                                <label asp-for="Title" class="form-label">Hizmet Başlığı</label>
-                                <input asp-for="Title"
-                                       class="form-control"
-                                       placeholder="Örn: 7/24 Destek" />
-                                <span asp-validation-for="Title" class="text-danger"></span>
-                            </div>
-
-                            <div class="mb-3">
-                                <label asp-for="Description" class="form-label">Hizmet Açıklaması</label>
-                                <textarea asp-for="Description"
-                                          class="form-control"
-                                          rows="3"
-                                          placeholder="Örn: Müşteri destek ekibimiz 7/24 hizmet verir."></textarea>
-                                <span asp-validation-for="Description" class="text-danger"></span>
-                            </div>
-
-                            <div class="mb-3">
-                                <label asp-for="IconUrl" class="form-label">Icon URL</label>
-                                <input asp-for="IconUrl"
-                                       class="form-control"
-                                       placeholder="Örn: /assets/icons/support.svg veya https://..." />
-                                <div class="form-text">
-                                    Icon yolu dosya yolu veya tam URL olabilir. (Örn: <code>/assets/icons/support.svg</code>)
-                                </div>
-                                <span asp-validation-for="IconUrl" class="text-danger"></span>
-                            </div>
-
-                            <div class="d-flex gap-2">
-                                <button type="submit" class="btn btn-warning waves-effect waves-light">
-                                    Güncelle
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Hizmet Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Seçilen hizmete ait bilgileri güncelleyerek değişiklikleri kaydedebilirsiniz.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminService"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <input type="hidden" asp-for="ServiceId" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="font-weight-bold" style="color:#1b2559;">Hizmet Başlığı</label>
+                <input asp-for="Title"
+                       class="form-control"
+                       placeholder="Örn: 7/24 Destek" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="font-weight-bold" style="color:#1b2559;">Hizmet Açıklaması</label>
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Örn: Müşteri destek ekibimiz 7/24 hizmet verir."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="IconUrl" class="font-weight-bold" style="color:#1b2559;">Icon URL</label>
+                <input asp-for="IconUrl"
+                       class="form-control"
+                       placeholder="Örn: /assets/icons/support.svg veya https://..." />
+                <small class="text-muted d-block mt-1">
+                    Icon yolu dosya yolu veya tam URL olabilir. (Örn: <code>/assets/icons/support.svg</code>)
+                </small>
+                <span asp-validation-for="IconUrl" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminService"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 
-@section Scripts{
-    <partial name="_ValidationScriptsPartial"></partial>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

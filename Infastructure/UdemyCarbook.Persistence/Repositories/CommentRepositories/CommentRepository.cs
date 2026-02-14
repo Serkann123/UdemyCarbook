@@ -1,4 +1,4 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 using UdemyCarbook.Application.Interfaces.CommentInterfaces;
 using UdemyCarbook.Domain.Entities;
 using UdemyCarbook.Persistence.Context;

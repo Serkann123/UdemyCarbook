@@ -1,89 +1,110 @@
-﻿@model List<ResultCarWithBrandDto>
+﻿@model IPagedList<ResultCarWithBrandDto>
 
 @{
-    ViewData["Title"] = "Araba";
-    int count = 0;
+    ViewData["Title"] = "Araç Listesi";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Yeni Araç Girişi</h4>
-                        <p class="card-subtitle mb-4">
-                            Araç ile ilgili teknik bilgileri dikkatle doldurmanız önemlidir.
-                            Veri girişlerinden sonra kaydet butonuna tıklayarak işlemi tamamlayabilirsiniz
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Marka</th>
-                                        <th>Model</th>
-                                        <th>Vites Türü</th>
-                                        <th>Km</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                        <th>Özellik Ata</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <th scope="row">@count</th>
-                                            <td>@item.BrandName</td>
-                                            <td>@item.Model</td>
-                                            <td>@item.Transmission</td>
-                                            <td>@item.Km</td>
-                                            <td>
-                                                <a asp-area="Admin"
-                                                   asp-controller="AdminCar"
-                                                   asp-action="RemoveCar"
-                                                   asp-route-id="@item.CarId"
-                                                   class="btn btn-outline-danger btn-sm">
-                                                    Sil
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <a asp-area="Admin"
-                                                   asp-controller="AdminCar"
-                                                   asp-action="UpdateCar"
-                                                   asp-route-id="@item.CarId"
-                                                   class="btn btn-outline-success btn-sm">
-                                                    Güncelle
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <a asp-area="Admin"
-                                                   asp-controller="AdminCarFeatureDetail"
-                                                   asp-action="CreateCarFeatureByCar"
-                                                   asp-route-id="@item.CarId"
-                                                   class="btn btn-outline-dark btn-sm">
-                                                    Özellik Ata
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <a asp-area="Admin"
-                               asp-controller="AdminCar"
-                               asp-action="CreateCar"
-                               class="btn btn-outline-primary">
-                                Yeni Araç Girişi
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Araç Listesi</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Araçları yönetin: ekle, güncelle, sil ve özellik ata.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request" />
+
+            <a asp-area="Admin"
+               asp-controller="AdminCar"
+               asp-action="CreateCar"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none; font-weight:500;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th style="width:180px;">MARKA</th>
+                        <th style="width:200px;">MODEL</th>
+                        <th style="width:160px;">VİTES</th>
+                        <th style="width:120px;">KM</th>
+                        <th style="width:170px;" class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="font-weight-bold text-muted">@count</td>
+
+                            <td>
+                                <span class="font-weight-bold">@item.BrandName</span>
+                            </td>
+
+                            <td>
+                                <span class="text-truncate-custom" title="@item.Model" style="max-width:200px; display:inline-block;">
+                                    @item.Model
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge badge-light text-secondary border">@item.Transmission</span>
+                            </td>
+
+                            <td>
+                                @item.Km
+                            </td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminCar"
+                                   asp-action="UpdateCar"
+                                   asp-route-id="@item.CarId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminCar"
+                                   asp-action="RemoveCar"
+                                   asp-route-id="@item.CarId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Araç Sil"
+                                   data-message="'@item.BrandName @item.Model' aracını silmek istediğinize emin misiniz?"
+                                   title="Sil">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminCarFeature"
+                                   asp-action="Index"
+                                   asp-route-id="@item.CarId"
+                                   class="btn-icon-sm"
+                                   title="Özellik Ata">
+                                    <i class="fas fa-sliders-h fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model" />
     </div>
 </div>

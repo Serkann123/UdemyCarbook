@@ -28,7 +28,7 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
             values.Surname = request.Surname;
             values.Phone = request.Phone;
             values.PickUpLocationId = request.PickUpLocationId;
-            values.Status = "Rezervasyon Alındı";
+            values.Status = request.Status;
 
             await _repository.UpdateAsync(values);
         }

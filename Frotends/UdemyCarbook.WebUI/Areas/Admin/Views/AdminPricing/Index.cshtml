@@ -1,50 +1,78 @@
-﻿@model List<ResultPricingDto>
+﻿@model IPagedList<ResultPricingDto>
 
 @{
-    ViewData["Title"] = "Fiyat";
-    int count = 0;
+    ViewData["Title"] = "Ödeme Türleri";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Ödeme Türleri Sayfası</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın Ödeme Türleri sayfasında bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Ödeme Türü</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <td>@count</td>
-                                            <td>@item.Name</td>
-                                            <td><a href="/Admin/AdminPricing/RemovePricing/@item.PricingId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminPricing/UpdatePricing/@item.PricingId" class="btn btn-outline-success">Güncelle</a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <a href="/Admin/AdminPricing/CreatePricing" class="btn btn-outline-primary">Yeni Princing Girişi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="page-content-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Ödeme Türleri</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Ana sayfadaki “Ödeme Türleri” alanında görünen değerleri yönetin.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <a asp-area="Admin"
+               asp-controller="AdminPricing"
+               asp-action="CreatePricing"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th>ÖDEME TÜRÜ</th>
+                        <th class="text-right" style="width:140px;">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.Name</td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminPricing"
+                                   asp-action="UpdatePricing"
+                                   asp-route-id="@item.PricingId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminPricing"
+                                   asp-action="RemovePricing"
+                                   asp-route-id="@item.PricingId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Ödeme Türü Sil"
+                                   data-message="Bu ödeme türünü silmek istediğinize emin misiniz?"
+                                   title="Sil">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"></partial>
     </div>
 </div>

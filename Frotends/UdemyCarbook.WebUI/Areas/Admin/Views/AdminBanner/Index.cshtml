@@ -1,56 +1,114 @@
-﻿@model List<ResultBannerDto>
+﻿@model IPagedList<ResultBannerDto>
 
 @{
-    ViewData["Title"] = "Afiş";
+    ViewData["Title"] = "Banner Listesi";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Ana Sayfa Banner Alanı</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın banner alanında bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Başlık</th>
-                                        <th>Açıklama</th>
-                                        <th>Video Url</th>
-                                        <th>Video Açıklama</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                        <th>YouTube'da Aç</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@item.Title</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.VideoUrl</td>
-                                            <td>@item.VideoDescription</td>
-                                            <td><a href="/Admin/AdminBanner/RemoveBanner/@item.BannerId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminBanner/UpdateBanner/@item.BannerId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="@item.VideoUrl" target="_blank" class="btn btn-outline-dark">YouTube'da Aç</a></td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-                            </table>
-                           <a href="/Admin/AdminBanner/CreateBanner" class="btn btn-outline-primary">Yeni Banner Girişi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight: 700; margin:0; color:#1b2559;">Banner Listesi</h4>
+            <p style="color: #a3aed0; font-size: 0.9rem; margin:0;">
+                Ana sayfa banner alanındaki bilgileri yönetin.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
+
+            <a asp-area="Admin"
+               asp-controller="AdminBanner"
+               asp-action="CreateBanner"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none; font-weight:500;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th style="width:220px;">BAŞLIK</th>
+                        <th style="width:320px;">AÇIKLAMA</th>
+                        <th style="width:260px;">VİDEO AÇIKLAMA</th>
+                        <th style="width:140px;" class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="font-weight-bold text-muted">@count</td>
+
+                            <td>
+                                <span class="font-weight-bold">@item.Title</span>
+                            </td>
+
+                            <td>
+                                <span class="text-truncate-custom js-open-modal"
+                                      data-title="@item.Title"
+                                      data-description="@item.Description"
+                                      title="@item.Description"
+                                      style="max-width: 320px; display: inline-block;">
+                                    @item.Description
+                                </span>
+
+                            </td>
+
+                            <td>
+                                <span class="text-truncate-custom"
+                                      data-title="Video Açıklaması"
+                                      data-description="@item.VideoDescription"
+                                      title="@item.VideoDescription"
+                                      style="max-width: 260px; display: inline-block;">
+                                    @item.VideoDescription
+                                </span>
+                            </td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminBanner"
+                                   asp-action="UpdateBanner"
+                                   asp-route-id="@item.BannerId"
+                                   class="btn-icon-sm">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminBanner"
+                                   asp-action="RemoveBanner"
+                                   asp-route-id="@item.BannerId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Banner Sil"
+                                   data-message="Bu banner kaydını silmek istediğinize emin misiniz?">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+
+                                <a href="@item.VideoUrl"
+                                   target="_blank"
+                                   class="btn-icon-sm"
+                                   title="YouTube'da Aç">
+                                    <i class="fab fa-youtube fa-xs"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model" />
+        <partial name="Partials/_AdminDescriptionModal" />
     </div>
 </div>

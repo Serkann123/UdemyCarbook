@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.BannerDtos;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -16,10 +18,13 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _bannerApiService = bannerApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
             var values = await _bannerApiService.GetAllAsync();
-            return View(values);
+
+            var pagedList = values.ToFilteredPagedList(this, req,
+               (x, search) => x.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
+            return View(pagedList);
         }
 
         [HttpGet]

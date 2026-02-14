@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Services;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -14,10 +16,18 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _commentApiService = commentApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
             var values = await _commentApiService.GetAllAsync();
-            return View(values);
+
+            var pagedList = values.ToFilteredPagedList(this, req,
+                (x, search) =>
+                    (x.Name ?? "").Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    (x.Email ?? "").Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    (x.Description ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
+
+            return View(pagedList);
         }
 
         public async Task<IActionResult> RemoveComment(int id)

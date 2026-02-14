@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UdemyCarbook.Application.Features.CQRS.Results.CarResults;
-using UdemyCarbook.Application.Interfaces;
+﻿using UdemyCarbook.Application.Features.CQRS.Results.CarResults;
 using UdemyCarbook.Application.Interfaces.CarInterfaces;
-using UdemyCarbook.Domain.Entities;
 
 namespace UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers
 {
@@ -23,7 +16,7 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.CarHandlers
             var values = await _repository.GetCarsListWithBrandAsync();
             return values.Select(x => new GetCarWithBrandQueryResult
             {
-                BrandName=x.Brand.Name,
+                BrandName = x.Brand.Name,
                 CarId = x.CarId,
                 BigImageUrl = x.BigImageUrl,
                 Fuel = x.Fuel,

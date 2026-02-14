@@ -5,7 +5,7 @@ namespace UdemyCarbook.Application.Interfaces.CarFeatureInterfaces
     public interface ICarFeatureRepository
     {
         Task<List<CarFeature>> GetCarFeatureByCarIdAsync(int carId);
-        Task ChangeCarFeaturesAvailableToFalseAsync(int id);
-        Task ChangeCarFeaturesAvailableToTrueAsync(int id);
+        Task UpdateCarFeatureAvailableAsync(int carFeatureId, bool available);
+        Task SaveChangesAsync();
     }
 }

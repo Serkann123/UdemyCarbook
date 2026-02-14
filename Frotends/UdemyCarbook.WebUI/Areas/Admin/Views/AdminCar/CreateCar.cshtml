@@ -1,80 +1,93 @@
 ﻿@model CreateCarDto
 
 @{
-    ViewData["Title"] = "Araba Ekleme";
+    ViewData["Title"] = "Araba Ekle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Yeni Araç Girişi</h4>
-                        <p class="card-subtitle mb-4">
-                            Araç ile ilgili temel bilgileri eksiksiz doldurmanız önemlidir. yeni girişlerden
-                            sonra kaydet butonuna tıklayabilirsiniz.
-                        </p>
-
-                        <form method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Marka</label>
-                                
-                                <select asp-for="BrandId" asp-items="ViewBag.BrandValues" class="form-control">
-                                    <option value="">Marka Seçiniz</option>
-                                </select>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputBrand">Model</label>
-                                <input type="text" class="form-control" id="exampleInputModel" asp-for="Model" placeholder="Model Girişi Yapınız">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputCoverImageUrl">Kapak Fotoğrafı</label>
-                                <input type="text" class="form-control" id="exampleInputCoverImageUrl" asp-for="CoverImageUrl" placeholder="Kapak fotoğrafı linkini giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputKm">Km</label>
-                                <input type="number" class="form-control" id="exampleInputKm" asp-for="Km" placeholder="Km degerini giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputTransmission">Vites Türü</label>
-                                <input type="text" class="form-control" id="exampleInputTransmission" asp-for="Transmission" placeholder="Vites türünü giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputSeat">Koltuk Sayısı</label>
-                                <input type="number" class="form-control" id="exampleInputSeat" asp-for="Seat" placeholder="Koltuk sayısını seçiniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputLuggage">Bagaj Sayısı</label>
-                                <input type="text" class="form-control" id="exampleInputLuggage" asp-for="Luggage" placeholder="Bagaj sayısını seçiniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputFuel">Yakıt Türü</label>
-                                <input type="text" class="form-control" id="exampleInputFuel" asp-for="Fuel" placeholder="Benzin türünü seçiniz">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputBigImageUrl">Büyük Kapak Fotoğrafı</label>
-                                <input type="text" class="form-control" id="exampleInputBigImageUrl" asp-for="BigImageUrl" placeholder="Araç detayında gözükecek ekran fotografı">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Aracı Kaydet</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Araba Ekle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Araç ile ilgili temel bilgileri eksiksiz doldurun ve kaydedin.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminCar"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <div class="form-group mb-3">
+                <label asp-for="BrandId" class="font-weight-bold" style="color:#1b2559;">Marka</label>
+                <select asp-for="BrandId" asp-items="ViewBag.BrandValues" class="form-control">
+                    <option value="">Marka Seçiniz</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Model" class="font-weight-bold" style="color:#1b2559;">Model</label>
+                <input asp-for="Model" class="form-control" placeholder="Model giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CoverImageUrl" class="font-weight-bold" style="color:#1b2559;">Kapak Fotoğrafı</label>
+                <input asp-for="CoverImageUrl" class="form-control" placeholder="Kapak fotoğrafı linkini giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Km" class="font-weight-bold" style="color:#1b2559;">Km</label>
+                <input asp-for="Km" type="number" class="form-control" placeholder="Km değerini giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Transmission" class="font-weight-bold" style="color:#1b2559;">Vites Türü</label>
+                <input asp-for="Transmission" class="form-control" placeholder="Vites türünü giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Seat" class="font-weight-bold" style="color:#1b2559;">Koltuk Sayısı</label>
+                <input asp-for="Seat" type="number" class="form-control" placeholder="Koltuk sayısını giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Luggage" class="font-weight-bold" style="color:#1b2559;">Bagaj</label>
+                <input asp-for="Luggage" class="form-control" placeholder="Bagaj bilgisini giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Fuel" class="font-weight-bold" style="color:#1b2559;">Yakıt Türü</label>
+                <input asp-for="Fuel" class="form-control" placeholder="Yakıt türünü giriniz" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="BigImageUrl" class="font-weight-bold" style="color:#1b2559;">Büyük Kapak Fotoğrafı</label>
+                <input asp-for="BigImageUrl" class="form-control" placeholder="Araç detayında gözükecek görsel linki" />
+                <small class="text-muted d-block mt-1">Örn: https://.../car-detail.jpg</small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-primary rounded-pill px-4 py-2"
+                        style="background:#4318FF; border:none;">
+                    <i class="fas fa-save mr-1"></i> Kaydet
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminCar"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 </div>

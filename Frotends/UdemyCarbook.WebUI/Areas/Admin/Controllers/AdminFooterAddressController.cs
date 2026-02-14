@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.FooterAdressDtos;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -16,10 +18,16 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _footerAddressApiService = footerAddressApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
             var values = await _footerAddressApiService.GetAllAsync();
-            return View(values);
+
+            var pagedList = values.ToFilteredPagedList(this, req, (x, search) =>
+                (x.Address ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+                || (x.Mail ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
+
+            return View(pagedList);
         }
 
         [HttpGet]

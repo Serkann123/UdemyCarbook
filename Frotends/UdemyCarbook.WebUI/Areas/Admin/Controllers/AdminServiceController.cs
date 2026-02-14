@@ -5,6 +5,8 @@ using System.Net;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Application.Validators.Tools;
 using UdemyCarbook.Dto.ServiceDtos;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -19,10 +21,16 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _serviceApiService = serviceApiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
             var values = await _serviceApiService.GetAllAsync();
-            return View(values);
+
+            var pagedList = values.ToFilteredPagedList(this, req, (x, search) =>
+                (x.Title ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+                || (x.Description ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
+
+            return View(pagedList);
         }
 
         [HttpGet]

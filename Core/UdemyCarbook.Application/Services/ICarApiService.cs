@@ -10,7 +10,7 @@ namespace UdemyCarbook.Application.Services
         Task<bool> CreateAsync(CreateCarDto dto);
         Task<bool> UpdateAsync(UpdateCarDto dto);
         Task<bool> RemoveAsync(int id);
-        Task<List<ResultCarForReservationDto>> GetCarWithBrandAsync();
+        Task<List<ResultCarWithBrandDto>> GetCarWithBrandAsync();
         Task<List<ResultLast5CarsWithBrandDto>> GetLast5CarsWithBrandAsync();
         Task<ResultCarDescriptionByCarIdDto?> GetDescriptionByCarIdAsync(int carId);
         Task<ResultCarMainCarFeatureDto?> GetMainCarFeatureAsync(int carId);

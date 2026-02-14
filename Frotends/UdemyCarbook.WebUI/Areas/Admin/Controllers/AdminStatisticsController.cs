@@ -24,6 +24,9 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             // ViewModel'e Dönüştür
             var vm = dto.ToAdminStatisticsVm();
 
+            // UI Gruplarını Hazırla
+            vm.PrepareStatGroups();
+
             return View(vm);
         }
     }

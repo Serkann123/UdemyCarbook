@@ -1,53 +1,95 @@
 ﻿@model List<ResultLocationDto>
 
 @{
-    ViewData["Title"] = "Lokasyon";
+    ViewData["Title"] = "Lokasyon Listesi";
     int count = 0;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Lokasyon Bilgisi Alanı</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfa ve araç kiralama sayfasında yer alan araçların alınış ve
-                            bırakılış yerini tespit eden lokasyondur. Asağıda lokasyon bilgileri yer
-                            almaktadır. Asağıda sağ tarafta bulunan buton aracığıyla Haritaya ulaşabilirsiniz.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Lokasyon</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                        <th>Konum Aç</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
+<div class="page-content-custom">
 
-                                            <td>@count</td>
-                                            <td>@item.Name</td>
-                                            <td><a href="/Admin/AdminLocation/RemoveLocation/@item.LocationId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminLocation/UpdateLocation/@item.LocationId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="#" class="btn btn-outline-dark">Konum Aç</a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                             <a href="/Admin/AdminLocation/CreateLocation" class="btn btn-outline-primary">Yeni Lokasyon Girişi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight: 700; margin:0; color:#1b2559;">Lokasyon Listesi</h4>
+            <p style="color: #a3aed0; font-size: 0.9rem; margin:0;">
+                Ana sayfa ve araç kiralama sayfasında kullanılan alınış / bırakılış lokasyonlarını yönetin.
+            </p>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <a asp-area="Admin"
+               asp-controller="AdminLocation"
+               asp-action="CreateLocation"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background: #4318FF; border:none; font-weight:500;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive table-scroll">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>LOKASYON</th>
+                        <th style="width: 120px;" class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        string initials = "";
+                        if (!string.IsNullOrWhiteSpace(item.Name))
+                        {
+                            var parts = item.Name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            if (parts.Length > 0) initials += parts[0][0];
+                            if (parts.Length > 1) initials += parts[^1][0];
+                            initials = initials.ToUpper();
+                        }
+
+                        string colorClass = "bg-blue-light";
+                        if (count % 3 == 0) { colorClass = "bg-green-light"; }
+                        else if (count % 3 == 2) { colorClass = "bg-orange-light"; }
+
+                        <tr>
+                            <td class="font-weight-bold text-muted">@count</td>
+
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm @colorClass">@initials</div>
+                                    <span class="font-weight-bold">@item.Name</span>
+                                </div>
+                            </td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminLocation"
+                                   asp-action="UpdateLocation"
+                                   asp-route-id="@item.LocationId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminLocation"
+                                   asp-action="RemoveLocation"
+                                   asp-route-id="@item.LocationId"
+                                   class="btn-icon-sm js-delete"
+                                   title="Sil"
+                                   data-title="Lokasyonu Sil"
+                                   data-message="Bu Lokasyonu silmek istediğinize emin misiniz?">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

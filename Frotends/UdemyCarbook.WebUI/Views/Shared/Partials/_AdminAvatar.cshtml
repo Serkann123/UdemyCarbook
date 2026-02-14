@@ -1,0 +1,37 @@
+﻿@model AdminAvatarViewModel
+
+@{
+    // 1. Baş Harf Hesaplama
+    string initials = "";
+    if (!string.IsNullOrEmpty(Model.Name))
+    {
+        var names = Model.Name.Trim().Split(' ');
+        if (names.Length > 0) initials += names[0][0];
+        if (names.Length > 1) initials += names[names.Length - 1][0];
+        initials = initials.ToUpper();
+    }
+
+    // 2. Renk Hesaplama (Sıraya göre renk ata)
+    string colorClass = "bg-blue-light"; // Varsayılan
+    if (Model.Index % 4 == 0) { colorClass = "bg-blue-light"; }
+    else if (Model.Index % 4 == 1) { colorClass = "bg-green-light"; }
+    else if (Model.Index % 4 == 2) { colorClass = "bg-orange-light"; }
+    else { colorClass = "bg-red-light"; }
+
+    int fontSize = (int)(Model.Size * 0.4);
+}
+
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <img src="@Model.ImageUrl"
+         class="rounded-circle"
+         style="width: @(Model.Size)px; height: @(Model.Size)px; object-fit: cover; border: 1px solid #e2e8f0;"
+         alt="@Model.Name" />
+}
+else
+{
+    <div class="d-flex justify-content-center align-items-center rounded-circle @colorClass"
+         style="width: @(Model.Size)px; height: @(Model.Size)px; font-weight: 700; font-size: @(fontSize)px; color: #1b2559; flex-shrink:0;">
+        @initials
+    </div>
+}

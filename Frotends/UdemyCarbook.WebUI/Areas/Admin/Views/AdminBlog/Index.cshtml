@@ -1,79 +1,109 @@
-﻿@model List<ResultBlogsAllWithAuthorDto>
+﻿@model IPagedList<ResultBlogsAllWithAuthorDto>
 
 @{
-    ViewData["Title"] = "Blog";
-    int count = 0;
+    ViewData["Title"] = "Blog Listesi";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Blog Listesi ve İşlemleri</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın Blog alanında bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Başlık</th>
-                                        <th>Yazar</th>
-                                        <th>Tarih</th>
-                                        <th>Sil</th>
-                                        <th>Blog Aç</th>
-                                        <th>Yorumlar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <td>@count</td>
-                                            <td>@item.Title</td>
-                                            <td>@item.AuthorName</td>
-                                            <td>@item.CreateDate.ToShortDateString()</td>
-                                            <td>
-                                                <a asp-action="RemoveBlog"
-                                                   asp-controller="AdminBlog"
-                                                   asp-area="Admin"
-                                                   asp-route-id="@item.BlogId"
-                                                   class="btn btn-outline-danger">Sil</a>
-                                            </td>
-
-                                            <td>
-                                                <a asp-action="BlogDetail"
-                                                   asp-controller="Blog"
-                                                   asp-area=""
-                                                   asp-route-id="@item.BlogId"
-                                                   class="btn btn-outline-dark">
-                                                    Blog Aç
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <a asp-action="BlogComments"
-                                                   asp-controller="AdminComment"
-                                                   asp-area="Admin"
-                                                   asp-route-id="@item.BlogId"
-                                                   class="btn btn-outline-dark">Yorumlar</a>
-                                            </td>
-                                        </tr>
-                                    }
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="page-content-custom">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Blog Listesi</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Ana sayfa blog alanındaki bilgileri yönetin.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th style="width:320px;">BAŞLIK</th>
+                        <th style="width:220px;">YAZAR</th>
+                        <th style="width:140px;">TARİH</th>
+                        <th style="width:220px;">BLOG</th>
+                        <th style="width:140px;" class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="font-weight-bold text-muted">@count</td>
+
+                            <td>
+                                <span class="text-truncate-custom"
+                                      title="@item.Title"
+                                      style="max-width: 320px; display:inline-block; font-weight:700;">
+                                    @item.Title
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="text-truncate-custom"
+                                      title="@item.AuthorName"
+                                      style="max-width: 220px; display:inline-block;">
+                                    @item.AuthorName
+                                </span>
+                            </td>
+
+                            <td>
+                                @item.CreateDate.ToShortDateString()
+                            </td>
+
+                            <td>
+                                <a asp-action="BlogDetail"
+                                   asp-controller="Blog"
+                                   asp-area=""
+                                   asp-route-id="@item.BlogId"
+                                   target="_blank"
+                                   class="text-decoration-none">
+                                    <span class="text-truncate-custom"
+                                          title="Blog Detay"
+                                          style="max-width: 220px; display:inline-block;">
+                                        Blog Aç
+                                    </span>
+                                </a>
+                            </td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminBlog"
+                                   asp-action="RemoveBlog"
+                                   asp-route-id="@item.BlogId"
+                                   class="btn-icon-sm js-delete"
+                                   title="Sil"
+                                   data-title="Blog Sil"
+                                   data-message="Bu blog kaydını silmek istediğinize emin misiniz?">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminComment"
+                                   asp-action="BlogComments"
+                                   asp-route-id="@item.BlogId"
+                                   class="btn-icon-sm"
+                                   title="Yorumlar">
+                                    <i class="fas fa-comments fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"></partial>
     </div>
 </div>

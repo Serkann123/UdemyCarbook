@@ -1,0 +1,70 @@
+﻿<div class="modal fade" id="confirmDeleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:16px; box-shadow:0 20px 40px rgba(0,0,0,0.15);">
+
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold" id="confirmDeleteTitle">
+                    <i class="fas fa-trash text-danger me-2"></i> Silme Onayı
+                </h5>
+
+                <button type="button"
+                        class="btn p-0 border-0 bg-transparent js-close-modal">
+                    <i class="fas fa-times text-muted"></i>
+                </button>
+            </div>
+
+            <div class="modal-body pt-0 text-muted" id="confirmDeleteBody">
+                Silmek istediğinize emin misiniz?
+            </div>
+
+            <div class="modal-footer border-0">
+                <button type="button"
+                        class="btn btn-light js-close-modal">
+                    İptal
+                </button>
+
+                <a href="#"
+                   class="btn btn-danger"
+                   id="confirmDeleteOk">
+                    Evet, Sil
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const modalElement = document.getElementById("confirmDeleteModal");
+            const modal = new bootstrap.Modal(modalElement);
+
+            // Sil butonuna basınca
+            document.addEventListener("click", function (e) {
+
+                const btn = e.target.closest(".js-delete");
+                if (!btn) return;
+
+                e.preventDefault();
+
+                const url = btn.getAttribute("href");
+                const title = btn.dataset.title;
+                const message = btn.dataset.message;
+
+                document.getElementById("confirmDeleteTitle").innerHTML = title;
+
+                document.getElementById("confirmDeleteBody").textContent = message;
+                document.getElementById("confirmDeleteOk").setAttribute("href", url);
+
+                modal.show();
+            });
+
+            // X ve İptal
+            document.addEventListener("click", function (e) {
+                if (!e.target.closest(".js-close-modal")) return;
+                modal.hide();
+            });
+
+        });
+    </script>

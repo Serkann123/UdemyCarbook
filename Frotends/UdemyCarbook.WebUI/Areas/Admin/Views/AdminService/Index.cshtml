@@ -1,64 +1,85 @@
-﻿@model List<ResultServiceDto>
+﻿@model IPagedList<ResultServiceDto>
 
 @{
-    ViewData["Title"] = "Hizmet";
-    int count = 0;
+    ViewData["Title"] = "Hizmetler";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Hizmetler</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfa ve hizmetler bölümünde gösterilen hizmet listesini buradan görüntüleyebilir,
-                            silebilir ve güncelleyebilirsiniz.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Başlık</th>
-                                        <th>Açıklama</th>
-                                        <th>Icon-Url</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <td>@count</td>
-                                            <td>@item.Title</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.IconUrl</td>
-                                            <td>
-                                                <a asp-area="Admin" asp-controller="AdminService" asp-action="RemoveService" asp-route-id="@item.ServiceId"
-                                                   class="btn btn-outline-danger">Sil</a>
+<div class="page-content-custom">
 
-                                                </td>
-                                            <td>
-                                                <a asp-area="Admin" asp-controller="AdminService" asp-action="UpdateService" asp-route-id="@item.ServiceId"
-                                                   class="btn btn-outline-danger">Güncelle</a>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Hizmetler</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Ana sayfa ve hizmetler bölümünde gösterilen hizmet listesini buradan yönetebilirsiniz.
+            </p>
+        </div>
 
-                                                </td>
-                                        </tr>
-                                    }
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
 
-                                </tbody>
-                            </table>
-                            <a asp-area="Admin" asp-controller="AdminService" asp-action="CreateService" class="btn btn-outline-primary">
-                                Yeni Hizmet Ekle
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a asp-area="Admin"
+               asp-controller="AdminService"
+               asp-action="CreateService"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
         </div>
     </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th style="min-width:180px;">BAŞLIK</th>
+                        <th>AÇIKLAMA</th>
+                        <th style="min-width:220px;">ICON URL</th>
+                        <th class="text-right" style="width:140px;">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td class="font-weight-bold">@item.Title</td>
+                            <td>@item.Description</td>
+                            <td class="text-muted">@item.IconUrl</td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminService"
+                                   asp-action="UpdateService"
+                                   asp-route-id="@item.ServiceId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminService"
+                                   asp-action="RemoveService"
+                                   asp-route-id="@item.ServiceId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Hizmet Sil"
+                                   data-message="Bu hizmeti silmek istediğinize emin misiniz?"
+                                   title="Sil">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"></partial>
+    </div>
+
 </div>

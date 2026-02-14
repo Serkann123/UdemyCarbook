@@ -4,428 +4,261 @@
     ViewData["Title"] = "İstatistik";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-primary border-primary">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Aktif Araç</span>
-                            <h5 class="card-title mb-0 text-white">Toplam Araç Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @Model.CarCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.CarCountRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-                        <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.CarCountRandom%;"></div>
+    <style>
+        .page-content {
+            padding-bottom: 80px !important;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top:20px;
+        }
+
+        /* Kart Tasarımı */
+        .stat-card {
+            background: #fff;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            padding: 24px;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            }
+
+        .icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* Renk Temaları */
+        .theme-primary {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: #0284c7;
+        }
+
+        .theme-success {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #16a34a;
+        }
+
+        .theme-warning {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #d97706;
+        }
+
+        .theme-info {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            color: #4f46e5;
+        }
+
+        .theme-danger {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #dc2626;
+        }
+
+        .stat-title {
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            color: #1e293b;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-trend {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .trend-up {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        .trend-down {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .progress-slim {
+            height: 6px;
+            border-radius: 10px;
+            background-color: #f1f5f9;
+            margin-top: 15px;
+        }
+    </style>
+}
+
+<div class="page-content container-fluid">
+
+    <div class="row g-4 mb-3">
+        @foreach (var item in Model.MainStats)
+        {
+            <div class="col-md-6 col-xl-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <p class="stat-title">@item.Title</p>
+                            <h2 class="stat-value">@item.Value</h2>
                         </div>
+                        <div class="icon-box theme-@item.Theme">
+                            <i class="@item.Icon"></i>
+                        </div>
+                    </div>
+                    <div class="stat-desc">
+                        @if (item.IsUp)
+                        {
+                            <span class="badge-trend trend-up"><i class="fa-solid fa-arrow-up"></i> @item.Rate%</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge-trend trend-down"><i class="fa-solid fa-arrow-down"></i> @item.Rate%</span>
+                        }
+                        <span>@item.Desc</span>
+                    </div>
+                    <div class="progress progress-slim">
+                        <div class="progress-bar bg-@item.Theme" style="width: @item.Rate%"></div>
                     </div>
                 </div>
             </div>
+        }
+    </div>
 
+    <h5 class="text-muted fw-bold mb-3 mt-4">Fiyat Analizi</h5>
+    <div class="row g-4 mb-3">
+        @foreach (var item in Model.PriceStats)
+        {
             <div class="col-md-6 col-xl-3">
-                <div class="card bg-success border-success">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Mevcut Lokasyon</span>
-                            <h5 class="card-title mb-0 text-white">Lokasyon Sayısı</h5>
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="icon-box theme-@item.Theme">
+                            <i class="@item.Icon"></i>
                         </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.LocationCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.LocationCountRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
+                        <div class="text-end">
+                            <p class="stat-title">@item.Title</p>
+                            <h2 class="stat-value">@item.Value</h2>
                         </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.LocationCountRandom%;"></div>
-                        </div>
+                    </div>
+                    <div class="progress progress-slim">
+                        <div class="progress-bar bg-@item.Theme" style="width: @item.Rate%"></div>
                     </div>
                 </div>
             </div>
+        }
 
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-warning border-warning">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Personel Sayısı</span>
-                            <h5 class="card-title mb-0 text-white">Personel Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.AuthorCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.AuthorCountRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AuthorCountRandom%;"></div>
-                        </div>
+        <div class="col-md-6 col-xl-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%); color: white;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="stat-title" style="color: #e0e7ff;">En Pahalı Araç</p>
+                        <h2 class="stat-value" style="color: white;" id="stat-title">@Model.MaxDailyRentCar</h2>
+                    </div>
+                    <div class="icon-box" style="background: rgba(255,255,255,0.2); color: white;">
+                        <i class="fa-solid fa-trophy"></i>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-info border-info">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Tüm Zamanlar</span>
-                            <h5 class="card-title mb-0 text-white">Blog Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.BlogCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.BlogCountRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BlogCountRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-primary border-primary">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Aktif Markalarımız</span>
-                            <h5 class="card-title mb-0 text-white">Marka Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @Model.BrandCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.BrandCountRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BrandCountRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-success border-success">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Günlük Kiralama</span>
-                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.AvgRentPriceDaily.ToString("N2")
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.AvgDailyRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgDailyRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-warning border-warning">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Haftalık Kiralama</span>
-                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.AvgRentPriceWeekly.ToString("N2")
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.AvgWeeklyRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgWeeklyRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-info border-info">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Aylık Kiralama</span>
-                            <h5 class="card-title mb-0 text-white">Araç Fiyatı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.AvgRentPriceMonthly.ToString("N2")
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.AvgMonthlyRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AvgMonthlyRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-primary border-primary">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Vitesli Araçlar</span>
-                            <h5 class="card-title mb-0 text-white">Araç Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @Model.AutoTransmissionCarCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.AutoTransmissionRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.AutoTransmissionRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-success border-success">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Marka Adı</span>
-                            <h5 class="card-title mb-0 text-white">En Fazla Araçlı Marka</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @Model.BrandWithMaxCar
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.BrandWithMaxCarRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BrandWithMaxCarRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-warning border-warning">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">En Fazla Yorum Alan Blog</span>
-                            <h5 class="card-title mb-0 text-white">En İyi Blog</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @Model.BlogWithMaxComment
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.BlogWithMaxCommentRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.BlogWithMaxCommentRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-info border-info">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">10.000 Km Altındaki Araçlar</span>
-                            <h5 class="card-title mb-0 text-white">Araç Sayısı</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.KmSmallerThan1000CarCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.KmSmallerThan1000Random% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.KmSmallerThan1000Random%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-primary border-primary">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Yakıt Türü</span>
-                            <h5 class="card-title mb-0 text-white">Benzin Dizel Araçlar</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center mb-0 text-white">
-                                    @Model.GasolineOrDieselCarCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.GasolineOrDieselRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 5px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.GasolineOrDieselRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-success border-success">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Yakıt Türü</span>
-                            <h5 class="card-title mb-0 text-white">Elektrikli Araç</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0">
-                                    @Model.ElectricCarCount
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50">@Model.ElectricRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width: @Model.ElectricRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-warning border-warning">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Günlük Kiralama Fiyatı</span>
-                            <h5 class="card-title mb-0 text-white">En Pahalı Araç</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @Model.MaxDailyRentCar
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50"> @Model.MaxDailyRentCarRandom% <i class="mdi mdi-arrow-up"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width:  @Model.MaxDailyRentCarRandom%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-info border-info">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <span class="badge badge-soft-light float-right">Günlük Kiralama Fiyatı</span>
-                            <h5 class="card-title mb-0 text-white">En Ucuz</h5>
-                        </div>
-                        <div class="row d-flex align-items-center mb-4">
-                            <div class="col-8">
-                                <h2 class="d-flex align-items-center text-white mb-0" id="stat-title">
-                                    @Model.MinDailyRentCar
-                                </h2>
-                            </div>
-                            <div class="col-4 text-right">
-                                <span class="text-white-50"> @Model.MinDailyRentCarRandom% <i class="mdi mdi-arrow-down"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="progress badge-soft-light shadow-sm" style="height: 7px;">
-                            <div class="progress-bar bg-light" role="progressbar" style="width:@Model.MinDailyRentCarRandom%;"></div>
-                        </div>
-                    </div>
+                <div class="mt-2">
+                    <small style="color: #e0e7ff;">Günlük Kiralama Fiyatı Lideri</small>
                 </div>
             </div>
         </div>
     </div>
+
+    <h5 class="text-muted fw-bold mb-3 mt-4">Araç Durumları & Markalar</h5>
+    <div class="row g-4 mb-3">
+        @foreach (var item in Model.VehicleStats)
+        {
+            <div class="col-md-6 col-xl-3">
+                <div class="stat-card">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-box theme-@item.Theme mb-0 me-3">
+                            <i class="@item.Icon"></i>
+                        </div>
+                        <div>
+                            <p class="stat-title mb-1">@item.Title</p>
+                            <h2 class="stat-value mb-0">@item.Value</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-md-4">
+            <div class="stat-card bg-white border-start border-5 border-success">
+                <p class="stat-title text-success">En Çok Araca Sahip Marka</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="stat-value" id="stat-title">@Model.BrandWithMaxCar</h2>
+                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">@Model.BrandWithMaxCarRandom% Oran</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card bg-white border-start border-5 border-warning">
+                <p class="stat-title text-warning">En Popüler Blog Yazısı</p>
+                <h5 class="fw-bold text-dark mt-2" id="stat-title">@Model.BlogWithMaxComment</h5>
+                <small class="text-muted"><i class="fa-regular fa-comment"></i> En fazla yorum alan</small>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card bg-white border-start border-5 border-info">
+                <p class="stat-title text-info">Düşük Kilometreli Araçlar</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="stat-value">@Model.KmSmallerThan1000CarCount Araç</h2>
+                    <small class="text-muted">&lt; 10.000 KM</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded",()=>{
-        const h2Element=document.querySelectorAll("#stat-title");
-
-        h2Element.forEach(h2=>{
-            let text=h2.textContent.trim();
-            console.log(h2.textContent.trim().length);
-           if(text.length>15){
-               h2.style.setProperty("font-size","15px","important");
-           }
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const h2Element = document.querySelectorAll("#stat-title");
+            h2Element.forEach(h2 => {
+                let text = h2.textContent.trim();
+                if (text.length > 15) {
+                    h2.style.setProperty("font-size", "15px", "important");
+                }
+            });
         });
-    });
-</script>
+    </script>
+}

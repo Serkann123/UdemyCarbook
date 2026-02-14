@@ -1,53 +1,84 @@
-﻿@model List<ResultFeatureAddressDto>
+﻿@model IPagedList<ResultFeatureAddressDto>
 
 @{
     ViewData["Title"] = "Alt Bilgi Adresi";
-    int count = 0;
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">İletişim ve Footer Adres Sayfası</h4>
-                        <p class="card-subtitle mb-4">
-                            İletişim ve footer kısımlarında yer alan adres bilgilerine ait işlemleri bu
-                            sayfadan gerçekleştirebilirsiniz.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Adres</th>
-                                        <th>Telefon</th>
-                                        <th>Mail</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <td>@count</td>
-                                            <td>@item.Address</td>
-                                            <td>@item.Phone</td>
-                                            <td>@item.Mail</td>
-                                            <td><a href="/Admin/AdminFooterAddress/RemoveFooterAddress/@item.FooterAddressId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminFooterAddress/UpdateFooterAddress/@item.FooterAddressId" class="btn btn-outline-success">Güncelle</a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                           <a href="/Admin/AdminFooterAddress/CreateFooterAddress" class="btn btn-outline-primary">Yeni Adres Girişi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="page-content-custom">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">İletişim & Footer Adres</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Footer ve iletişim alanında görünen adres, telefon ve mail bilgilerini yönetin.
+            </p>
         </div>
+
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
+
+            <a asp-area="Admin"
+               asp-controller="AdminFooterAddress"
+               asp-action="CreateFooterAddress"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th>ADRES</th>
+                        <th style="width:180px;">TELEFON</th>
+                        <th style="width:220px;">MAİL</th>
+                        <th class="text-right" style="width:140px;">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.Address</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Mail</td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminFooterAddress"
+                                   asp-action="UpdateFooterAddress"
+                                   asp-route-id="@item.FooterAddressId"
+                                   class="btn-icon-sm"
+                                   title="Güncelle">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminFooterAddress"
+                                   asp-action="RemoveFooterAddress"
+                                   asp-route-id="@item.FooterAddressId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Adres Sil"
+                                   data-message="Bu adres kaydını silmek istediğinize emin misiniz?"
+                                   title="Sil">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"></partial>
     </div>
 </div>

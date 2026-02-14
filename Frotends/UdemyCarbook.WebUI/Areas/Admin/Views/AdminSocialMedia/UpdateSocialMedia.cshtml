@@ -1,46 +1,77 @@
 ﻿@model UpdateSocialMediaDto
 
 @{
-    ViewData["Title"] = "Sosyal Medya Güncelleme";
+    ViewData["Title"] = "Sosyal Medya Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Yeni Social Media Girişi </h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfa ve hizmetler bölümünde yer alan hizmet listesinin admin tarafındaki
-                            işlemlerini asağıdaki bütünlüğü bozmamak için 4 tane veri girişi yapın.
-                        </p>
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <input type="hidden" asp-for="SocialMediaId"/>
-                                <label for="exampleInputTitle">Social Media Başlığı</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Name" placeholder="Socail Media Başlığını Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputUrl">Social Media Linki</label>
-                                <input type="text" class="form-control" id="exampleInputUrl" asp-for="Url" placeholder="Socail Media Url Linkini Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputIcon">Hizmet Icon-Url</label>
-                                <input type="text" class="form-control" id="exampleInputIcon" asp-for="Icon" placeholder="Sosyal Medya İcon Bilgisini Giriniz">
-                            </div>
-
-                            <button type="submit" class="btn btn-warning waves-effect waves-light">Sosyal Media Bilgisini Güncelle</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Sosyal Medya Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Mevcut sosyal medya bağlantısını buradan güncelleyebilirsiniz.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminSocialMedia"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <input type="hidden" asp-for="SocialMediaId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="font-weight-bold" style="color:#1b2559;">
+                    Sosyal Medya Adı
+                </label>
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Örn: Facebook, Instagram" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Url" class="font-weight-bold" style="color:#1b2559;">
+                    Sosyal Medya Linki
+                </label>
+                <input asp-for="Url"
+                       class="form-control"
+                       placeholder="https://..." />
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Icon" class="font-weight-bold" style="color:#1b2559;">
+                    Icon Bilgisi
+                </label>
+                <input asp-for="Icon"
+                       class="form-control"
+                       placeholder="Örn: fa-facebook, fa-instagram" />
+                <small class="text-muted d-block mt-1">
+                    FontAwesome icon class veya SVG yolu girilebilir.
+                </small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminSocialMedia"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 </div>

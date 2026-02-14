@@ -1,55 +1,79 @@
 ﻿@model UpdateBannerDto
 
 @{
-    ViewData["Title"] = "Afiş Güncelleme";
+    ViewData["Title"] = "Afiş Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Yeni Banner Giriş Alanı </h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın banner alanında bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <input type="hidden" asp-for="BannerId" />
-
-                                <label for="exampleInputTitle">Başlık</label>
-                                <input type="text" class="form-control" id="exampleInputTitle" asp-for="Title" placeholder="Başlığı Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputDescription">Açıklama</label>
-                                <input type="text" class="form-control" id="exampleInputDescription" asp-for="Description" placeholder="Açıklamayı Giriniz">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputVideoDescription">Video Açıkalama</label>
-                                <input type="text" class="form-control" id="exampleInputVideoDescription" asp-for="VideoDescription" placeholder="Video Açıklamayı Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputVideoUrl">Video Url</label>
-                                <input type="text" class="form-control" id="exampleInputVideoUrl" asp-for="VideoUrl" placeholder="Video Url Giriniz">
-                            </div>
-
-
-                            <button type="submit" class="btn btn-warning waves-effect waves-light">Banner Bilgisini Güncelle</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Afiş Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Ana sayfanın banner alanında görünen bilgileri buradan güncelleyin.
+                Tema bütünlüğü için tek kayıt üzerinden ilerleyin.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminBanner"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
     </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <input type="hidden" asp-for="BannerId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="font-weight-bold" style="color:#1b2559;">Başlık</label>
+                <input asp-for="Title"
+                       class="form-control"
+                       placeholder="Başlığı giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="font-weight-bold" style="color:#1b2559;">Açıklama</label>
+                <input asp-for="Description"
+                       class="form-control"
+                       placeholder="Açıklamayı giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VideoDescription" class="font-weight-bold" style="color:#1b2559;">Video Açıklama</label>
+                <input asp-for="VideoDescription"
+                       class="form-control"
+                       placeholder="Video açıklamasını giriniz" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="VideoUrl" class="font-weight-bold" style="color:#1b2559;">Video Url</label>
+                <input asp-for="VideoUrl"
+                       class="form-control"
+                       placeholder="Video URL giriniz" />
+                <small class="text-muted d-block mt-1">Örn: https://www.youtube.com/watch?v=...</small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminBanner"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+
+        </form>
+    </div>
+
 </div>

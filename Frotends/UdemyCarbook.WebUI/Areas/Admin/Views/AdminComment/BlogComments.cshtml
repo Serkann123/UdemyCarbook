@@ -1,62 +1,84 @@
 ﻿@model List<ResultCommentDto>
 
 @{
-    ViewData["Title"] = "Yorum";
+    ViewData["Title"] = "Yorumlar";
+    int count = 0;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Yorumlar</h4>
-                        <p class="card-subtitle mb-4">
-                            Bloglara yapılan yorumları buradan görüntüleyebilir ve silebilirsiniz.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Ad</th>
-                                        <th>Email</th>
-                                        <th>Açıklama</th>
-                                        <th style="width:120px;">Blog Id</th>
-                                        <th style="width:160px;">Tarih</th>
-                                        <th style="width:120px;">Sil</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Yorumlar</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Bloglara yapılan yorumları buradan görüntüleyebilir ve silebilirsiniz.
+            </p>
+        </div>
 
-                                            <td>@item.CommentId</td>
-                                            <td>@item.Name</td>
-                                            <td>@item.Email</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.BlogId</td>
-
-                                            <td>
-                                                @(item.CreateDate.ToString("dd.MM.yyyy"))
-                                            </td>
-
-                                            <td>
-                                                <a asp-area="Admin" asp-controller="AdminComment" asp-action="RemoveComment" asp-route-id="@item.CommentId"
-                                                   class="btn btn-outline-danger btn-sm">
-                                                    Sil
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex align-items-center">
+            <a asp-area="Admin"
+               asp-controller="AdminBlog"
+               asp-action="Index"
+               class="btn btn-light btn-sm rounded-pill px-4 py-2"
+               style="border:1px solid #e6e8f0;">
+                <i class="fas fa-arrow-left mr-1"></i> Bloglara Dön
+            </a>
         </div>
     </div>
+
+    <div class="table-card" style="padding:18px 18px 8px 18px;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead style="background:#f4f7fe; color:#1b2559;">
+                    <tr>
+                        <th style="width:70px;">#</th>
+                        <th>Ad</th>
+                        <th>Email</th>
+                        <th>Açıklama</th>
+                        <th style="width:110px;">Blog Id</th>
+                        <th style="width:130px;">Tarih</th>
+                        <th style="width:120px;" class="text-right">İşlem</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td style="color:#1b2559; font-weight:600;">@count</td>
+                                <td>@item.Name</td>
+                                <td>@item.Email</td>
+                                <td style="max-width:420px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                    @item.Description
+                                </td>
+                                <td>@item.BlogId</td>
+                                <td>@item.CreateDate.ToString("dd.MM.yyyy")</td>
+                                <td class="text-right">
+                                    <a asp-area="Admin"
+                                       asp-controller="AdminComment"
+                                       asp-action="RemoveComment"
+                                       asp-route-id="@item.CommentId"
+                                       class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                        <i class="fas fa-trash mr-1"></i> Sil
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-4" style="color:#a3aed0;">
+                                Henüz yorum bulunmuyor.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

@@ -1,52 +1,74 @@
 ﻿@model UpdateAuthorDto
 
 @{
-    ViewData["Title"] = "Yazar Güncelleme";
+    ViewData["Title"] = "Yazar Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Yazar Güncelleme Sayfası</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Yeni sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-
-                        <form method="post">
-
-                            <div class="form-group">
-
-                                <input type="hidden" asp-for="AuthorId" />
-
-                                <label for="exampleInputName">Ad Soyad</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Yazar Adını Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputDescription">Açıklama</label>
-                                <textarea class="form-control" rows="5" asp-for="Description" placeholder="Açıklamayı Giriniz"></textarea>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputImageUrl">Yazar Görsel</label>
-                                <input type="text" class="form-control" id="exampleInputImageUrl" asp-for="ImageUrl" placeholder="Yazar Görsel Url Bilgisini Giriniz">
-                            </div>
-
-
-                                <button type="submit" class="btn btn-warning waves-effect waves-light">Yazarı Güncelle</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Yazar Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Yazar bilgilerini buradan güncelleyin.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminAuthor"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
     </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <input type="hidden" asp-for="AuthorId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="font-weight-bold" style="color:#1b2559;">Ad Soyad</label>
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Yazar adını giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="font-weight-bold" style="color:#1b2559;">Açıklama</label>
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="6"
+                          placeholder="Açıklamayı giriniz"></textarea>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="ImageUrl" class="font-weight-bold" style="color:#1b2559;">Yazar Görsel Linki</label>
+                <input asp-for="ImageUrl"
+                       class="form-control"
+                       placeholder="Görsel linkini giriniz" />
+                <small class="text-muted d-block mt-1">
+                    Örn: https://.../author.jpg
+                </small>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminAuthor"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+
+        </form>
+    </div>
+
 </div>
-
-

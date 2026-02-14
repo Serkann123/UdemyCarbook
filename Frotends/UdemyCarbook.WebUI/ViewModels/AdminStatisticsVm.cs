@@ -1,4 +1,4 @@
-﻿namespace UdemyCarbook.WebUI.ViewModels
+﻿namespace UdemyCarbook.WebUI.Models
 {
     public class AdminStatisticsVm
     {
@@ -31,20 +31,14 @@
         public int LocationCountRandom { get; set; }
         public int BlogCountRandom { get; set; }
         public int AuthorCountRandom { get; set; }
-        public int BrandCountRandom { get; set; }
-
         public int AvgDailyRandom { get; set; }
         public int AvgWeeklyRandom { get; set; }
         public int AvgMonthlyRandom { get; set; }
-
-        public int AutoTransmissionRandom { get; set; }
-        public int KmSmallerThan1000Random { get; set; }
-        public int GasolineOrDieselRandom { get; set; }
-        public int ElectricRandom { get; set; }
-
-        public int MaxDailyRentCarRandom { get; set; }
-        public int MinDailyRentCarRandom { get; set; }
         public int BrandWithMaxCarRandom { get; set; }
-        public int BlogWithMaxCommentRandom { get; set; }
+
+        // View'da kullanacağımız listeler
+        public List<StatCardItem> MainStats { get; set; }
+        public List<StatCardItem> PriceStats { get; set; }
+        public List<StatCardItem> VehicleStats { get; set; }
     }
 }

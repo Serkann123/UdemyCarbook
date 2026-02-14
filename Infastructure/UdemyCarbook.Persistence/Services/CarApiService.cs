@@ -28,10 +28,10 @@ namespace UdemyCarbook.Persistence.Services
         public async Task<bool> RemoveAsync(int id)
             => (await _client.DeleteAsync($"Cars/{id}")).IsSuccessStatusCode;
 
-        public async Task<List<ResultCarForReservationDto>> GetCarWithBrandAsync()
+        public async Task<List<ResultCarWithBrandDto>> GetCarWithBrandAsync()
         {
-            return await _client.GetFromJsonAsync<List<ResultCarForReservationDto>>("Cars/GetCarWithBrand")
-                ?? new();
+            return await _client.GetFromJsonAsync<List<ResultCarWithBrandDto>>("Cars/GetCarWithBrand")
+                 ?? new();
         }
 
         public async Task<List<ResultLast5CarsWithBrandDto>> GetLast5CarsWithBrandAsync()

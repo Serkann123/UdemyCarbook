@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using UdemyCarbook.Application.Services;
 using UdemyCarbook.Dto.CarDtos;
+using UdemyCarbook.WebUI.Extensions;
+using UdemyCarbook.WebUI.ViewModels;
 
 namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
 {
@@ -20,10 +22,18 @@ namespace UdemyCarbook.WebUI.Areas.Admin.Controllers
             _brandApi = brandApi;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] BaseFilterRequest req)
         {
-            var values = await _carApi.GetAllAsync();
-            return View(values);
+            var values = await _carApi.GetCarWithBrandAsync();
+
+            var pagedList = values.ToFilteredPagedList(this, req,
+                (x, search) =>
+                    x.BrandName.Contains(search, StringComparison.OrdinalIgnoreCase)
+                    || x.Model.Contains(search, StringComparison.OrdinalIgnoreCase)
+                    || x.Transmission.Contains(search, StringComparison.OrdinalIgnoreCase)
+            );
+
+            return View(pagedList);
         }
 
         [HttpGet]

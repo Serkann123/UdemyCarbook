@@ -1,58 +1,104 @@
-﻿@model List<ResultAuthorDto>
+﻿@model IPagedList<ResultAuthorDto>
 
 @{
-    ViewData["Title"] = "Yazar";
-    int count = 0;
+    ViewData["Title"] = "Yazar Listesi";
+    var request = ViewBag.CurrentRequest as BaseFilterRequest;
+    int count = (Model.PageNumber - 1) * Model.PageSize;
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Hakkımda Listesi</h4>
-                        <p class="card-subtitle mb-4">
-                            Ana sayfanın ve Yazar sayfada bulunan bilgileri asağıdan düzenleyeblirsiniz.
-                            Tema bütünlüğünün bozulmaması amacıyla lütfen 1 tane veri girişi yapınız.
-                            Aksi halde tema bütünlüğü bozulacaktır.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Yazar</th>
-                                        <th>Görsel</th>
-                                        <th>Sil</th>
-                                        <th>Güncelle</th>
-                                        <th>Yazar Blogları</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        count++;
-                                        <tr>
-                                            <td>@count</td>
-                                            <td>@item.Name</td>
-                                            <td><img src="@item.ImageUrl" width="75" height="60" style="margin-right:10px" /></td>
-                                            <td><a href="/Admin/AdminAuthor/RemoveAuthor/@item.AuthorId" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminAuthor/UpdateAuthor/@item.AuthorId" class="btn btn-outline-success">Güncelle</a></td>
-                                            <td><a href="#" class="btn btn-outline-success">Yazar Blogları</a></td>
-                                        </tr>
-                                    }
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="mb-2 mb-md-0">
+            <h4 style="font-weight: 700; margin:0; color:#1b2559;">Yazar Listesi</h4>
+            <p style="color: #a3aed0; font-size: 0.9rem; margin:0;">
+                Yazar bilgilerini yönetin.
+            </p>
+        </div>
 
-                                </tbody>
-                            </table>
-                            <a href="/Admin/AdminAuthor/CreateAuthor" class="btn btn-outline-primary">Yeni Yazar Girişi</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="d-flex align-items-center">
+            <partial name="Partials/_AdminSearch" model="request"></partial>
+
+            <a asp-area="Admin"
+               asp-controller="AdminAuthor"
+               asp-action="CreateAuthor"
+               class="btn btn-primary btn-sm rounded-pill px-4 py-2"
+               style="background:#4318FF; border:none; font-weight:500;">
+                <i class="fas fa-plus mr-1"></i> Yeni Ekle
+            </a>
         </div>
     </div>
+
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table table-modern">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th style="width:300px;">YAZAR</th>
+                        <th>AÇIKLAMA</th>
+                        <th style="width:120px;" class="text-right">İŞLEMLER</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="font-weight-bold text-muted">@count</td>
+
+                           <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="mr-3">
+                                        <partial name="Partials/_AdminAvatar" 
+                                                 model="@(new AdminAvatarViewModel { 
+                                                     Name = item.Name, 
+                                                     ImageUrl = item.ImageUrl, 
+                                                     Index = count,
+                                                     Size = 45 
+                                                 })" />
+                                    </div>
+                                    <span class="font-weight-bold">@item.Name</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="text-truncate-custom" 
+                                 data-description="@item.Description"
+                                title="@item.Description" 
+                                style="max-width: 500px; display: inline-block;">
+                                    @item.Description
+                                </span>
+                            </td>
+
+                            <td class="text-right">
+                                <a asp-area="Admin"
+                                   asp-controller="AdminAuthor"
+                                   asp-action="UpdateAuthor"
+                                   asp-route-id="@item.AuthorId"
+                                   class="btn-icon-sm">
+                                    <i class="fas fa-pen fa-xs"></i>
+                                </a>
+
+                                <a asp-area="Admin"
+                                   asp-controller="AdminAuthor"
+                                   asp-action="RemoveAuthor"
+                                   asp-route-id="@item.AuthorId"
+                                   class="btn-icon-sm js-delete"
+                                   data-title="Yazar Sil"
+                                   data-message="Bu Yazarı silmek istediğinize emin misiniz?">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <partial name="Partials/_AdminPagination" model="Model"/>
+        <partial name="Partials/_AdminDescriptionModal" />
+    </div>
 </div>
-
-

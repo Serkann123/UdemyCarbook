@@ -1,52 +1,84 @@
 ﻿@model UpdateTestimonialDto
 
 @{
-    ViewData["Title"] = "Referans Güncelleme";
+    ViewData["Title"] = "Referans Güncelle";
 }
 
-<div class="page-content">
-    <div class="container-fluid">
+<div class="page-content-custom">
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h4 class="card-title">Yeni Referanslar Güncelleme </h4>
-                        <p class="card-subtitle mb-4">
-                            Müşterilerimizin bizim hakkımda söylemiş oldukları ifadeleri yorum olarak ekleyip,
-                            düzenleyebildikleri sayfamız aşağıda bulunmaktadır.
-                        </p>
-
-                        <form method="post">
-
-                            <div class="form-group">
-                                <input type="hidden" asp-for="TestimonialId"></input>
-                                <label for="exampleInputName">Referans Ad Soyadı</label>
-                                <input type="text" class="form-control" id="exampleInputName" asp-for="Name" placeholder="Referans Adını ve Soyadını Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputUrl">Referans Unvan</label>
-                                <input type="text" class="form-control" id="exampleInputUrl" asp-for="Title" placeholder="Referans Unvaını Giriniz">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleInputIcon">Referans Url</label>
-                                <input type="text" class="form-control" id="exampleInputIcon" asp-for="ImageUrl" placeholder="Görsel Seçiniz">
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="exampleInputIcon">Referans Yorunu Icon-Url</label>
-                                <textarea rows="5" class="form-control" placeholder="Yorumunuzu Buraya Yazabilirsniz" asp-for="Comment"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-warning waves-effect waves-light">Referans Bilgisini Güncelle</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div>
+            <h4 style="font-weight:700; margin:0; color:#1b2559;">Referans Güncelle</h4>
+            <p style="color:#a3aed0; font-size:0.9rem; margin:0;">
+                Mevcut referans bilgisini buradan güncelleyebilirsiniz.
+            </p>
         </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminTestimonial"
+           asp-action="Index"
+           class="btn btn-light btn-sm rounded-pill px-4 py-2"
+           style="border:1px solid #e6e8f0;">
+            <i class="fas fa-arrow-left mr-1"></i> Listeye Dön
+        </a>
+    </div>
+
+    <div class="table-card" style="padding:24px;">
+        <form method="post">
+
+            <input type="hidden" asp-for="TestimonialId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="font-weight-bold" style="color:#1b2559;">
+                    Referans Ad Soyad
+                </label>
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Ad Soyad giriniz" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="font-weight-bold" style="color:#1b2559;">
+                    Referans Unvan
+                </label>
+                <input asp-for="Title"
+                       class="form-control"
+                       placeholder="Örn: CEO, Yazılım Uzmanı" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl" class="font-weight-bold" style="color:#1b2559;">
+                    Referans Görsel URL
+                </label>
+                <input asp-for="ImageUrl"
+                       class="form-control"
+                       placeholder="https://.../image.jpg" />
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Comment" class="font-weight-bold" style="color:#1b2559;">
+                    Referans Yorumu
+                </label>
+                <textarea asp-for="Comment"
+                          rows="5"
+                          class="form-control"
+                          placeholder="Yorum metnini giriniz"></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit"
+                        class="btn btn-warning rounded-pill px-4 py-2"
+                        style="border:none;">
+                    <i class="fas fa-pen mr-1"></i> Güncelle
+                </button>
+
+                <a asp-area="Admin"
+                   asp-controller="AdminTestimonial"
+                   asp-action="Index"
+                   class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                    Vazgeç
+                </a>
+            </div>
+        </form>
     </div>
 </div>
