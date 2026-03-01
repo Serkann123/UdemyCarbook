@@ -1,9 +1,5 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Commands.TestimonialCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -13,21 +9,17 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandler
     public class CreateTestimonialCommandHandler : IRequestHandler<CreateTestimonialCommand>
     {
         private readonly IRepository<Testimonial> _repository;
+        private readonly IMapper _mapper;
 
-        public CreateTestimonialCommandHandler(IRepository<Testimonial> repository)
+        public CreateTestimonialCommandHandler(IRepository<Testimonial> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task Handle(CreateTestimonialCommand request, CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(new Testimonial
-            {
-                Comment = request.Comment,
-                ImageUrl = request.ImageUrl,
-                Name = request.Name,
-                Title = request.Title
-            });
+            await _repository.CreateAsync(_mapper.Map<Testimonial>(request));
         }
     }
 }

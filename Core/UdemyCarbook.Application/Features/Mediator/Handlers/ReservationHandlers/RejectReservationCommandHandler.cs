@@ -16,13 +16,13 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
         {
             var res = await _repository.GetByIdAsync(request.ReservationId);
 
-            if (res == null) return false;
-            if (res.Status != "Pending") return false;
+            if (res is null)
+                return false;
+            if (res.Status is not "Pending")
+                return false;
 
             res.Status = "Rejected";
-
             await _repository.UpdateAsync(res);
-
             return true;
         }
     }

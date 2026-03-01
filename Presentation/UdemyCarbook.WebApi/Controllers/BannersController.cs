@@ -11,12 +11,12 @@ namespace UdemyCarbook.WebApi.Controllers
     public class BannersController : ControllerBase
     {
         private readonly CreateBannerCommandHandler _createBannerCommandHandler;
-        private readonly GetBannerByIdQıueryHandler _getBannerByIdQueryHandler;
+        private readonly GetBannerByIdQueryHandler _getBannerByIdQueryHandler;
         private readonly GetBannerQueryHandler _getBannerQueryHandler;
         private readonly RemoveBannerCommandHandler _removeBannerCommandHandler;
         private readonly UpdateBannerCommandHandler _updateBannerCommandHandler;
 
-        public BannersController(CreateBannerCommandHandler createBannerCommandHandler, GetBannerByIdQıueryHandler getBannerByIdQueryHandler, GetBannerQueryHandler getBannerQueryHandler, RemoveBannerCommandHandler removeBannerCommandHandler, UpdateBannerCommandHandler updateBannerCommandHandler)
+        public BannersController(CreateBannerCommandHandler createBannerCommandHandler, GetBannerByIdQueryHandler getBannerByIdQueryHandler, GetBannerQueryHandler getBannerQueryHandler, RemoveBannerCommandHandler removeBannerCommandHandler, UpdateBannerCommandHandler updateBannerCommandHandler)
         {
             _createBannerCommandHandler = createBannerCommandHandler;
             _getBannerByIdQueryHandler = getBannerByIdQueryHandler;

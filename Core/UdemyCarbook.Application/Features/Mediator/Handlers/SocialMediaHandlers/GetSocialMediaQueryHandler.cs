@@ -1,9 +1,5 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Queries.SocailMediaQueries;
 using UdemyCarbook.Application.Features.Mediator.Results.SocialMediaResults;
 using UdemyCarbook.Application.Interfaces;
@@ -14,22 +10,18 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.SocialMediaHandler
     public class GetSocialMediaQueryHandler : IRequestHandler<GetSocailMediaQuery, List<GetSocialMediaQueryResult>>
     {
         private readonly IRepository<SocialMedia> _repository;
+        private readonly IMapper _mapper;
 
-        public GetSocialMediaQueryHandler(IRepository<SocialMedia> repository)
+        public GetSocialMediaQueryHandler(IRepository<SocialMedia> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<List<GetSocialMediaQueryResult>> Handle(GetSocailMediaQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetAllAsync();
-            return values.Select(x => new GetSocialMediaQueryResult
-            {
-                Url = x.Url,
-                SocialMediaId = x.SocialMediaId,
-                Name = x.Name,
-                Icon = x.Icon
-            }).ToList();
+            var value = await _repository.GetAllAsync();
+            return _mapper.Map<List<GetSocialMediaQueryResult>>(value);
         }
     }
 }

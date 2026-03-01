@@ -1,9 +1,5 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Queries.TestimonialQueries;
 using UdemyCarbook.Application.Features.Mediator.Results.TestimonialResults;
 using UdemyCarbook.Application.Interfaces;
@@ -14,23 +10,18 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.TestimonialHandler
     public class GetTestimonialQueryHandler : IRequestHandler<GetTestimonialQuery, List<GetTestimonialQueryResult>>
     {
         private readonly IRepository<Testimonial> _repository;
+        private readonly IMapper _mapper;
 
-        public GetTestimonialQueryHandler(IRepository<Testimonial> repository)
+        public GetTestimonialQueryHandler(IRepository<Testimonial> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<List<GetTestimonialQueryResult>> Handle(GetTestimonialQuery request, CancellationToken cancellationToken)
         {
             var values = await _repository.GetAllAsync();
-            return values.Select(x => new GetTestimonialQueryResult
-            {
-                Comment = x.Comment,
-                TestimonialId = x.TestimonialId,
-                ImageUrl = x.ImageUrl,
-                Name = x.Name,
-                Title = x.Title
-            }).ToList();
+            return _mapper.Map<List<GetTestimonialQueryResult>>(values);
         }
     }
 }

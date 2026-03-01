@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using UdemyCarbook.Application.Features.CQRS.Queries.BrandQueries;
 using UdemyCarbook.Application.Features.CQRS.Results.BrandResults;
 using UdemyCarbook.Application.Interfaces;
@@ -13,20 +9,18 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.BrandHandlers
     public class GetBrandByIdQueryHandler
     {
         private readonly IRepository<Brand> _repository;
+        private readonly IMapper _mapper;
 
-        public GetBrandByIdQueryHandler(IRepository<Brand> repository)
+        public GetBrandByIdQueryHandler(IRepository<Brand> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<GetBrandByIdQueryResult> Handle(GetBrandByIdQuery query)
         {
             var values = await _repository.GetByIdAsync(query.Id);
-            return new GetBrandByIdQueryResult
-            {
-                BrandId = values.BrandId,
-               Name=values.Name
-            };
+            return _mapper.Map<GetBrandByIdQueryResult>(values);
         }
     }
 }

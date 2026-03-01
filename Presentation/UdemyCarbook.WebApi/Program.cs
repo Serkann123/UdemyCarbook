@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UdemyCarbook.Application.Extensions;
+using UdemyCarbook.Application.Mappings;
 using UdemyCarbook.Application.Validators.Review;
 using UdemyCarbook.Persistence.Extensions;
 
@@ -24,6 +25,8 @@ builder.Services.AddCors(opt =>
        .AllowCredentials();
     });
 });
+
+builder.Services.AddAutoMapper(typeof(AboutMappingProfile).Assembly);
 
 builder.Services.AddSignalR();
 

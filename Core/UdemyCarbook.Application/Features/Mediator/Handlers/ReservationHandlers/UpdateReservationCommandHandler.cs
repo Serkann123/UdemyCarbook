@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Commands.ReservationCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -9,28 +10,18 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.ReservationHandler
     {
         private readonly IRepository<Reservation> _repository;
 
-        public UpdateReservationCommandHandler(IRepository<Reservation> repository)
+        private readonly IMapper _mapper;
+        public UpdateReservationCommandHandler(IRepository<Reservation> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task Handle(UpdateReservationCommand request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.ReservationId);
-
-            values.Age = request.Age;
-            values.CarId = request.CarId;
-            values.Description = request.Description;
-            values.DriverLicenseYear = request.DriverLicenseYear;
-            values.DropOffLocationId = request.DropOffLocationId;
-            values.Email = request.Email;
-            values.Name = request.Name;
-            values.Surname = request.Surname;
-            values.Phone = request.Phone;
-            values.PickUpLocationId = request.PickUpLocationId;
-            values.Status = request.Status;
-
-            await _repository.UpdateAsync(values);
+            var entity = await _repository.GetByIdAsync(request.ReservationId);
+            _mapper.Map(request, entity);
+            await _repository.UpdateAsync(entity);
         }
     }
 }

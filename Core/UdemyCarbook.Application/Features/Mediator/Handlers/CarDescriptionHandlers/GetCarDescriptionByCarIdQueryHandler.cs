@@ -1,9 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UdemyCarbook.Application.Features.Mediator.Queries.CarDescriptionQueires;
 using UdemyCarbook.Application.Features.Mediator.Results.CarDescriptionResults;
 using UdemyCarbook.Application.Interfaces.CarDescriptionInterfaces;
@@ -21,13 +16,12 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarDescriptionHand
 
         public async Task<GetCarDescriptionQueryResult> Handle(GetCarDescriptionByCarIdQuery request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetCarDescriptionAsync(request.Id);
+            var entity = await _repository.GetCarDescriptionAsync(request.Id);
 
-            if (values == null)
+            if (entity is null)
             {
                 return new GetCarDescriptionQueryResult
                 {
-                    CarDescriptionId = 0,
                     CarId = request.Id,
                     Details = "Açıklama bulunamadı."
                 };
@@ -35,9 +29,9 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.CarDescriptionHand
 
             return new GetCarDescriptionQueryResult
             {
-                CarDescriptionId = values.CarDescriptionId,
-                CarId = values.CarId,
-                Details = values.Details,
+                CarDescriptionId = entity.CarDescriptionId,
+                CarId = entity.CarId,
+                Details = entity.Details,
             };
         }
     }

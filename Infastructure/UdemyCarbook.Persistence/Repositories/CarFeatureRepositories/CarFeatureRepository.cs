@@ -22,7 +22,7 @@ namespace UdemyCarbook.Persistence.Repositories.CarFeatureRepositories
         public async Task UpdateCarFeatureAvailableAsync(int carFeatureId, bool available)
         {
             var value = await _context.CarFeatures.FindAsync(carFeatureId);
-            if (value != null)
+            if (value is not null)
             {
                 value.Available = available;
             }

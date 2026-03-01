@@ -22,7 +22,7 @@ namespace UdemyCarbook.Persistence.Repositories.BlogRepositories
 
         public async Task<List<Blog>> GetBlogsAllWithAuthorsAsync()
         {
-            var values = await _context.Blogs.Include(x => x.Author).ToListAsync();
+            var values = await _context.Blogs.Include(x => x.Author).Include(x => x.Category).ToListAsync();
             return values;
         }
 

@@ -1,9 +1,5 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Commands.FooterAddressCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -13,19 +9,19 @@ namespace UdemyCarbook.Application.Features.Mediator.Handlers.FooterAddressHandl
     public class UpdateFooterAddressCommandHandler : IRequestHandler<UpdateFooterAddressCommand>
     {
         private readonly IRepository<FooterAddress> _repository;
+        private readonly IMapper _mapper;
 
-        public UpdateFooterAddressCommandHandler(IRepository<FooterAddress> repository)
+        public UpdateFooterAddressCommandHandler(IRepository<FooterAddress> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
+
         public async Task Handle(UpdateFooterAddressCommand request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.FooterAddressId);
-            values.Description = request.Description;
-            values.Phone = request.Phone;
-            values.Address = request.Address;
-            values.Mail = request.Mail;
-            await _repository.UpdateAsync(values);
+            var value = await _repository.GetByIdAsync(request.FooterAddressId);
+            _mapper.Map(request, value);
+            await _repository.UpdateAsync(value);
         }
     }
 }

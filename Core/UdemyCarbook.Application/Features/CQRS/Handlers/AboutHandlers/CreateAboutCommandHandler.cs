@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using UdemyCarbook.Application.Features.CQRS.Commands.AboutCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -12,20 +8,17 @@ namespace UdemyCarbook.Application.Features.CQRS.Handlers.AboutHandlers
     public class CreateAboutCommandHandler
     {
         private readonly IRepository<About> _repository;
+        private readonly IMapper _mapper;
 
-        public CreateAboutCommandHandler(IRepository<About> repository)
+        public CreateAboutCommandHandler(IRepository<About> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task Handle(CreateAboutCommand command)
         {
-            await _repository.CreateAsync(new About
-            {
-                Description = command.Description,
-                ImageUrl = command.ImageUrl,
-                Title = command.Title
-            });
+            await _repository.CreateAsync(_mapper.Map<About>(command));
         }
     }
 }

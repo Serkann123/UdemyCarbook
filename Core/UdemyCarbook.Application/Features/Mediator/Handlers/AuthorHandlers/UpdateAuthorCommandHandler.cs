@@ -1,9 +1,5 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using MediatR;
 using UdemyCarbook.Application.Features.Mediator.Commands.AuthorCommands;
 using UdemyCarbook.Application.Interfaces;
 using UdemyCarbook.Domain.Entities;
@@ -13,19 +9,19 @@ namespace UdemyCarbook.Application.Authors.Mediator.Handlers.AuthorHandlers
     public class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand>
     {
         private readonly IRepository<Author> _repository;
+        private readonly IMapper _mapper;
 
-        public UpdateAuthorCommandHandler(IRepository<Author> repository)
+        public UpdateAuthorCommandHandler(IRepository<Author> repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
         {
-            var values = await _repository.GetByIdAsync(request.AuthorId);
-            values.Name = request.Name;
-            values.Description = request.Description;
-            values.ImageUrl=request.ImageUrl;
-            await _repository.UpdateAsync(values);
+            var value = await _repository.GetByIdAsync(request.AuthorId);
+            _mapper.Map(request, value);
+            await _repository.UpdateAsync(value);
         }
     }
 }
